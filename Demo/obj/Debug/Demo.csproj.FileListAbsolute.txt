@@ -1,0 +1,5 @@
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Demo\bin\Demo.dll
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Demo\bin\Demo.pdb
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Demo\obj\Debug\Demo.csprojResolveAssemblyReference.cache
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Demo\obj\Debug\Demo.dll
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Demo\obj\Debug\Demo.pdb

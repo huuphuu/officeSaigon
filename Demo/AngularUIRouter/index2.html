@@ -1,0 +1,102 @@
+﻿<!doctype html>
+<html ng-app="myApp">
+<head>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-ui-router.min.js"></script>
+    <script>
+        var myApp = angular.module('myApp', ['ui.router']);
+        // For Component users, it should look like this:
+        // var myApp = angular.module('myApp', [require('angular-ui-router')]);\
+        myApp.config(function ($stateProvider) {
+            $stateProvider
+              .state('index', {
+                  url: "",
+                  views: {
+                      "viewA": { template: "index.viewA" },
+                      "viewB": { template: "index.viewB" }
+                  }
+              })
+              .state('state1', {
+                  url: "/state1",
+                  views: {
+                      "viewA": {
+                          url: "/state1",
+                          templateUrl: "partials/state1.html",
+
+                      },
+                      //"viewB": { template: "route1.viewB" }
+                  }
+              })
+                 .state('state1.list', {
+                     url: "/list",
+                     views: {
+                         "viewA": {
+                             url: "/state1",
+                             templateUrl: "partials/state1.list.html",
+                             controller: function ($scope) {
+                                 $scope.items = ["A", "List", "Of", "Items"];
+                             }
+                         },
+                         //"viewB": { template: "route1.viewB" }
+                     }
+                 })
+              .state('state2', {
+                  url: "/state2",
+                  views: {
+                      "viewA": { template: "route2.viewA" },
+                      "viewB": { templateUrl: "partials/state2.html", }
+                  }
+              })
+             .state('state2.list', {
+                 url: "/list",
+                 templateUrl: "partials/state2.list.html",
+                 controller: function ($scope) {
+                     $scope.things = ["A", "Set", "Of", "Things"];
+                 }
+             });
+        });
+
+
+
+        //myApp.config(function ($stateProvider, $urlRouterProvider) {
+        //    //
+        //    // For any unmatched url, redirect to /state1
+        //    $urlRouterProvider.otherwise("/state1");
+        //    //
+        //    // Now set up the states
+        //    $stateProvider
+        //      .state('state1', {
+        //          url: "/state1",
+        //          templateUrl: "partials/state1.html"
+        //      })
+        //      .state('state1.list', {
+        //          url: "/list",
+        //          templateUrl: "partials/state1.list.html",
+        //          controller: function ($scope) {
+        //              $scope.items = ["A", "List", "Of", "Items"];
+        //          }
+        //      })
+        //      .state('state2', {
+        //          url: "/state2",
+        //          templateUrl: "partials/state2.html"
+        //      })
+        //      .state('state2.list', {
+        //          url: "/list",
+        //          templateUrl: "partials/state2.list.html",
+        //          controller: function ($scope) {
+        //              $scope.things = ["A", "Set", "Of", "Things"];
+        //          }
+        //      });
+        //});
+
+
+    </script>
+</head>
+<body>
+    <div ui-view="viewA"></div>
+    <div ui-view="viewB"></div>
+    <!-- Also a way to navigate -->
+    <a ui-sref="state1">Route 1</a>
+    <a ui-sref="state2">Route 2</a>
+</body>
+</html>
