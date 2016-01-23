@@ -1,0 +1,23 @@
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\bin\Presentation.WebApp2.dll
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\bin\Presentation.WebApp2.pdb
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.dll
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.pdb
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\bin\FWS.Framework.dll
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\bin\Newtonsoft.Json.Net20.dll
+D:\Working\Nippon\nippon.git\trunk\Sourecode\Nippon.Angualar\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\bin\Presentation.WebApp2.dll.config
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\bin\Presentation.WebApp2.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\bin\Presentation.WebApp2.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\bin\FWS.Framework.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\bin\Newtonsoft.Json.Net20.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\bin\Presentation.WebApp2.dll.config
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\bin\Presentation.WebApp2.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\bin\Presentation.WebApp2.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\bin\FWS.Framework.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\bin\Newtonsoft.Json.Net20.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.pdb
