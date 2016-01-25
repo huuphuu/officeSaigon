@@ -180,4 +180,8 @@
     coreService.getListEx({ Code: "BUILDINGDIRECTION",Sys_ViewID:17 }, function (data) {
         console.log('BUILDINGDIRECTION', data)
     });
+    //phu viet cho nay
+    coreService.getListEx({ CityID: 2, Sys_ViewID: 18 }, function (data) {
+        console.log('District--ward', data)
+    });
 })
