@@ -184,4 +184,16 @@
     coreService.getListEx({ CityID: 2, Sys_ViewID: 18 }, function (data) {
         console.log('District--ward', data)
     });
+
+    coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
+        console.log('ProductID', data)
+    });
+
+    var entry = { Name: 'thanh', WardID: 1, DistrictID: 1, Address: '537/7A Đường Tân Chánh Hiệp. P. Tân Chánh Hiệp. Q.12. TPHCM.' };
+    entry.Action = 'INSERT';
+    entry.Sys_ViewID = 19;
+    coreService.actionEntry2(entry, function (data) {
+        console.log('InsertdataProduct', data)
+    });
+
 })
