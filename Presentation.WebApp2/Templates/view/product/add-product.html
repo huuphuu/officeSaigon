@@ -1,53 +1,251 @@
-﻿<content-header title-name="Position Management"></content-header>
+﻿<content-header title-name="Sản phẩm thêm mới"></content-header>
 
 <!-- Main content -->
 <section class="content">
-    <div class="row ng-scope" ng-controller="PositionCtrl" ng-init="init()">
-        <div class="col-md-7 col-sm-8">
-            <!---Directive left-action-->
-            <left-action theme-button="themeButton"  root-scope="this" ></left-action>
+    <div class="row ng-scope" ng-controller="ProductCtrl" ng-init="init()">
+        <div class="col-md-12 col-sm-12">
 
+            <!--search-->
             <div class="row">
-                <!---Directive left-action-->
-                <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
-            </div>
-            <!-- Navigator part -->
+                <div class="col-sm-12">
+                    <form class="form-horizontal row">
+                        <div class="box-body">
+                            <div class="form-group hide">
+                                <label for="ID" class="col-sm-2 control-label text-left-important">ID</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ID" name="ID" placeholder="Name" ng-model="dataSeleted.ID" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Code" class="col-sm-2 control-label text-left-important">Mã sản phẩm</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="Code" name="Code" placeholder="Mã sản phẩm" ng-model="dataSeleted.Code" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Name" class="col-sm-2 control-label text-left-important">Tên sản phẩm</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ID" name="Name" placeholder="Name" ng-model="dataSeleted.Name" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <!--ng-hide="true"-->
+                                <label for="DistrictID" class="col-sm-2 control-label text-left-important">Quận/Huyện</label>
+                                <div class="col-sm-5 padding-right-19 ">
+                                    <select ng-model="dataSeleted.DistrictID" class="form-control" ng-options="option.value as option.name for option in statusOptions"> </select>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <!--ng-hide="true"-->
+                                <label for="WardID" class="col-sm-2 control-label text-left-important">Phường/Xã</label>
+                                <div class="col-sm-5 padding-right-19 ">
+                                    <select ng-model="dataSeleted.WardID" class="form-control" ng-options="option.value as option.name for option in statusOptions"> </select>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Address" class="col-sm-2 control-label text-left-important">Địa chỉ</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="Address" name="Address" placeholder="Địa chỉ" ng-model="dataSeleted.Address" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="FudPicture" class="col-sm-2 control-label text-left-important">Hình minh họa</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="FudPicture" name="FudPicture" placeholder="Hình minh họa" ng-model="dataSeleted.FudPicture" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Struture" class="col-sm-2 control-label text-left-important">Kết cấu cao ốc</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="Struture" name="Struture" placeholder="Kết cấu cao ốc" ng-model="dataSeleted.Struture" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="AreaPerFloor" class="col-sm-2 control-label text-left-important">Diện tích 1 sàn</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="AreaPerFloor" name="AreaPerFloor" placeholder="Diện tích 1 sàn" ng-model="dataSeleted.AreaPerFloor" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="AvailableArea" class="col-sm-2 control-label text-left-important">Diện tích cho thuê</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="AvailableArea" name="AvailableArea" placeholder="Diện tích cho thuê" ng-model="dataSeleted.AvailableArea" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="AreaDescription" class="col-sm-2 control-label text-left-important">Mô tả diện tích cho thuê</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="AreaDescription" name="AreaDescription" placeholder="Mô tả diện tích cho thuê" ng-model="dataSeleted.AreaDescription" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="HirePrice" class="col-sm-2 control-label text-left-important">Giá cho thuê</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="number" class="form-control" id="HirePrice" name="HirePrice" placeholder="Giá cho thuê" ng-model="dataSeleted.HirePrice" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PriceDescription" class="col-sm-2 control-label text-left-important">Mô tả giá cho thuê</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="PriceDescription" name="PriceDescription" placeholder="Mô tả giá cho thuê" ng-model="dataSeleted.PriceDescription" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ServiceFee" class="col-sm-2 control-label text-left-important">Phí dịch vụ</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ServiceFee" name="ServiceFee" placeholder="Phí dịch vụ" ng-model="dataSeleted.ServiceFee" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="VATTax" class="col-sm-2 control-label text-left-important">Thuế VAT</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="VATTax" name="VATTax" placeholder="Thuế VAT" ng-model="dataSeleted.VATTax" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="TotalPrice" class="col-sm-2 control-label text-left-important">Giá bao gồm tất cả</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="TotalPrice" name="TotalPrice" placeholder="Giá bao gồm tất cả" ng-model="dataSeleted.TotalPrice" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ParkingFee" class="col-sm-2 control-label text-left-important">Phí gửi xe</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ParkingFee" name="ParkingFee" placeholder="Phí gửi xe" ng-model="dataSeleted.ParkingFee" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ElectricityFee" class="col-sm-2 control-label text-left-important">Tiền điện</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ElectricityFee" name="ElectricityFee" placeholder="Tiền điện" ng-model="dataSeleted.ElectricityFee" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="HireDuration" class="col-sm-2 control-label text-left-important">Thời hạn thuê</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="HireDuration" name="HireDuration" placeholder="Thời hạn thuê" ng-model="dataSeleted.HireDuration" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PrePaid" class="col-sm-2 control-label text-left-important">Đặt cọc</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="PrePaid" name="PrePaid" placeholder="Đặt cọc" ng-model="dataSeleted.PrePaid" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Payment" class="col-sm-2 control-label text-left-important">Thanh toán</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="Payment" name="Payment" placeholder="Thanh toán" ng-model="dataSeleted.Payment" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="DecorationTime" class="col-sm-2 control-label text-left-important">Thời gian trang trí</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="DecorationTime" name="DecorationTime" placeholder="Thời gian trang trí" ng-model="dataSeleted.DecorationTime" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="BuildingDirectionID" class="col-sm-2 control-label text-left-important">Hướng nhà</label>
+                                <div class="col-sm-5 padding-right-19 ">
+                                    <select ng-model="dataSeleted.BuildingDirectionID" name="BuildingDirectionID" id="BuildingDirectionID" class="form-control" ng-options="option.value as option.name for option in statusOptions">
+                                        <option value="">-- Chọn hướng nhà</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="BuildingType" class="col-sm-2 control-label text-left-important">Loại nhà</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="BuildingType" name="BuildingType" placeholder="Loại nhà" ng-model="dataSeleted.BuildingType" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="OtherFee" class="col-sm-2 control-label text-left-important">Phí ngoài giờ</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="OtherFee" name="OtherFee" placeholder="Phí ngoài giờ" ng-model="dataSeleted.OtherFee" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Description" class="col-sm-2 control-label text-left-important">Chú thích</label>
+                                <div class="col-sm-5 padding-right-19 ">
+                                    <textarea name="Description" id="Description" class="form-control" rows="15" placeholder="Chú thích..." ng-model="dataSeleted.Description"></textarea>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ManagerName" class="col-sm-2 control-label text-left-important">Tên quản lý</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ManagerName" name="ManagerName" placeholder="Tên quản lý" ng-model="dataSeleted.ManagerName" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ManagerMobilePhone" class="col-sm-2 control-label text-left-important">SĐT quản lý</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="text" class="form-control" id="ManagerMobilePhone" name="ManagerMobilePhone" placeholder="SĐT quản lý" ng-model="dataSeleted.ManagerMobilePhone" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="IsHiredWholeBuilding" class="col-sm-2 control-label text-left-important">Cho thuê nguyên căn?</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="checkbox" class="form-control" id="IsHiredWholeBuilding" name="IsHiredWholeBuilding" ng-model="dataSeleted.IsHiredWholeBuilding" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="IsGroundFloor" class="col-sm-2 control-label text-left-important">Là tầng trệt?</label>
+                                <div class="col-sm-5 padding-right-19">
+                                    <input type="checkbox" class="form-control" id="IsGroundFloor" name="IsGroundFloor" ng-model="dataSeleted.IsGroundFloor" ng-change="changeText()" />
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Status" class="col-sm-2 control-label text-left-important">Tình trạng sản phẩm</label>
+                                <div class="col-sm-5 padding-right-19 ">
+                                    <select ng-model="dataSeleted.Status" name="Status" id="Status" class="form-control" ng-options="option.value as option.name for option in statusOptions"> </select>
+                                </div>
+                                <div class="col-sm-5"></div>
+                            </div>
 
-
-        </div>
-
-        <div class="col-md-5 col-sm-4">
-            <!---Directive right-->
-            <right-action theme-button="themeButton" full-action="false"></right-action>
-
-            <form class="form-horizontal row">
-                <div class="box-body">
-                    <div class="form-group">
-                        <label for="Name" class="col-sm-3 control-label">Name</label>
-                        <div class="col-sm-9 padding-right-19">
-                            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Name" ng-model="dataSeleted.Name" ng-change="changeText()"/>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-sm-3 control-label">Description</label>
-                        <div class="col-sm-9 padding-right-19 ">
-                          <textarea name="description" class="form-control" rows="5" placeholder="Enter ..."  ng-model="dataSeleted.Description"></textarea>
-                        </div>
-                    </div>
-                     <div class="form-group" ng-hide="true">
-                        <label for="description" class="col-sm-3 control-label">Status</label>
-                        <div class="col-sm-9 padding-right-19 ">
-                             <select ng-model="dataSeleted.Status"  class="form-control" ng-options="option.value as option.name for option in statusOptions"> </select>
-                        </div>
-                    </div>
 
+                    </form>
+                    <right-action theme-button="themeButton" full-action="false"></right-action>
                 </div>
-
-            </form>
-          
+            </div>
         </div>
-
-
-    </div>
 
 </section>
+<script>
+
+    //Toggle button
+    var o = $.AdminLTE.options;
+    if (o.enableBoxWidget) {
+        $.AdminLTE.boxWidget.activate();
+    }
+</script>
