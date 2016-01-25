@@ -176,4 +176,8 @@
     }// end launch
     // $scope.launch('error');
 
+    //phu viet cho nay
+    coreService.getListEx({ Code: "BUILDINGDIRECTION",Sys_ViewID:17 }, function (data) {
+        console.log('BUILDINGDIRECTION', data)
+    });
 })
