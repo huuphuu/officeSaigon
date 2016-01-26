@@ -21,65 +21,65 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
             vm.gridInfo.data = angular.copy(data[1]);
 
             //them vao de test
-            if ($scope.gridInfo.sysViewID == 11) {
-                vm.gridInfo.data = [
-                    {
-                        "ID": 1,
-                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
-                        "Name": "264 trường sa",
-                        "Address": "264 trường sa",
-                        "Owner": "Anh Nam",
-                        "OwnerPhoneNumber": "0996614884",
-                        "Structure": "12m2 15m2 18m2",
-                        "AvailableArea": 4000,
-                        "Price": "14$, 18(trệt a,b)"
-                    },
-                    {
-                        "ID": 2,
-                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
-                        "Name": "264 trường sa",
-                        "Address": "264 trường sa",
-                        "Owner": "Anh Nam",
-                        "OwnerPhoneNumber": "0996614884",
-                        "Structure": "12m2 15m2 18m2",
-                        "AvailableArea": 4000,
-                        "Price": "14$, 18(trệt a,b)"
-                    },
-                    {
-                        "ID": 3,
-                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
-                        "Name": "264 trường sa",
-                        "Address": "264 trường sa",
-                        "Owner": "Anh Nam",
-                        "OwnerPhoneNumber": "0996614884",
-                        "Structure": "12m2 15m2 18m2",
-                        "AvailableArea": 4000,
-                        "Price": "14$, 18(trệt a,b)"
-                    },
-                    {
-                        "ID": 4,
-                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
-                        "Name": "264 trường sa",
-                        "Address": "264 trường sa",
-                        "Owner": "Anh Nam",
-                        "OwnerPhoneNumber": "0996614884",
-                        "Structure": "12m2 15m2 18m2",
-                        "AvailableArea": 4000,
-                        "Price": "14$, 18(trệt a,b)"
-                    },
-                    {
-                        "ID": 5,
-                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
-                        "Name": "264 trường sa",
-                        "Address": "264 trường sa",
-                        "Owner": "Anh Nam",
-                        "OwnerPhoneNumber": "0996614884",
-                        "Structure": "12m2 15m2 18m2",
-                        "AvailableArea": 4000,
-                        "Price": "14$, 18(trệt a,b)"
-                    }
-                ];
-            }
+//            if ($scope.gridInfo.sysViewID == 11) {
+//                vm.gridInfo.data = [
+//                    {
+//                        "ID": 1,
+//                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
+//                        "Name": "264 trường sa",
+//                        "Address": "264 trường sa",
+//                        "Owner": "Anh Nam",
+//                        "OwnerPhoneNumber": "0996614884",
+//                        "Structure": "12m2 15m2 18m2",
+//                        "AvailableArea": 4000,
+//                        "Price": "14$, 18(trệt a,b)"
+//                    },
+//                    {
+//                        "ID": 2,
+//                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
+//                        "Name": "264 trường sa",
+//                        "Address": "264 trường sa",
+//                        "Owner": "Anh Nam",
+//                        "OwnerPhoneNumber": "0996614884",
+//                        "Structure": "12m2 15m2 18m2",
+//                        "AvailableArea": 4000,
+//                        "Price": "14$, 18(trệt a,b)"
+//                    },
+//                    {
+//                        "ID": 3,
+//                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
+//                        "Name": "264 trường sa",
+//                        "Address": "264 trường sa",
+//                        "Owner": "Anh Nam",
+//                        "OwnerPhoneNumber": "0996614884",
+//                        "Structure": "12m2 15m2 18m2",
+//                        "AvailableArea": 4000,
+//                        "Price": "14$, 18(trệt a,b)"
+//                    },
+//                    {
+//                        "ID": 4,
+//                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
+//                        "Name": "264 trường sa",
+//                        "Address": "264 trường sa",
+//                        "Owner": "Anh Nam",
+//                        "OwnerPhoneNumber": "0996614884",
+//                        "Structure": "12m2 15m2 18m2",
+//                        "AvailableArea": 4000,
+//                        "Price": "14$, 18(trệt a,b)"
+//                    },
+//                    {
+//                        "ID": 5,
+//                        "LastUpdatedDatetime": "2016-01-26 15:48:43.153",
+//                        "Name": "264 trường sa",
+//                        "Address": "264 trường sa",
+//                        "Owner": "Anh Nam",
+//                        "OwnerPhoneNumber": "0996614884",
+//                        "Structure": "12m2 15m2 18m2",
+//                        "AvailableArea": 4000,
+//                        "Price": "14$, 18(trệt a,b)"
+//                    }
+//                ];
+//            }
             //end thme vao de test
 
             $scope.$apply();
