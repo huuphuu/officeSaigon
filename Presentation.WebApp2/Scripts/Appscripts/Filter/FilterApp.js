@@ -33,3 +33,15 @@
     }
 
 })
+
+.filter('filterDistrictID', function () {
+    return function (array, selectedDistrictID) {
+        var tempArray = [];
+        angular.forEach(array, function (item, key) {
+            if (angular.equals(item.DistrictID, selectedDistrictID)) {
+                tempArray.push(item);
+            }
+        });
+        return tempArray;
+    };
+})

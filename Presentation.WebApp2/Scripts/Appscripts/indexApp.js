@@ -19,13 +19,11 @@ angular.module('indexApp')
             $scope.metroNavigation = data[1];
             $scope.sidebarNavigation = pData;
 
-            console.log('$scope.sidebarNavigation', $scope.sidebarNavigation);
             setTimeout(function () {
                 $.AdminLTE.tree('.sidebar');
                 $(window).trigger("resize");
             }, 100);
         });
-
 
 
         $scope.server = $adminCMS.data.server;
@@ -35,18 +33,17 @@ angular.module('indexApp')
         $scope.buildNavigation = function (data) {
 
             var tempData = angular.extend([], data),
-            masterArr = [],
-            childArr = [];
+                masterArr = [],
+                childArr = [];
             for (var i = 0; i < tempData.length; i++) {
                 tempData[i].name = tempData[i].Name;
-                tempData[i].url = tempData[i].Code.toLowerCase();//tempData[i].LinkURL == '' ? '#' : tempData[i].LinkURL;
+                tempData[i].url = tempData[i].Code.toLowerCase(); //tempData[i].LinkURL == '' ? '#' : tempData[i].LinkURL;
                 tempData[i].cssIcon = tempData[i].CssIcon;
                 tempData[i].labelCss = tempData[i].LabelCss;
                 if (tempData[i].ParentID == "0") {
                     tempData[i].url = '#';
                     masterArr.push(tempData[i]);
-                }
-                else {
+                } else {
                     childArr.push(tempData[i]);
                 }
             }
@@ -70,7 +67,6 @@ angular.module('indexApp')
         }
 
     })
-
     .controller('changePasswordDialogCtrl', function ($scope, $modalInstance, data) {
         $scope.title = data.title;
         $scope.enableChange = true;
@@ -89,7 +85,10 @@ angular.module('indexApp')
 
         }; // 
         $scope.Change = function () {
-            $scope.execAction({ OldPassword: $scope.CurrentPassword, NewPassword: $scope.NewPassword, Sys_ViewID: 7, Action: 'UPDATE::CHANGEPASS' }, function () { alert('qq'); $modalInstance.dismiss('Canceled'); });
+            $scope.execAction({ OldPassword: $scope.CurrentPassword, NewPassword: $scope.NewPassword, Sys_ViewID: 7, Action: 'UPDATE::CHANGEPASS' }, function () {
+                alert('qq');
+                $modalInstance.dismiss('Canceled');
+            });
         }; // end save
 
         $scope.hitEnter = function (evt) {
