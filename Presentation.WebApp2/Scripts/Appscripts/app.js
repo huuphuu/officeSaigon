@@ -61,6 +61,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/add-product',
             templateUrl: '/Templates/view/product/add-product.html'
         })
+        .state('editproduct', {
+            url: '/edit-product/:productId',
+            templateUrl: '/Templates/view/product/add-product.html',
+            controller: function ($scope, $stateParams) {
+                $scope.productId = $stateParams.productId;
+            }
+        })
         .state('customerlist', {
             url: '/customer-list',
             templateUrl: '/Templates/view/customer/customer-index.html'

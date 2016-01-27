@@ -36,7 +36,7 @@
                                 <div class="col-sm-5 padding-right-19 ">
                                     <select class="form-control" ng-model="dataSelected.DistrictID"
                                             ng-options="item.ID as item.Name for item in districtSelectList"
-                                            ng-change="changeDistrict()">
+                                            ng-change="changeDistrict(dataSelected.DistrictID)">
                                         <option value="">-- Chọn Quận/Huyện</option>
                                     </select>
                                 </div>
@@ -88,7 +88,11 @@
                                 <div class="col-sm-5 padding-right-19">
                                     <input type="text" class="form-control" id="AvailableArea" name="AvailableArea" placeholder="Diện tích cho thuê" ng-model="dataSelected.AvailableArea" ng-change="changeText()" />
                                 </div>
-                                <div class="col-sm-5"></div>
+                                <div class="col-sm-5">
+                                    <label for="AvailableArea" class="col-sm-12 control-label text-left-important text-danger">
+                                        Định dạng dữ liệu cần nhập: aa bb cc dd. Ví dụ: 45 53 60 66
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="AreaDescription" class="col-sm-2 control-label text-left-important">Mô tả diện tích cho thuê</label>
@@ -102,7 +106,11 @@
                                 <div class="col-sm-5 padding-right-19">
                                     <input type="text" class="form-control" id="HirePrice" name="HirePrice" placeholder="Giá cho thuê" ng-model="dataSelected.HirePrice" ng-change="changeText()" />
                                 </div>
-                                <div class="col-sm-5"></div>
+                                <div class="col-sm-5">
+                                    <label for="AvailableArea" class="col-sm-12 control-label text-left-important text-danger">
+                                        Định dạng dữ liệu cần nhập: aa,bb cc,dd ee,ff. Ví dụ: 10.5 18.5
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="PriceDescription" class="col-sm-2 control-label text-left-important">Mô tả giá cho thuê</label>
@@ -256,13 +264,21 @@
                             Thêm
                         </button>
                     </div>
-                    <div class="col-md-3 pull-left" ng-show="dataSelected.ID==0">
+                    <div class="col-md-3 pull-left" ng-show="dataSelected.ID!=0">
                         <button class="btn col-xs-12"
                                 ng-class="{'{{themeButton}}':layout.enableButtonOrther}"
                                 ng-disabled="addProductForm.Name.$error.required"
                                 ng-click="actionConfirm('UPDATE')">
                             <span class="glyphicon glyphicon-plus"></span>
-                            Lưu
+                            Lưu thay đổi
+                        </button>
+                    </div>
+                    <div class="col-md-3 pull-left">
+                        <button class="btn col-xs-12"
+                                ng-class="{'{{themeButton}}':layout.enableButtonOrther}"
+                                ui-sref="productlist">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Trở về
                         </button>
                     </div>
                 </div>

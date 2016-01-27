@@ -291,7 +291,8 @@ angular.module('indexApp')
             templateUrl: '/Templates/directive/grid/angular-data-table.html',
             scope: {
                 gridInfo: '=',
-                rootScope: '='
+                rootScope: '=',
+                gridData: '='
             },
             controller: function ($scope, gridService) {
                 $scope.actionClick = function (row, act, obj) {

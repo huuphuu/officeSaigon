@@ -232,3 +232,14 @@ table#AreaGrid tbody td {
 .text-left-important {
     text-align: left !important;
 }
+
+.overflow-x-scroll {
+    overflow-x: scroll;
+}
+.custom-fixed-column {
+    -ms-word-wrap: break-word; 
+    word-wrap: break-word; 
+    min-width: 50px; 
+    max-width: 130px;
+    white-space: normal;
+}

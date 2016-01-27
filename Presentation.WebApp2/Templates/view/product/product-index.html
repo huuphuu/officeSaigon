@@ -1,7 +1,7 @@
 ﻿<content-header title-name="Danh sách sản phẩm"></content-header>
 
 <!-- Main content -->
-<section class="content">
+<section class="content overflow-x-scroll">
     <div class="row ng-scope" ng-controller="ProductCtrl" ng-init="init()">
         <div class="col-md-12 col-sm-12">
 
@@ -22,35 +22,37 @@
                         <div class="box-body">
                             <!--row 1-->
                             <div class="row">
-                                <div class="col-md-12 form-horizontal">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="productName" class="col-sm-4 control-label text-left-important">Tên sản phẩm:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="productName" name="productName" ng-model="productName" placeholder="Tên sản phẩm">
+                                <form name="searchProductForm" class="form-horizontal" novalidate="">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Name" class="col-sm-4 control-label text-left-important">Tên sản phẩm:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="Name" name="Name" ng-model="Name" placeholder="Tên sản phẩm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="Address" class="col-sm-4 control-label text-left-important">Địa chỉ:</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="Address" name="Address" ng-model="Address" placeholder="Địa chỉ">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="address" class="col-sm-4 control-label text-left-important">Địa chỉ:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="address" name="address" ng-model="address" placeholder="Địa chỉ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                             <!--row 2-->
                             <div class="row">
                                 <div class="col-md-12 form-horizontal">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-4 control-label text-left-important">Quận/Huyện:</label>
+                                            <label for="DistrictID" class="col-sm-4 control-label text-left-important">Quận/Huyện</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" ng-model="districtId"
-                                                        ng-options="item.value as item.label for item in districtSelectList"
-                                                        ng-change="changeDistrict()" required>
+                                                <select class="form-control" ng-model="DistrictID"
+                                                        ng-options="item.ID as item.Name for item in districtSelectList"
+                                                        ng-change="changeDistrict(DistrictID)">
                                                     <option value="">-- Chọn Quận/Huyện</option>
                                                 </select>
                                             </div>
@@ -58,14 +60,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="name" class="col-sm-4 control-label text-left-important">Phường/Xã: </label>
+                                            <label for="WardID" class="col-sm-4 control-label text-left-important">Phường/Xã</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" ng-model="wardId"
-                                                        ng-options="item.value as item.label for item in wardSelectList"
-                                                        ng-change="" required>
-                                                    <option value="">-- Chọn Phường/Xã</option>
+                                                <select class="form-control" ng-model="WardID"
+                                                        ng-options="item.ID as item.Name for item in wardSelectList | filterDistrictID:DistrictID"
+                                                        ng-disabled="DistrictID == null || DistrictID == ''">
+                                                    <option value="">
+                                                        -- Chọn Phường/Xã
+                                                    </option>
                                                 </select>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -75,17 +80,17 @@
                                 <div class="col-md-12 form-horizontal">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="availableAreaFrom" class="col-sm-4 control-label text-left-important">Diện tích trống từ:</label>
+                                            <label for="AvailableAreaFrom" class="col-sm-4 control-label text-left-important">Diện tích trống từ:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="availableAreaFrom" name="availableAreaFrom" ng-model="availableAreaFrom" placeholder="Diện tích trống từ">
+                                                <input type="text" class="form-control" id="AvailableAreaFrom" name="AvailableAreaFrom" ng-model="AvailableAreaFrom" placeholder="Diện tích trống từ">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="availableAreaTo" class="col-sm-4 control-label text-left-important">Diện tích trống tới:</label>
+                                            <label for="AvailableAreaTo" class="col-sm-4 control-label text-left-important">Diện tích trống tới:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="availableAreaTo" name="availableAreaTo" ng-model="availableAreaTo" placeholder="Diện tích trống tới">
+                                                <input type="text" class="form-control" id="AvailableAreaTo" name="AvailableAreaTo" ng-model="AvailableAreaTo" placeholder="Diện tích trống tới">
                                             </div>
                                         </div>
                                     </div>
@@ -96,17 +101,17 @@
                                 <div class="col-md-12 form-horizontal">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="priceFrom" class="col-sm-4 control-label text-left-important">Giá từ:</label>
+                                            <label for="PriceFrom" class="col-sm-4 control-label text-left-important">Giá từ:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="priceFrom" name="priceFrom" ng-model="priceFrom" placeholder="Giá từ">
+                                                <input type="text" class="form-control" id="PriceFrom" name="PriceFrom" ng-model="PriceFrom" placeholder="Giá từ">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="priceTo" class="col-sm-4 control-label text-left-important">Giá tới:</label>
+                                            <label for="PriceTo" class="col-sm-4 control-label text-left-important">Giá tới:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="priceTo" name="priceTo" ng-model="priceTo" placeholder="Giá tới">
+                                                <input type="text" class="form-control" id="PriceTo" name="PriceTo" ng-model="PriceTo" placeholder="Giá tới">
                                             </div>
                                         </div>
                                     </div>
@@ -117,17 +122,17 @@
                                 <div class="col-md-12 form-horizontal">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="AllHouse" class="col-sm-4 control-label text-left-important">Cho thuê nguyên căn?</label>
+                                            <label for="IsHiredWholeBuilding" class="col-sm-4 control-label text-left-important">Cho thuê nguyên căn?</label>
                                             <div class="col-sm-8">
-                                                <input type="checkbox" id="AllHouse" name="AllHouse" ng-model="AllHouse">
+                                                <input type="checkbox" id="IsHiredWholeBuilding" name="IsHiredWholeBuilding" ng-model="IsHiredWholeBuilding">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="GroundFloor" class="col-sm-4 control-label text-left-important">Tầng trệt?</label>
+                                            <label for="IsGroundFloor" class="col-sm-4 control-label text-left-important">Tầng trệt?</label>
                                             <div class="col-sm-8">
-                                                <input type="checkbox" id="GroundFloor" name="GroundFloor" ng-model="groundFloor">
+                                                <input type="checkbox" id="IsGroundFloor" name="IsGroundFloor" ng-model="IsGroundFloor">
                                             </div>
                                         </div>
                                     </div>
@@ -138,17 +143,21 @@
                                 <div class="col-md-12 form-horizontal">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="houseDirection" class="col-sm-4 control-label text-left-important">Hướng nhà:</label>
+                                            <label for="BuildingDirectionID" class="col-sm-4 control-label text-left-important">Hướng nhà</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="houseDirection" name="houseDirection" ng-model="houseDirection" placeholder="Hướng nhà">
+                                                <select ng-model="BuildingDirectionID" name="BuildingDirectionID" id="BuildingDirectionID" class="form-control"
+                                                        ng-options="option.Value as option.Name for option in buildingDirectionIDSelectList">
+                                                    <option value="">-- Chọn hướng nhà</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="status" class="col-sm-4 control-label text-left-important">Tình trạng:</label>
+                                            <label for="Status" class="col-sm-4 control-label text-left-important">Tình trạng</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="status" name="status" ng-model="status" placeholder="Tình trạng">
+                                                <select ng-model="Status" name="Status" id="Status" class="form-control"
+                                                        ng-options="option.value as option.name for option in statusOptions"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +180,7 @@
 
                 <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
                 <!-- Navigator part -->
-                </div>
+            </div>
         </div>
 
 </section>
