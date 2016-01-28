@@ -27,3 +27,13 @@ C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Service.Data\bin\Datalay
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Service.Data\obj\Debug\Service.Data.csprojResolveAssemblyReference.cache
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Service.Data\obj\Debug\Service.Data.dll
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Service.Data\obj\Debug\Service.Data.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\Service.Data.dll.config
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\Service.Data.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\Service.Data.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\Datalayer.DataObject.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\EPPlus.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\Newtonsoft.Json.Net20.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\bin\Datalayer.DataObject.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\obj\Debug\Service.Data.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\obj\Debug\Service.Data.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Service.Data\obj\Debug\Service.Data.pdb

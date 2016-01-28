@@ -414,28 +414,31 @@
         </div>
 
     <div class="col-sm-12 col-md-8 col-md-offset-2">
-        <div class="col-md-3 col-md-offset-1 pull-left" ng-show="dataSelected.ID==0">
-            <button class="btn col-xs-12 btn-success"
-                    ng-disabled="addProductForm.Name.$error.required"
-                    ng-click="actionConfirm('INSERT')">
-                <span class="glyphicon glyphicon-plus"></span>
-                Thêm
-            </button>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1 pull-left" ng-show="dataSelected.ID==0">
+                <button class="btn col-xs-12 btn-success"
+                        ng-disabled="addProductForm.Name.$error.required"
+                        ng-click="actionConfirm('INSERT')">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Thêm
+                </button>
+            </div>
+            <div class="col-md-4 col-md-offset-1 pull-left" ng-show="dataSelected.ID!=0">
+                <button class="btn col-xs-12 btn-danger"
+                        ng-click="actionConfirm('UPDATE')">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Lưu thay đổi
+                </button>
+            </div>
+            <div class="col-md-4 pull-left">
+                <button class="btn col-xs-12"
+                        ui-sref="productlist">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Trở về
+                </button>
+            </div>
         </div>
-        <div class="col-md-3 col-md-offset-1 pull-left" ng-show="dataSelected.ID!=0">
-            <button class="btn col-xs-12 btn-danger"
-                    ng-click="actionConfirm('UPDATE')">
-                <span class="glyphicon glyphicon-plus"></span>
-                Lưu thay đổi
-            </button>
-        </div>
-        <div class="col-md-3 pull-left">
-            <button class="btn col-xs-12"
-                    ui-sref="productlist">
-                <span class="glyphicon glyphicon-plus"></span>
-                Trở về
-            </button>
-        </div>
+        
     </div>
     <!--<div class="col-sm-12 col-md-8 col-md-offset-2">
         <right-action theme-button="themeButton" full-action="false"></right-action>

@@ -21,3 +21,11 @@ C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\bin
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.csprojResolveAssemblyReference.cache
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.dll
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\bin\Presentation.WebApp2.dll.config
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\bin\Presentation.WebApp2.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\bin\Presentation.WebApp2.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\bin\FWS.Framework.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\bin\Newtonsoft.Json.Net20.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.WebApp2\obj\Debug\Presentation.WebApp2.pdb

@@ -299,3 +299,7 @@ table#AreaGrid tbody td {
 .pd-0 {
     padding: 0;
 }
+.box-body {
+    padding: 2px;
+    padding-left: 2px;
+}

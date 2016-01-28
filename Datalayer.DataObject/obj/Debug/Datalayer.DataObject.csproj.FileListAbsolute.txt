@@ -8,3 +8,8 @@ C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Datalayer.DataObject\
 C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Datalayer.DataObject\obj\Debug\Datalayer.DataObject.csprojResolveAssemblyReference.cache
 C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Datalayer.DataObject\obj\Debug\Datalayer.DataObject.dll
 C:\Users\Ly\Dropbox\Websites\Du an website\Nippon.Angualar\Datalayer.DataObject\obj\Debug\Datalayer.DataObject.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Datalayer.DataObject\bin\Debug\Datalayer.DataObject.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Datalayer.DataObject\bin\Debug\Datalayer.DataObject.pdb
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Datalayer.DataObject\obj\Debug\Datalayer.DataObject.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Datalayer.DataObject\obj\Debug\Datalayer.DataObject.dll
+C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Datalayer.DataObject\obj\Debug\Datalayer.DataObject.pdb
