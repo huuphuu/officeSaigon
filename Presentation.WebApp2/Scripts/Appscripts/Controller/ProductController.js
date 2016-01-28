@@ -252,7 +252,6 @@
 
 
     $scope.search = function () {
-        console.log('vao');
         $rootScope.showModal = true;
 
         var entry = {
@@ -285,8 +284,9 @@
         coreService.getListEx(entry, function (data) {
            // console.log('Search', data);
             $scope.gridInfo.data = data[1];
+            $rootScope.showModal = true;
             $scope.$apply();
-            $rootScope.showModal = false;
+
             //$rootScope.$broadcast('changeGridData', {
             //    gridData: data[1]
             //})
