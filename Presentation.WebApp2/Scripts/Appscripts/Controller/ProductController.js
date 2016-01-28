@@ -172,6 +172,7 @@
                 convertStringtoNumber(data[1], 'WardID');
 
                 $scope.dataSelected = data[1][0];
+                $scope.$apply();
                 console.log('ProductID after', data);
             });
         }
