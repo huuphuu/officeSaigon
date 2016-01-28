@@ -253,19 +253,18 @@
 
     $scope.search = function () {
         $rootScope.showModal = true;
-        if (tiengvietkhongdau($scope.Name) == '')
-            $scope.Name = null;
-        if (tiengvietkhongdau($scope.Address) == '')
-            $scope.Address = null;
-        if ($scope.IsHiredWholeBuilding == false)
-            $scope.IsHiredWholeBuilding = null;
-        if ($scope.IsGroundFloor == false)
-            $scope.IsGroundFloor = null;
-        if ($scope.Status == false)
-            $scope.Status = null;
+        //if (tiengvietkhongdau($scope.Name) == '')
+        //    $scope.Name = null;
+        //if (tiengvietkhongdau($scope.Address) == '')
+        //    $scope.Address = null;
+        //if ($scope.IsHiredWholeBuilding == false)
+        //    $scope.IsHiredWholeBuilding = null;
+        //if ($scope.IsGroundFloor == false)
+        //    $scope.IsGroundFloor = null;
+        //if ($scope.Status == false)
+        //    $scope.Status = null;
 
-
-        coreService.getListEx({
+        var entry = {
             UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
             UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
             PriceFrom: $scope.PriceFrom,
@@ -282,7 +281,17 @@
             BuildingDirectionID: $scope.BuildingDirectionID,
             Status: $scope.Status,
             Sys_ViewID: 20
-        }, function (data) {
+        };
+
+        for (var property in entry) {
+            if (entry.hasOwnProperty(property)) {
+                if (entry[property] == '' || entry[property] == false) {
+                    delete entry[property];
+                }
+            }
+        }
+
+        coreService.getListEx(entry, function (data) {
            // console.log('Search', data);
             $scope.gridInfo.data = data[1];
             $scope.$apply();

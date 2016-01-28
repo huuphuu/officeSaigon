@@ -928,6 +928,9 @@
     <Content Include="Style\fontAwesome\css\font-awesome.min.css" />
     <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Style\fontAwesome\ionicons.min.css" />
+    <Content Include="Style\fonts\ionicons.svg" />
+    <Content Include="Style\fonts\metro.svg" />
+    <Content Include="Style\metroUI\metro-icons.css" />
     <Content Include="Style\toaster\toaster.css" />
     <Content Include="Style\toaster\toaster.js" />
     <Content Include="Templates\directive\form\changepassword.html" />
@@ -1030,6 +1033,12 @@
       <DependentUpon>app.js</DependentUpon>
     </Content>
     <Content Include="Scripts\plugins\datatables\LanguageSource.json" />
+    <Content Include="Style\fonts\ionicons.eot" />
+    <Content Include="Style\fonts\ionicons.ttf" />
+    <Content Include="Style\fonts\ionicons.woff" />
+    <Content Include="Style\fonts\metro.eot" />
+    <Content Include="Style\fonts\metro.ttf" />
+    <Content Include="Style\fonts\metro.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
