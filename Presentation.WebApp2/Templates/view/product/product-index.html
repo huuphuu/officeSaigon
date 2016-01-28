@@ -157,7 +157,11 @@
                                             <label for="Status" class="col-sm-4 control-label text-left-important">Tình trạng</label>
                                             <div class="col-sm-8">
                                                 <select ng-model="Status" name="Status" id="Status" class="form-control"
-                                                        ng-options="option.value as option.name for option in statusOptions"></select>
+                                                        ng-options="option.value as option.name for option in statusOptions">
+                                                    <option value="">
+                                                        -- Chọn Tình trạng
+                                                    </option>
+                                                </select>{{Status}}
                                             </div>
                                         </div>
                                     </div>

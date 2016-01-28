@@ -177,7 +177,7 @@
 
                 $scope.dataSelected = data[1][0];
                 $scope.$apply();
-                console.log('ProductID after', data[1]);
+                //console.log('ProductID after', data[1]);
             });
         }
     })
@@ -252,17 +252,8 @@
 
 
     $scope.search = function () {
+        console.log('vao');
         $rootScope.showModal = true;
-        //if (tiengvietkhongdau($scope.Name) == '')
-        //    $scope.Name = null;
-        //if (tiengvietkhongdau($scope.Address) == '')
-        //    $scope.Address = null;
-        //if ($scope.IsHiredWholeBuilding == false)
-        //    $scope.IsHiredWholeBuilding = null;
-        //if ($scope.IsGroundFloor == false)
-        //    $scope.IsGroundFloor = null;
-        //if ($scope.Status == false)
-        //    $scope.Status = null;
 
         var entry = {
             UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
