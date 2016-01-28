@@ -1,5 +1,6 @@
 ﻿angular.module('indexApp')
 .controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
+    $rootScope.showModal = false;
     $scope.gridInfo = {
         gridID: 'productgrid',
         table: null,
@@ -170,10 +171,13 @@
                 //console.log('ProductID', data);
                 convertStringtoNumber(data[1], 'DistrictID');
                 convertStringtoNumber(data[1], 'WardID');
+                convertStringtoNumber(data[1], 'AreaPerFloor');
+                convertStringtoBoolean(data[1], 'IsGroundFloor');
+                convertStringtoBoolean(data[1], 'IsHiredWholeBuilding');
 
                 $scope.dataSelected = data[1][0];
                 $scope.$apply();
-//                console.log('ProductID after', data);
+                console.log('ProductID after', data[1]);
             });
         }
     })
@@ -228,26 +232,42 @@
         }
     }
 
-    $scope.Name = null,
-    $scope.Address = null,
-    $scope.PriceFrom = null,
-    $scope.PriceTo = null,
-    $scope.DistrictID = null,
-    $scope.WardID = null,
+    $scope.Name = null;
+    $scope.Address = null;
+    $scope.PriceFrom = null;
+    $scope.PriceTo = null;
+    $scope.DistrictID = null;
+    $scope.WardID = null;
     $scope.Address = null
-    $scope.AvailableAreaFrom = null,
-    $scope.AvailableAreaTo = null,
-    $scope.PriceFrom = null,
-    $scope.PriceTo = null,
-    $scope.IsHiredWholeBuilding = null,
-    $scope.IsGroundFloor = null,
-    $scope.BuildingDirectionID = null,
-    $scope.Status = null,
+    $scope.AvailableAreaFrom = null;
+    $scope.AvailableAreaTo = null;
+    $scope.PriceFrom = null;
+    $scope.PriceTo = null;
+    $scope.IsHiredWholeBuilding = null;
+    $scope.IsGroundFloor = null;
+    $scope.BuildingDirectionID = null;
+    $scope.Status = null;
+
+
+
 
     $scope.search = function () {
+        $rootScope.showModal = true;
+        if (tiengvietkhongdau($scope.Name) == '')
+            $scope.Name = null;
+        if (tiengvietkhongdau($scope.Address) == '')
+            $scope.Address = null;
+        if ($scope.IsHiredWholeBuilding == false)
+            $scope.IsHiredWholeBuilding = null;
+        if ($scope.IsGroundFloor == false)
+            $scope.IsGroundFloor = null;
+        if ($scope.Status == false)
+            $scope.Status = null;
+
+
         coreService.getListEx({
-            UnAssignedName: tiengvietkhongdau($scope.Name), //coreService.toASCi($scope.Name),
-            UnAssignedAddress: tiengvietkhongdau($scope.Address), //coreService.toASCi($scope.Address),
+            UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
+            UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
             PriceFrom: $scope.PriceFrom,
             PriceTo: $scope.PriceTo,
             DistrictID: $scope.DistrictID,
@@ -266,6 +286,7 @@
            // console.log('Search', data);
             $scope.gridInfo.data = data[1];
             $scope.$apply();
+            $rootScope.showModal = false;
             //$rootScope.$broadcast('changeGridData', {
             //    gridData: data[1]
             //})
@@ -280,6 +301,16 @@
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {
             item[fieldName] = parseInt(item[fieldName]);
+        });
+    }
+    function convertStringtoBoolean(array, fieldName) {
+        angular.forEach(array, function (item, key) {
+            if (item[fieldName] === "True") {
+                item[fieldName] = true;
+            } else {
+                item[fieldName] = false;
+            }
+            
         });
     }
 
