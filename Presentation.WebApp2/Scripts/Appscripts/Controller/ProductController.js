@@ -6,14 +6,14 @@
         table: null,
         cols: [
               { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-              { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '50px' },
-              { name: 'Name', heading: 'Name', width: '50px' },
-              { name: 'Address', heading: 'Địa chỉ', width: '100px' },
-              { name: 'ManagerName', heading: 'Tên quản lý', width: '180px' },
-              { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', width: '200px' },
-              { name: 'Struture', heading: 'Kết cấu', width: '80px' },
-              { name: 'AvailableArea', heading: 'Diện tích trống', width: '35px' },
-              { name: 'HirePrice', heading: 'Giá', width: '115px' },
+              { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '50px', className: 'text-center' },
+              { name: 'Name', heading: 'Name', width: '50px', className: 'text-center' },
+              { name: 'Address', heading: 'Địa chỉ', width: '100px', className: 'text-center' },
+              { name: 'ManagerName', heading: 'Tên quản lý', width: '180px', className: 'text-center' },
+              { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', width: '200px', className: 'text-center' },
+              { name: 'Struture', heading: 'Kết cấu', width: '80px', className: 'text-center' },
+              { name: 'AvailableArea', heading: 'Diện tích trống', width: '35px', className: 'text-center' },
+              { name: 'HirePrice', heading: 'Giá', width: '115px', className: 'text-center' },
               { name: 'Action', heading: 'Thao tác', width: '35px', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
               //{ name: 'Action', heading: 'Thao tác', width: '35px', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] }
         ],
