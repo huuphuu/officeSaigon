@@ -227,6 +227,8 @@
         }
     }
 
+    $scope.Name = null,
+    $scope.Address = null,
     $scope.PriceFrom = null,
     $scope.PriceTo = null,
     $scope.DistrictID = null,
@@ -243,6 +245,8 @@
 
     $scope.search = function () {
         coreService.getListEx({
+            UnAssignedName: $scope.Name,
+            unAssignedAddress: $scope.Address,
             PriceFrom: $scope.PriceFrom,
             PriceTo: $scope.PriceTo,
             DistrictID: $scope.DistrictID,
