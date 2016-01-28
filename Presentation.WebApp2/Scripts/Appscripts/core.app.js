@@ -332,6 +332,10 @@ var coreApp;
                 var inputValue = a.objectToXML('InputValue', data);
                 return this.execute2(url, fnName, inputValue, callback);
             };
+            //unAssignName
+            this.toASCi = function (str) {
+                return this.toASCi(str);
+            }
         },
         //gird infomation
         grid: function () {
