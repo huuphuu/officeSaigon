@@ -6,13 +6,13 @@
             <div class="box-body pd-0" ng-controller="dataGridCtrl as vm" ng-init="vm.init(gridInfo, rootScope)">
                 <table datatable="ng" class="table table-bordered table-striped table-responsive box hover" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" dt-instance="vm.dtInstanceCallback">
                     <thead>
-                    <th data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden">
+                    <th data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" ng-class="vm.gridInfo.cols[i].className">
                         {{ c.heading }}
                     </th>
                     </thead>
                     <tbody>
                         <tr data-ng-repeat="item in  vm.gridInfo.data">
-                            <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}" class="Pointer vm.gridInfo.cols[i].backColor custom-fixed-column" ng-click="vm.setData(item,col)">
+                            <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}" class="{{vm.gridInfo.cols[i].className}} {{vm.gridInfo.cols[i].backColor}} custom-fixed-c ng-click="vm.setData(item,col)">
                                 <m data-ng-if="col.name=='Action'">
                                     <i data-ng-repeat="act in col.listAction" class="fa {{act.classIcon}}" ng-click="actionClick(item,act.action)">&nbsp;&nbsp;</i>
 
