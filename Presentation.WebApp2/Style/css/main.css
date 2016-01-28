@@ -296,3 +296,6 @@ table#AreaGrid tbody td {
     left: 0;
     z-index: 99;
 }
+.pd-0 {
+    padding: 0;
+}
