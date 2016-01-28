@@ -173,7 +173,7 @@
 
                 $scope.dataSelected = data[1][0];
                 $scope.$apply();
-                console.log('ProductID after', data);
+//                console.log('ProductID after', data);
             });
         }
     })
@@ -187,8 +187,8 @@
     $scope.actionEntry = function (act) {
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
-            entry.unAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
-            entry.unAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
+            entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
+            entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
             coreService.actionEntry2(entry, function (data) {
@@ -247,7 +247,7 @@
     $scope.search = function () {
         coreService.getListEx({
             UnAssignedName: tiengvietkhongdau($scope.Name), //coreService.toASCi($scope.Name),
-            unAssignedAddress: tiengvietkhongdau($scope.Address), //coreService.toASCi($scope.Address),
+            UnAssignedAddress: tiengvietkhongdau($scope.Address), //coreService.toASCi($scope.Address),
             PriceFrom: $scope.PriceFrom,
             PriceTo: $scope.PriceTo,
             DistrictID: $scope.DistrictID,
@@ -313,7 +313,7 @@
         //Xóa các ký tự đặt biệt
         slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\"|\"|\:|\;|_/gi, "");
         //Đổi khoảng trắng thành ký tự gạch ngang
-        slug = slug.replace(/ /gi, " - ");
+        slug = slug.replace(/ /gi, " ");
         //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
         //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
         slug = slug.replace(/\-\-\-\-\-/gi, "-");
