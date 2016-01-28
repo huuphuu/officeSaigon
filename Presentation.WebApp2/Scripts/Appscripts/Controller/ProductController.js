@@ -245,8 +245,8 @@
 
     $scope.search = function () {
         coreService.getListEx({
-            UnAssignedName: $scope.Name,
-            unAssignedAddress: $scope.Address,
+            UnAssignedName: coreService.toASCi($scope.Name),
+            unAssignedAddress: coreService.toASCi($scope.Address),
             PriceFrom: $scope.PriceFrom,
             PriceTo: $scope.PriceTo,
             DistrictID: $scope.DistrictID,
