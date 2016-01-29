@@ -272,7 +272,7 @@
             Status: $scope.Status,
             Sys_ViewID: 20
         };
-
+        var abcadad = 123131;
         for (var property in entry) {
             if (entry.hasOwnProperty(property)) {
                 if (entry[property] == '' || entry[property] == false) {
