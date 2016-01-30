@@ -5,6 +5,7 @@
         gridID: 'productgrid',
         table: null,
         cols: [
+             { name: 'ZOrder', heading: 'ZOrder', width: '0', isHidden: true },
               { name: 'ID', heading: 'ID', width: '0', isHidden: true },
               { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '50px', className: 'text-center' },
               { name: 'Name', heading: 'Name', width: '50px', className: 'text-center' },
