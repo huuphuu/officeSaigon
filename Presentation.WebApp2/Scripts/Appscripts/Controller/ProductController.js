@@ -170,7 +170,7 @@
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
             coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function(data) {
-                //console.log('ProductID', data);
+                console.log('ProductID', data);
                 convertStringtoNumber(data[1], 'DistrictID');
                 convertStringtoNumber(data[1], 'WardID');
                 convertStringtoNumber(data[1], 'AreaPerFloor');
@@ -200,6 +200,7 @@
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
 
+            console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -313,7 +314,7 @@
 
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {
-            if (!isNaN(item[fieldName]))
+            if (!isNaN(item[fieldName]) && item[fieldName] != '')
                 item[fieldName] = parseInt(item[fieldName]);
         });
     }
