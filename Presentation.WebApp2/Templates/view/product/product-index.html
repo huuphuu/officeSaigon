@@ -28,7 +28,7 @@
                                             <div class="form-group">
                                                 <label for="Name" class="col-sm-4 control-label text-left-important">Tên sản phẩm:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="Name" name="Name" ng-model="Name" placeholder="Tên sản phẩm">
+                                                    <input type="text" class="form-control" id="Name" name="Name" ng-model="Name" placeholder="">
                                                 </div>
                                             </div>
                                         </div>
@@ -36,7 +36,7 @@
                                             <div class="form-group">
                                                 <label for="Address" class="col-sm-4 control-label text-left-important">Địa chỉ:</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="Address" name="Address" ng-model="Address" placeholder="Địa chỉ">
+                                                    <input type="text" class="form-control" id="Address" name="Address" ng-model="Address" placeholder="">
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                                         ng-options="item.ID as item.Name for item in wardSelectList | filterDistrictID:DistrictID"
                                                         ng-disabled="DistrictID == null || DistrictID == ''">
                                                     <option value="">
-                                                        -- Chọn Phường/Xã
+                                                        -- Tất cả
                                                     </option>
                                                 </select>
                                             </div>
@@ -82,7 +82,7 @@
                                         <div class="form-group">
                                             <label for="AvailableAreaFrom" class="col-sm-4 control-label text-left-important">Diện tích trống từ:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="AvailableAreaFrom" name="AvailableAreaFrom" ng-model="AvailableAreaFrom" placeholder="Diện tích trống từ">
+                                                <input type="text" class="form-control" id="AvailableAreaFrom" name="AvailableAreaFrom" ng-model="AvailableAreaFrom" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                         <div class="form-group">
                                             <label for="AvailableAreaTo" class="col-sm-4 control-label text-left-important">Diện tích trống tới:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="AvailableAreaTo" name="AvailableAreaTo" ng-model="AvailableAreaTo" placeholder="Diện tích trống tới">
+                                                <input type="text" class="form-control" id="AvailableAreaTo" name="AvailableAreaTo" ng-model="AvailableAreaTo" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                         <div class="form-group">
                                             <label for="PriceFrom" class="col-sm-4 control-label text-left-important">Giá từ:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="PriceFrom" name="PriceFrom" ng-model="PriceFrom" placeholder="Giá từ">
+                                                <input type="text" class="form-control" id="PriceFrom" name="PriceFrom" ng-model="PriceFrom" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@
                                         <div class="form-group">
                                             <label for="PriceTo" class="col-sm-4 control-label text-left-important">Giá tới:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="PriceTo" name="PriceTo" ng-model="PriceTo" placeholder="Giá tới">
+                                                <input type="text" class="form-control" id="PriceTo" name="PriceTo" ng-model="PriceTo" placeholder="">
                                             </div>
                                         </div>
                                     </div>
