@@ -151,6 +151,8 @@
     });
 
     //phu viet cho nay
+    $scope.districtSelectList = null;
+    $scope.wardSelectList = null;
     coreService.getListEx({ CityID: 2, Sys_ViewID: 18 }, function (data) {
         //console.log('District--ward', data);
         $scope.districtSelectList = data[1];
