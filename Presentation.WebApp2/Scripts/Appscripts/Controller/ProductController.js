@@ -195,6 +195,15 @@
             entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
+
+            for (var property in entry) {
+                if (entry.hasOwnProperty(property)) {
+                    if (entry[property] == '') {
+                        delete entry[property];
+                    }
+                }
+            }
+
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
                     switch (act) {
@@ -282,7 +291,7 @@
         }
 
         coreService.getListEx(entry, function (data) {
-           // console.log('Search', data);
+            // console.log('Search', data);
             $scope.gridInfo.data = data[1];
             $rootScope.showModal = true;
             $scope.$apply();
@@ -300,7 +309,8 @@
 
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {
-            item[fieldName] = parseInt(item[fieldName]);
+            if (!isNaN(item[fieldName]))
+                item[fieldName] = parseInt(item[fieldName]);
         });
     }
     function convertStringtoBoolean(array, fieldName) {
@@ -310,14 +320,14 @@
             } else {
                 item[fieldName] = false;
             }
-            
+
         });
     }
 
     function tiengvietkhongdau(str) {
-    
-        if (str==null || typeof str == 'undefined' || str == '')
-            return "" ;
+
+        if (str == null || typeof str == 'undefined' || str == '')
+            return "";
 
         /* str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
          str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e");
