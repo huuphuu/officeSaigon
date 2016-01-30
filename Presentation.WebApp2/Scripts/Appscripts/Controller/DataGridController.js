@@ -21,8 +21,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
     vm.init = function (gridInfo, rootScope) {
         vm.gridInfo = gridInfo;
         vm.rootScope = rootScope;
+        $rootScope.showModal = true;
         coreService.getList($scope.gridInfo.sysViewID, function (data) {
             vm.gridInfo.data = angular.copy(data[1]);
+            $rootScope.showModal = false;
             $scope.$apply();
         });
 

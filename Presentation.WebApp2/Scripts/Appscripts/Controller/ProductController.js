@@ -154,12 +154,12 @@
         //console.log('District--ward', data);
         $scope.districtSelectList = data[1];
         $scope.wardSelectList = data[2];
-        $scope.tempWardSelectList = angular.copy($scope.wardSelectList);
-
 
         convertStringtoNumber($scope.districtSelectList, 'ID');
         convertStringtoNumber($scope.wardSelectList, 'DistrictID');
-        convertStringtoNumber($scope.tempWardSelectList, 'DistrictID');
+        convertStringtoNumber($scope.wardSelectList, 'ID');
+
+        $scope.tempWardSelectList = angular.copy($scope.wardSelectList);
     });
 
     //coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
@@ -167,7 +167,8 @@
     //});
     $scope.$watch('productId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
-            coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function (data) {
+            $rootScope.showModal = true;
+            coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function(data) {
                 //console.log('ProductID', data);
                 convertStringtoNumber(data[1], 'DistrictID');
                 convertStringtoNumber(data[1], 'WardID');
@@ -176,7 +177,9 @@
                 convertStringtoBoolean(data[1], 'IsHiredWholeBuilding');
 
                 $scope.dataSelected = data[1][0];
+                $rootScope.showModal = false;
                 $scope.$apply();
+                
                 //console.log('ProductID after', data[1]);
             });
         }
@@ -215,9 +218,9 @@
                             angular.forEach($scope.gridInfo.data, function (item, key) {
                                 if (entry.ID == item.ID) {
                                     $scope.gridInfo.data[key] = angular.copy(entry);
-
                                 }
                             });
+                            $state.go('productlist', '', { reload: true });
                             break;
                         case 'DELETE':
                             var index = -1;
@@ -281,7 +284,7 @@
             Status: $scope.Status,
             Sys_ViewID: 20
         };
-        var abcadad = 123131;
+
         for (var property in entry) {
             if (entry.hasOwnProperty(property)) {
                 if (entry[property] == '' || entry[property] == false) {
@@ -293,7 +296,7 @@
         coreService.getListEx(entry, function (data) {
             // console.log('Search', data);
             $scope.gridInfo.data = data[1];
-            $rootScope.showModal = true;
+            $rootScope.showModal = false;
             $scope.$apply();
 
             //$rootScope.$broadcast('changeGridData', {
