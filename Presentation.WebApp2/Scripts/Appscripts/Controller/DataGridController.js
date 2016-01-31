@@ -22,11 +22,14 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
         vm.gridInfo = gridInfo;
         vm.rootScope = rootScope;
         $rootScope.showModal = true;
-        coreService.getList($scope.gridInfo.sysViewID, function (data) {
-            vm.gridInfo.data = angular.copy(data[1]);
-            $rootScope.showModal = false;
-            $scope.$apply();
-        });
+        if ($rootScope.searchEntryFilter == null || typeof $rootScope.searchEntryFilter == 'undefined') {
+            coreService.getList($scope.gridInfo.sysViewID, function (data) {
+                vm.gridInfo.data = angular.copy(data[1]);
+                $rootScope.showModal = false;
+                $scope.$apply();
+            });
+        }
+
 
         angular.forEach($scope.gridInfo.cols, function (value, key) {
             if (typeof value != "function" && typeof value != "object") {

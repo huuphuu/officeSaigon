@@ -171,7 +171,7 @@
     $scope.$watch('productId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
-            coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function(data) {
+            coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function (data) {
                 console.log('ProductID', data);
                 convertStringtoNumber(data[1], 'DistrictID');
                 convertStringtoNumber(data[1], 'WardID');
@@ -182,7 +182,7 @@
                 $scope.dataSelected = data[1][0];
                 $rootScope.showModal = false;
                 $scope.$apply();
-                
+
                 //console.log('ProductID after', data[1]);
             });
         }
@@ -248,56 +248,61 @@
         }
     }
 
-    $scope.Name = null;
-    $scope.Address = null;
-    $scope.PriceFrom = null;
-    $scope.PriceTo = null;
-    $scope.DistrictID = null;
-    $scope.WardID = null;
-    $scope.Address = null
-    $scope.AvailableAreaFrom = null;
-    $scope.AvailableAreaTo = null;
-    $scope.PriceFrom = null;
-    $scope.PriceTo = null;
-    $scope.IsHiredWholeBuilding = null;
-    $scope.IsGroundFloor = null;
-    $scope.BuildingDirectionID = null;
-    $scope.Status = null;
+    $scope.searchEntry = {
+        Name: null,
+        Address: null,
+        PriceFrom: null,
+        PriceTo: null,
+        DistrictID: null,
+        WardID: null,
+        Address: null,
+        AvailableAreaFrom: null,
+        AvailableAreaTo: null,
+        PriceFrom: null,
+        PriceTo: null,
+        IsHiredWholeBuilding: null,
+        IsGroundFloor: null,
+        BuildingDirectionID: null,
+        Status: null,
+        Sys_ViewID: 20
+    };
 
-
-
-
-    $scope.search = function () {
+    $scope.search = function (searchEntry) {
         $rootScope.showModal = true;
 
-        var entry = {
-            UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
-            UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
-            PriceFrom: $scope.PriceFrom,
-            PriceTo: $scope.PriceTo,
-            DistrictID: $scope.DistrictID,
-            WardID: $scope.WardID,
-            Address: $scope.Address,
-            AvailableAreaFrom: $scope.AvailableAreaFrom,
-            AvailableAreaTo: $scope.AvailableAreaTo,
-            PriceFrom: $scope.PriceFrom,
-            PriceTo: $scope.PriceTo,
-            IsHiredWholeBuilding: $scope.IsHiredWholeBuilding,
-            IsGroundFloor: $scope.IsGroundFloor,
-            BuildingDirectionID: $scope.BuildingDirectionID,
-            Status: $scope.Status,
-            Sys_ViewID: 20
-        };
+        //var entry = {
+        //    UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
+        //    UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
+        //    PriceFrom: $scope.PriceFrom,
+        //    PriceTo: $scope.PriceTo,
+        //    DistrictID: $scope.DistrictID,
+        //    WardID: $scope.WardID,
+        //    Address: $scope.Address,
+        //    AvailableAreaFrom: $scope.AvailableAreaFrom,
+        //    AvailableAreaTo: $scope.AvailableAreaTo,
+        //    PriceFrom: $scope.PriceFrom,
+        //    PriceTo: $scope.PriceTo,
+        //    IsHiredWholeBuilding: $scope.IsHiredWholeBuilding,
+        //    IsGroundFloor: $scope.IsGroundFloor,
+        //    BuildingDirectionID: $scope.BuildingDirectionID,
+        //    Status: $scope.Status,
+        //    Sys_ViewID: 20
+        //};
 
-        for (var property in entry) {
-            if (entry.hasOwnProperty(property)) {
-                if (entry[property] == '' || entry[property] == false) {
-                    delete entry[property];
+        for (var property in searchEntry) {
+            if (searchEntry.hasOwnProperty(property)) {
+                if (searchEntry[property] == '' || searchEntry[property] == false || searchEntry[property] == null) {
+                    delete searchEntry[property];
                 }
             }
         }
 
-        coreService.getListEx(entry, function (data) {
+        if ($rootScope.searchEntryFilter != null)
+            searchEntry = $rootScope.searchEntryFilter;
+        else
+            $rootScope.searchEntryFilter = searchEntry;
+
+        coreService.getListEx(searchEntry, function (data) {
             // console.log('Search', data);
             $scope.gridInfo.data = data[1];
             $rootScope.showModal = false;
@@ -308,6 +313,12 @@
             //})
         });
     }
+
+    if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined') {
+        $scope.searchEntry = $rootScope.searchEntryFilter;
+        $scope.search($scope.searchEntry);
+    }
+
 
     $scope.changeDistrict = function (districtID) {
         $scope.dataSelected.WardId = null;
