@@ -249,8 +249,8 @@
     }
 
     $scope.searchEntry = {
-        UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
-        UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
+        UnAssignedName: null,
+        UnAssignedAddress: null,
         PriceFrom: null,
         PriceTo: null,
         DistrictID: null,
@@ -296,6 +296,8 @@
                 }
             }
         }
+        searchEntry.UnAssignedName = tiengvietkhongdau(searchEntry.Name);
+        searchEntry.UnAssignedAddress = tiengvietkhongdau(searchEntry.Address);
 
         if ($rootScope.searchEntryFilter != null)
             searchEntry = $rootScope.searchEntryFilter;
