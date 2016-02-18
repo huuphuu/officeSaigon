@@ -249,8 +249,8 @@
     }
 
     $scope.searchEntry = {
-        Name: null,
-        Address: null,
+        UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
+        UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
         PriceFrom: null,
         PriceTo: null,
         DistrictID: null,
