@@ -1743,6 +1743,7 @@ a {
 
     .modal-header .close {
         margin-top: -2px;
+            float: right;
     }
 
 .modal-title {
@@ -1802,4 +1803,7 @@ a {
     .modal-lg {
         width: 900px;
     }
+}
+m:hover {
+    cursor: pointer;
 }
