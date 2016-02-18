@@ -1,14 +1,83 @@
-﻿<ul class="sidebar-menu">
-    <li class="header">MAIN NAVIGATION</li>
-    <li ng-repeat="nav in navigationSource" 
-        ng-class="{'treeview': nav.childs && nav.childs.length > 0}">
-        <a ui-sref="{{nav.url}}">
-            <i class="{{nav.cssIcon}}"></i> <span>{{nav.name}}</span>
-            <i class="{{nav.labelCss}} pull-right"></i>
-        </a>
-        <navigation-multiple-menu menu="nav.childs" ng-if="nav.childs && nav.childs.length > 0"></navigation-multiple-menu>
-    </li>
-</ul>
+﻿<div class="leftmenu" style="width: 100%;">
+    <div ng-repeat="nav in navigationSource"
+         ng-init="parentIndex = $index; isLast = (!$first && !$last) ? 'l' : 't';">
+        <table cellpadding="0" cellspacing="0" style="border-width: 0;">
+            <tbody>
+                <tr>
+                    <td>
+                        <a id="parent-menu-{{$index}}"
+                           ng-click="toggleMenu(treeViewData,$index,'parent-menu-' + $index,isLast,'parent-menu-' + $index + '-childs')">
+                            <img src="Images/old-template/minus-bottom.gif" alt="" ng-if="$first && nav.childs && nav.childs.length > 0" />
+                            <img src="Images/old-template/minus-treeview.gif" alt="" ng-if="!$first && !$last && nav.childs && nav.childs.length > 0" />
+                            <img src="Images/old-template/minus-top.gif" alt="" ng-if="!$first && $last && nav.childs && nav.childs.length > 0" />
+                        </a>
+                        <img src="Images/old-template/line-bottom.gif" alt="" ng-if="$first && !nav.childs && nav.childs.length <= 0" />
+                        <img src="Images/old-template/line-treeview.gif" alt="" ng-if="!$first && !$last && !nav.childs && nav.childs.length <= 0" />
+                        <img src="Images/old-template/line-top-treeview.gif" alt="" ng-if="!$first && $last && !nav.childs && nav.childs.length <= 0" />
+                    </td>
+                    <td>
+                        <a class="old-template-icon" tabindex="-1">
+                            <i class="{{nav.cssIcon}}"></i>
+                        </a>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <a ui-sref="{{nav.url}}" class="level0">{{nav.Title}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="parent-menu-{{$index}}-childs" style="display: block;"
+             ng-if="nav.childs && nav.childs.length > 0"
+             ng-init="childsIndex = $index;">
+            <table ng-repeat=" menuItem in nav.childs"
+                   cellpadding="0" cellspacing="0" style="border-width: 0;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="width: 20px; height: 1px">
+                                <!--neu ko phai last menu them img, neu la last menu xoa img nay-->
+                                <img src="Images/old-template/line-vertical.gif" alt="" ng-if="!$parent.$last" />
+                            </div>
+                        </td>
+                        <td>
+                            <img src="Images/old-template/line-top-treeview.gif" alt="" ng-if="nav.childs.length == 1 || $last" />
+                            <img src="Images/old-template/line-treeview.gif" alt="" ng-if="nav.childs.length > 1 && !$last " />
+                        </td>
+                        <td>
+                            <a class ="old-template-icon" tabindex="-1">
+                                <i class="{{menuItem.cssIcon}}"></i>
+                            </aclass>
+                        </td>
+                        <td>
+                            <a ui-sref="{{menuItem.url}}" class="level1">
+                                {{menuItem.Title}}
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <!--<ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li ng-repeat="nav in navigationSource"
+            ng-class="{'treeview': nav.childs && nav.childs.length > 0}">
+            <a ui-sref="{{nav.url}}">
+                <i class="{{nav.cssIcon}}"></i> <span>{{nav.name}}</span>
+                <i class="{{nav.labelCss}} pull-right"></i>
+            </a>
+            <navigation-multiple-menu menu="nav.childs" ng-if="nav.childs && nav.childs.length > 0"></navigation-multiple-menu>
+        </li>
+    </ul>-->
+
+</div>
+
+
+
 
 
 

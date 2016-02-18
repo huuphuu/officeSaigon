@@ -18,11 +18,13 @@ angular.module('indexApp')
             authoritiesService.set(data[1]);
             $scope.metroNavigation = data[1];
             $scope.sidebarNavigation = pData;
+            $scope.$apply();
 
-            setTimeout(function () {
-                $.AdminLTE.tree('.sidebar');
-                $(window).trigger("resize");
-            }, 100);
+            //old-template ko xai
+            //setTimeout(function () {
+            //    $.AdminLTE.tree('.sidebar');
+            //    $(window).trigger("resize");
+            //}, 100);
         });
 
 
@@ -179,10 +181,89 @@ angular.module('indexApp')
             },
             templateUrl: '/Templates/directive/navigation/navigation.html',
             link: function (scope, element, attrs) {
-                //setTimeout(function () {
-                //    $.AdminLTE.tree('.sidebar');
-                //}, 100);
+                //old-template
+                var treeViewData_imageArray = new Array(
+                'Images/old-template/4canh.gif',
+                'Images/old-template/4canh-nho.gif',
+                'Images/old-template/4canh-trang-nho.gif',
+                'Images/old-template/nen-trang.gif',
+                'Images/old-template/plus-no-line.gif',
+                'Images/old-template/minus-no-line.gif',
+                'Images/old-template/line-vertical.gif',
+                'Images/old-template/line-bottom.gif',
+                'Images/old-template/plus-bottom.gif',
+                'Images/old-template/minus-bottom.gif',
+                'Images/old-template/line-treeview.gif',
+                'Images/old-template/plus-treeview.gif',
+                'Images/old-template/minus-treeview.gif',
+                'Images/old-template/line-top-treeview.gif',
+                'Images/old-template/plus-top.gif',
+                'Images/old-template/minus-top.gif',
+                'Images/old-template/line-horizontal.gif',
+                'Images/old-template/plus-right.gif',
+                'Images/old-template/minus-right.gif'
+                );
+
+                scope.treeViewData = {};
+                scope.treeViewData.images = treeViewData_imageArray;
+
+                scope.toggleMenu = function (data, index, nodeName, lineType, childrenName) {
+                    //console.log('data, index, nodeName, lineType, childrenName', data, index, nodeName, lineType, childrenName);
+                    if (!data) {
+                        return;
+                    }
+
+                    var children = document.getElementById(childrenName);
+                    var img = $('#' + nodeName).find('img');
+                    var newExpandState;
+                    try {
+                        if (children.style.display == "none") {
+                            children.style.display = "block";
+                            newExpandState = "e";
+                            if ((typeof (img) != "undefined") && (img != null)) {
+                                if (lineType == "l") { //last menu
+                                    img.attr('src', data.images[15]);
+                                } else if (lineType == "t") { //menu top-giua
+                                    img.attr('src', data.images[12]);
+                                } else if (lineType == "-") { //ko co menu con
+                                    img.attr('src', data.images[18]);
+                                } else {
+                                    img.attr('src', data.images[5]);
+                                }
+                            }
+
+                            if (index == 0) {
+                                img.attr('src', data.images[9]);
+                            }
+
+                        } else {
+                            children.style.display = "none";
+                            newExpandState = "c";
+                            if ((typeof (img) != "undefined") && (img != null)) {
+                                if (lineType == "l") {
+                                    img.attr('src', data.images[14]);
+                                } else if (lineType == "t") {
+                                    img.attr('src', data.images[11]);
+                                } else if (lineType == "-") {
+                                    img.attr('src', data.images[17]);
+                                } else {
+                                    img.attr('src', data.images[4]);
+                                }
+
+                                if (index == 0) {
+                                    img.attr('src', data.images[8]);
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.log('error img', img);
+                    }
+                }
             }
+
+            //setTimeout(function () {
+            //    $.AdminLTE.tree('.sidebar');
+            //}, 100);
         };
     })
     .directive('navigationMultipleMenu', function ($compile) {
