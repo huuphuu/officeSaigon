@@ -1,31 +1,32 @@
 ﻿<form class="form-horizontal row ng-pristine ng-valid">
     <div ng-controller="dataGridCtrl as vm" ng-init="vm.init(gridInfo, rootScope)">
-        <table class="old-template-list-table" cellspacing="0" align="Center" rules="all" border="1"
-               datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-instance="vm.dtInstanceCallback"></table>
+        <!--server side processing-->
         <!--<table class="old-template-list-table" cellspacing="0" align="Center" rules="all" border="1"
+                   datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-instance="vm.dtInstanceCallback"></table>-->
+        <table class="old-template-list-table" cellspacing="0" align="Center" rules="all" border="1"
                datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" dt-instance="vm.dtInstanceCallback">
             <thead>
-                <tr align="center">
-                    <th data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" ng-class="vm.gridInfo.cols[i].className">
-                        {{ c.heading }}
-                    </th>
-                </tr>
+            <tr align="center">
+                <th data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" ng-class="vm.gridInfo.cols[i].className">
+                    {{ c.heading }}
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="item in vm.gridInfo.data" align="center">
-                    <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}"
-                        ng-hide="vm.gridInfo.cols[i].isHidden"
-                        ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}"
-                        class="{{vm.gridInfo.cols[i].className}} {{vm.gridInfo.cols[i].backColor}} custom-fixed-c ng-click=" vm.setdata(item,col)">
-                        <m data-ng-if="col.name=='Action'">
-                            <i data-ng-repeat="act in col.listAction" class="fa {{act.classIcon}}" ng-click="actionClick(item,act.action)">&nbsp;&nbsp;</i>
+            <tr data-ng-repeat="item in vm.gridInfo.data" align="center">
+                <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}"
+                    ng-hide="vm.gridInfo.cols[i].isHidden"
+                    ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}"
+                    class="{{vm.gridInfo.cols[i].className}} {{vm.gridInfo.cols[i].backColor}} custom-fixed-c ng-click=" vm.setdata(item,col)">
+                    <m data-ng-if="col.name=='Action'">
+                        <i data-ng-repeat="act in col.listAction" class="fa {{act.classIcon}}" ng-click="actionClick(item,act.action)">&nbsp;&nbsp;</i>
 
-                        </m>
-                        <m class="custom-fixed-column" data-ng-if="col.name!='Action'">{{ item[col.name] }}</m>
-                    </td>
-                </tr>
+                    </m>
+                    <m class="custom-fixed-column" data-ng-if="col.name!='Action'">{{ item[col.name] }}</m>
+                </td>
+            </tr>
             </tbody>
-        </table>-->
+        </table>
     </div>
 </form>
 
