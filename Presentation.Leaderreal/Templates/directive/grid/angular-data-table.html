@@ -1,12 +1,11 @@
 ﻿<form class="form-horizontal row ng-pristine ng-valid">
     <div ng-controller="dataGridCtrl as vm" ng-init="vm.init(gridInfo, rootScope)">
         <table class="old-template-list-table" cellspacing="0" align="Center" rules="all" border="1"
+               datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns" dt-instance="vm.dtInstanceCallback"></table>
+        <!--<table class="old-template-list-table" cellspacing="0" align="Center" rules="all" border="1"
                datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" dt-instance="vm.dtInstanceCallback">
             <thead>
                 <tr align="center">
-                    <!--<th class="CheckBoxColumn" scope="col">
-                        <input type="checkbox" name="parentCheckBox" id="parentCheckBox" onclick=" parentCheckBoxOnclick(this.form, this.checked, 'objID') " />
-                    </th>-->
                     <th data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" ng-class="vm.gridInfo.cols[i].className">
                         {{ c.heading }}
                     </th>
@@ -14,9 +13,6 @@
             </thead>
             <tbody>
                 <tr data-ng-repeat="item in vm.gridInfo.data" align="center">
-                    <!--<td>
-                        <input type="checkbox" name="objID" id="objID" value="792" onclick=" subCheckBoxOnClick(this.checked, parentCheckBox) " />
-                    </td>-->
                     <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}"
                         ng-hide="vm.gridInfo.cols[i].isHidden"
                         ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}"
@@ -29,23 +25,8 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table>-->
     </div>
-
-    <script type="text/javascript">
-        function parentCheckBoxOnclick(parentForm, status, subCheckBoxName) {
-            for (var i = 0; i < parentForm.elements.length; i++) {
-                if (parentForm.elements[i].type == "checkbox" && parentForm.elements[i].name == subCheckBoxName) {
-                    parentForm.elements[i].checked = status;
-                }
-            }
-        }
-
-        function subCheckBoxOnClick(status, parentCheckBox) {
-            if (status == false)
-                parentCheckBox.checked = false;
-        }
-    </script>
 </form>
 
 

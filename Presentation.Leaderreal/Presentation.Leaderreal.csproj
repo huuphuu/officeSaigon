@@ -92,9 +92,8 @@
     <Content Include="Images\old-template\title_input_right_bg.gif" />
     <Content Include="Images\old-template\top_bg.gif" />
     <Content Include="Images\old-template\top_menu_left.gif" />
-    <Content Include="Images\old-template\WebResource.js" />
     <Content Include="Images\old-template\xem.png" />
-    <Content Include="product-list.html" />
+    <Content Include="app.html" />
     <Content Include="Scripts\angularjs\plugins\angularFileUpload\angular-file-upload.min.js.map" />
     <Content Include="Scripts\angularjs\plugins\angularFileUpload\angular-file-upload.min.map" />
     <Content Include="Scripts\angularjs\plugins\angularMoment\angular-moment.min.js.map" />
@@ -103,7 +102,7 @@
     <Content Include="Scripts\old-template\effects.core.js" />
     <Content Include="Scripts\old-template\jquery-ui-i18n.min.js" />
     <Content Include="Scripts\old-template\jquery.bgiframe.min.js" />
-    <Content Include="Scripts\old-template\ScriptResource.js" />
+    <Content Include="Scripts\old-template\main.js" />
     <Content Include="Scripts\old-template\utilities.js" />
     <Content Include="Scripts\plugins\ckeditor\CHANGES.md" />
     <Content Include="Scripts\plugins\ckeditor\LICENSE.md" />
@@ -138,23 +137,17 @@
     <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Style\fontAwesome\fonts\FontAwesome.otf" />
+    <Content Include="Style\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Style\fonts\ionicons.eot" />
     <Content Include="Style\fonts\ionicons.ttf" />
     <Content Include="Style\fonts\ionicons.woff" />
     <Content Include="Style\fonts\metro.eot" />
     <Content Include="Style\fonts\metro.ttf" />
     <Content Include="Style\fonts\metro.woff" />
-    <Content Include="Images\old-template\WebResource%281%29.axd" />
-    <Content Include="Images\old-template\WebResource%282%29.axd" />
-    <Content Include="Images\old-template\WebResource%283%29.axd" />
-    <Content Include="Images\old-template\WebResource%284%29.axd" />
-    <Content Include="Images\old-template\WebResource%285%29.axd" />
-    <Content Include="Images\old-template\WebResource%286%29.axd" />
-    <Content Include="Images\old-template\WebResource%287%29.axd" />
-    <Content Include="Images\old-template\WebResource.axd" />
-    <Content Include="Scripts\old-template\ScriptResource%281%29.axd" />
-    <Content Include="Scripts\old-template\ScriptResource%282%29.axd" />
-    <Content Include="Scripts\old-template\ScriptResource.axd" />
+    <Content Include="Style\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Style\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Style\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Style\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -163,7 +156,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.html" />
+    <Content Include="app1.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\icons\avatar.png" />
