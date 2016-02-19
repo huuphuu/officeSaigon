@@ -22,7 +22,7 @@
              { name: 'ZOrder', heading: 'ZOrder', isHidden: true },
               { name: 'ID', heading: 'ID', isHidden: true },
               { name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
-              { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', className: 'text-center' },
+              { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '85px', className: 'text-center' },
               { name: 'Name', heading: 'Name', className: 'text-center' },
               { name: 'Address', heading: 'Địa chỉ', className: 'text-center' },
               { name: 'ManagerName', heading: 'Tên quản lý', className: 'text-center' },
