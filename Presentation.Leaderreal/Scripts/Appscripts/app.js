@@ -115,7 +115,7 @@ app.run(function ($templateCache) {
 })
 var statusOptions = [
         {
-            name: 'DeActive',
+            name: 'InActive',
             value: '1'
         },
 {

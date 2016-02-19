@@ -83,12 +83,13 @@
         }
     }
     $scope.actionConfirm = function (act) {
-        var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
-        dlg.result.then(function (btn) {
-            $scope.actionEntry(act);
-        }, function (btn) {
-            //$scope.confirmed = 'You confirmed "No."';
-        });
+        $scope.actionEntry(act);
+        //var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+        //dlg.result.then(function (btn) {
+        //    $scope.actionEntry(act);
+        //}, function (btn) {
+        //    //$scope.confirmed = 'You confirmed "No."';
+        //});
     }
 
     $scope.reset = function (data) {
@@ -231,6 +232,7 @@
                         case 'INSERT':
                             entry.ID = data.Result;
                             $scope.gridInfo.data.unshift(entry);
+                            dialogs.notify(data.Message.Name, data.Message.Description);
                             break;
                         case 'UPDATE':
                             angular.forEach($scope.gridInfo.data, function (item, key) {
@@ -255,7 +257,8 @@
                     $scope.reset();
 
                 }
-                dialogs.notify(data.Message.Name, data.Message.Description);
+                //thong bao ket qua
+                //dialogs.notify(data.Message.Name, data.Message.Description);
                 $scope.$apply();
 
             });
