@@ -108,7 +108,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         $http({
             method: 'POST',
             url: '/service.data/Core/CoreService.asmx/GetContextData',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
             console.log('res',res);
