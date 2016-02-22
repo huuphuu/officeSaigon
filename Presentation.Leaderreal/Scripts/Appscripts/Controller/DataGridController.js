@@ -100,8 +100,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         //    }
         //})
     .withOption('ajax', function (data, callback, settings) {
-        
+
         data.Sys_ViewID = vm.gridInfo.sysViewID;
+        data.length = 20;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
         console.log('newRequest', newRequest);
         $http({
@@ -110,19 +111,19 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
-          
-          
+
+
 
             var data = res.data.d;
             data = data.CSV2JSON2();
-          //  console.log('res', data);
-         //   return;
+            //  console.log('res', data);
+            //   return;
             callback({
                 //recordsTotal: res.meta.total_count,
                 //recordsFiltered: res.meta.total_count,
-              //  data: res.objects
+                //  data: res.objects
                 recordsTotal: 100,
-                recordsFiltered:100,
+                recordsFiltered: 100,
                 data: data[1]
             });
             $rootScope.showModal = false;
@@ -181,13 +182,26 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
         vm.dtColumns = [];
         var x, k = 0, cols = $scope.gridInfo.cols, arr = new Array();
+        //sort
         for (x in cols) {
             if (typeof cols[x].isSort == 'undefined')
                 cols[x].isSort = true;
-            if (cols[x].isSort == false)
-                vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable());
-            else
-                vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading));
+            if (cols[x].isSort == false) {
+                if (typeof cols[x].isHidden == 'undefined')
+                    cols[x].isHidden = false;
+                if (cols[x].isHidden == false)
+                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable());
+                else
+                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable().notVisible());
+            } else {
+                if (typeof cols[x].isHidden == 'undefined')
+                    cols[x].isHidden = false;
+                if (cols[x].isHidden == false)
+                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading));
+                else
+                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notVisible());
+            }
+
         }
     }
     vm.setData = function (item, col) {
