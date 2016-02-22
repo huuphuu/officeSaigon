@@ -111,16 +111,24 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
-            var data = res.data.d;
-            data = data.CSV2JSON2();
+
+            var data = [], totalRow = 0;
+            if (typeof res != 'undefined')
+                if (typeof res.data != 'undefined')
+                    if (typeof res.data.d != 'undefined') {
+                        var pData = res.data.d;
+                        pData = pData.CSV2JSON2();
+                        data = pData[1];
+                        totalRow = pData[2][0].TotalRow;
+                    }
             //  console.log('res', data);
             callback({
                 //recordsTotal: res.meta.total_count,
                 //recordsFiltered: res.meta.total_count,
                 //  data: res.objects
-                recordsTotal: 100,
-                recordsFiltered: 100,
-                data: data[1]
+                recordsTotal: totalRow,
+                recordsFiltered: totalRow,
+                data: data
             });
             $rootScope.showModal = false;
         }, function errorCallback(response) {
