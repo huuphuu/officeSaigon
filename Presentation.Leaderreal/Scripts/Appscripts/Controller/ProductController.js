@@ -33,7 +33,7 @@
               { name: 'Action', heading: 'Thao tác', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
-        sysViewID: 19,
+        sysViewID: 20,
         searchQuery: '',
         onActionClick: function (row, act) {
             //            console.log(row, act);

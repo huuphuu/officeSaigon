@@ -102,7 +102,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     .withOption('ajax', function (data, callback, settings) {
         
         data.Sys_ViewID = vm.gridInfo.sysViewID;
-        console.log('data', data);
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
         console.log('newRequest', newRequest);
         $http({
@@ -126,6 +125,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 recordsFiltered:100,
                 data: data[1]
             });
+            $rootScope.showModal = false;
         }, function errorCallback(response) {
             console.log('error', response);
             // called asynchronously if an error occurs
