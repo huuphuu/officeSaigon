@@ -111,11 +111,20 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
-            console.log('res',res);
+          
+          
+
+            var data = res.data.d;
+            data = data.CSV2JSON2();
+          //  console.log('res', data);
+         //   return;
             callback({
-                recordsTotal: res.meta.total_count,
-                recordsFiltered: res.meta.total_count,
-                data: res.objects
+                //recordsTotal: res.meta.total_count,
+                //recordsFiltered: res.meta.total_count,
+              //  data: res.objects
+                recordsTotal: 100,
+                recordsFiltered:100,
+                data: data[1]
             });
         }, function errorCallback(response) {
             console.log('error', response);
