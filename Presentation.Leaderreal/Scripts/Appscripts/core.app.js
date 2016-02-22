@@ -339,7 +339,7 @@ var coreApp;
             //grid server side processing data
             this.convertServerDataProcessing = function (data) {
                 //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
-                var inputValue = a.objectToXML('clientKey', { clientKey: a.systemConfig.clientKey }) + a.objectToXML('InputValue', { UserID: this.userID }) + a.objectToXML('RequestParams', data);
+                var inputValue = a.objectToXML('InputValue', { UserID: this.userID }) + a.objectToXML('RequestParams', data);
                 return a.html.encode(inputValue);
             }
         },

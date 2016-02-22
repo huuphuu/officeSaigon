@@ -1,11 +1,12 @@
 ﻿angular.module('indexApp')
 .controller('dataGridCtrl', dataGridsCtrl)
-function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $scope, coreService, $rootScope) {
+
+function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $scope, coreService, $rootScope, $http) {
     //-------------------------------------
     // bo comment neu up len server --------------------------------------------------------------------------
     //-------------------------------------
 
-      //console.log('$scope--------------------------------', $scope, gridService);
+    //console.log('$scope--------------------------------', $scope, gridService);
 
     //var vm = this;
     //vm.gridData = [];
@@ -76,19 +77,67 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     vm.gridData = [];
 
     vm.dtOptions = DTOptionsBuilder.newOptions()
-        .withOption('ajax', {
-            dataSrc: "data",
-            url: "/service.data/Core/CoreService.asmx/GetContextData",
-            type: "POST",
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: function (data, dtInstance) {
-                // Modify the data object properties here before being passed to the server
-                // anh Phu xem o day
-                data.Sys_ViewID = vm.gridInfo.sysViewID;
-               var newRequest = {inputValue: coreService.convertServerDataProcessing(data),clientKey:''};
-                return newRequest;
-            }
+        //.withOption('ajax', {
+        //    //dataSrc: "data",
+        //    dataSrc: function (json) {
+        //        console.log('json', json);
+        //        return json;
+        //    },
+        //    url: "/service.data/Core/CoreService.asmx/GetContextData",
+        //    type: "POST",
+        //    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        //    data: function (data, dtInstance) {
+        //        // Modify the data object properties here before being passed to the server
+        //        data.Sys_ViewID = vm.gridInfo.sysViewID;
+        //        var newRequest = { inputValue: coreService.convertServerDataProcessing(data), clientKey: '' };
+        //        return newRequest;
+        //    },
+        //    fnServerData: function (data) {
+        //        console.log('data response', data);
+        //    },
+        //    success: function (data) {
+        //        console.log('data response', data);
+        //    }
+        //})
+    .withOption('ajax', function (data, callback, settings) {
+        
+        data.Sys_ViewID = vm.gridInfo.sysViewID;
+        console.log('data', data);
+        var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
+        console.log('newRequest', newRequest);
+        $http({
+            method: 'POST',
+            url: '/service.data/Core/CoreService.asmx/GetContextData',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            data: newRequest
+        }).then(function successCallback(res) {
+            console.log('res',res);
+            callback({
+                recordsTotal: res.meta.total_count,
+                recordsFiltered: res.meta.total_count,
+                data: res.objects
+            });
+        }, function errorCallback(response) {
+            console.log('error', response);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
         })
+    })
+        // make an ajax request using data.start and data.length
+        //$http.get('/service.data/Core/CoreService.asmx/GetContextData', {
+        //    limit: data.length,
+        //    offset: data.start,
+        //    //dept_name__icontains: data.search.value // search value
+        //}).success(function (res) {
+        //    // map your server's response to the DataTables format and pass it to
+        //    // DataTables' callback
+        //    callback({
+        //        recordsTotal: res.meta.total_count,
+        //        recordsFiltered: res.meta.total_count,
+        //        data: res.objects
+        //    });
+        //});
+        //})
         .withDataProp('data') // server side processing
         .withOption('processing', true) // show server side processing loading
         .withOption('serverSide', true) // server side processing
@@ -99,6 +148,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("searching", true)
         .withOption("autowidth", false);
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
+
 
     vm.init = function (gridInfo, rootScope) {
         vm.gridInfo = gridInfo;
@@ -147,6 +197,5 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         $scope.gridInfo.tableInstance.search(query).draw();
     };
 
-    
 
 }

@@ -1,53 +1,133 @@
-﻿<content-header title-name="Position Management"></content-header>
+﻿<content-header title-name="KHÁCH HÀNG - XEM DANH SÁCH"></content-header>
 
-<!-- Main content -->
-<section class="content">
-    <div class="row ng-scope" ng-controller="PositionCtrl" ng-init="init()">
-        <div class="col-md-7 col-sm-8">
-            <!---Directive left-action-->
-            <left-action theme-button="themeButton"  root-scope="this" ></left-action>
-
-            <div class="row">
-                <!---Directive left-action-->
-                <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
-            </div>
-            <!-- Navigator part -->
-
-
-        </div>
-
-        <div class="col-md-5 col-sm-4">
-            <!---Directive right-->
-            <right-action theme-button="themeButton" full-action="false"></right-action>
-
-            <form class="form-horizontal row">
-                <div class="box-body">
-                    <div class="form-group">
-                        <label for="Name" class="col-sm-3 control-label">Name</label>
-                        <div class="col-sm-9 padding-right-19">
-                            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Name" ng-model="dataSeleted.Name" ng-change="changeText()"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-sm-3 control-label">Description</label>
-                        <div class="col-sm-9 padding-right-19 ">
-                          <textarea name="description" class="form-control" rows="5" placeholder="Enter ..."  ng-model="dataSeleted.Description"></textarea>
-                        </div>
-                    </div>
-                     <div class="form-group" ng-hide="true">
-                        <label for="description" class="col-sm-3 control-label">Status</label>
-                        <div class="col-sm-9 padding-right-19 ">
-                             <select ng-model="dataSeleted.Status"  class="form-control" ng-options="option.value as option.name for option in statusOptions"> </select>
-                        </div>
-                    </div>
-
-                </div>
-
-            </form>
-          
-        </div>
-
-
-    </div>
-
-</section>
+<div style="background-color: #72b3e9; height: 5px; width: 100%;">
+</div>
+<!--search table-->
+<form name="searchProductForm" class="form-horizontal" novalidate="">
+    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+        <tbody>
+            <tr>
+                <td class="td" colspan="4" style="background-color: #cccccc; padding-left: 5px; height: 28px;">
+                    Tìm kiếm
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Tên sản phẩm
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="Name" name="Name" ng-model="searchEntry.Name" placeholder="">
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Địa chỉ
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="Address" name="Address" ng-model="searchEntry.Address" placeholder="">
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Quận/Huyện
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.DistrictID"
+                            ng-options="item.ID as item.Name for item in districtSelectList"
+                            ng-change="changeDistrict(searchEntry.DistrictID)">
+                        <option value="">Tất cả</option>
+                    </select>
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Phường/Xã
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.WardID"
+                            ng-options="item.ID as item.Name for item in wardSelectList | filterDistrictID:searchEntry.DistrictID"
+                            ng-disabled="searchEntry.DistrictID == null || searchEntry.DistrictID == ''">
+                        <option value="">Tất cả</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Diện tích trống từ
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="AvailableAreaFrom" name="AvailableAreaFrom" ng-model="searchEntry.AvailableAreaFrom" placeholder="">
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Diện tích trống tới
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="AvailableAreaTo" name="AvailableAreaTo" ng-model="searchEntry.AvailableAreaTo" placeholder="">
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Giá từ
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="PriceFrom" name="PriceFrom" ng-model="searchEntry.PriceFrom" placeholder="">
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Giá tới
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="PriceTo" name="PriceTo" ng-model="searchEntry.PriceTo" placeholder="">
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Cho thuê nguyên căn?
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="checkbox" id="IsHiredWholeBuilding" name="IsHiredWholeBuilding" ng-model="searchEntry.IsHiredWholeBuilding">
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Tầng trệt?
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="checkbox" id="IsGroundFloor" name="IsGroundFloor" ng-model="searchEntry.IsGroundFloor">
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Hướng nhà
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.BuildingDirectionID" name="BuildingDirectionID" id="BuildingDirectionID"
+                            ng-options="option.Value as option.Name for option in buildingDirectionIDSelectList">
+                        <option value="">Tất cả</option>
+                    </select>
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Tình trạng
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.Status" name="Status" id="Status"
+                            ng-options="option.value as option.name for option in statusOptions">
+                        <option value="">
+                            -- Chọn Tình trạng
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;"></td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;"></td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    <input type="button" class="form-control btn-success" ng-click="search(searchEntry)" value="TÌM KIẾM" style="width: 142px;" />
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<div>
+    <!--list table-->
+    <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
+</div>
+<!--<div style="width: 98%; margin: 20px auto 0px auto;">
+    <input type="submit" name="ctl00$ContentPlaceHolder1$btnExport" value="Xuất ra file" id="ContentPlaceHolder1_btnExport" />
+</div>-->
+<div style="margin-top: 10px;">
+</div>
