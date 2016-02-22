@@ -285,7 +285,7 @@
     };
 
     $scope.search = function (searchEntry) {
-        $rootScope.showModal = true;
+       // $rootScope.showModal = true;
 
         //var entry = {
         //    UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
@@ -305,6 +305,12 @@
         //    Status: $scope.Status,
         //    Sys_ViewID: 20
         //};
+        debugger;
+        var query = $scope.gridInfo.searchQuery;
+        $scope.searchInstance.reloadData();
+        // vm.dtInstance.reloadData();
+
+
 
         for (var property in searchEntry) {
             if (searchEntry.hasOwnProperty(property)) {

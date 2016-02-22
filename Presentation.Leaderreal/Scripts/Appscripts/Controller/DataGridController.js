@@ -104,14 +104,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         data.Sys_ViewID = vm.gridInfo.sysViewID;
         data.length = vm.rowsPerPage;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
-        console.log('newRequest', newRequest);
         $http({
             method: 'POST',
             url: '/service.data/Core/CoreService.asmx/GetContextData',
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
-
             var data = [], totalRow = 0;
             if (typeof res != 'undefined')
                 if (typeof res.data != 'undefined')
