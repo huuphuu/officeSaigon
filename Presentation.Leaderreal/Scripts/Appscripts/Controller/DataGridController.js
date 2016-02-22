@@ -75,6 +75,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     //new configuration for server side processing
     var vm = this;
     vm.gridData = [];
+    vm.rowsPerPage = 20;
 
     vm.dtOptions = DTOptionsBuilder.newOptions()
         //.withOption('ajax', {
@@ -100,9 +101,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         //    }
         //})
     .withOption('ajax', function (data, callback, settings) {
-
         data.Sys_ViewID = vm.gridInfo.sysViewID;
-        data.length = 20;
+        data.length = vm.rowsPerPage;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
         console.log('newRequest', newRequest);
         $http({
@@ -111,13 +111,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
-
-
-
             var data = res.data.d;
             data = data.CSV2JSON2();
             //  console.log('res', data);
-            //   return;
             callback({
                 //recordsTotal: res.meta.total_count,
                 //recordsFiltered: res.meta.total_count,
@@ -133,28 +129,13 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             // or server returns response with an error status.
         })
     })
-        // make an ajax request using data.start and data.length
-        //$http.get('/service.data/Core/CoreService.asmx/GetContextData', {
-        //    limit: data.length,
-        //    offset: data.start,
-        //    //dept_name__icontains: data.search.value // search value
-        //}).success(function (res) {
-        //    // map your server's response to the DataTables format and pass it to
-        //    // DataTables' callback
-        //    callback({
-        //        recordsTotal: res.meta.total_count,
-        //        recordsFiltered: res.meta.total_count,
-        //        data: res.objects
-        //    });
-        //});
-        //})
         .withDataProp('data') // server side processing
         .withOption('processing', true) // show server side processing loading
         .withOption('serverSide', true) // server side processing
         .withOption('aaSorting', [0, 'asc']) // for default sorting column // here 0 means first column
         .withOption("paging", true)
         .withOption("pagingType", 'simple_numbers')
-        .withOption("pageLength", 9)
+        .withOption("pageLength", vm.rowsPerPage)
         .withOption("searching", true)
         .withOption("autowidth", false);
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
