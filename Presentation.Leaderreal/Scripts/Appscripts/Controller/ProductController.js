@@ -1,7 +1,6 @@
 ﻿angular.module('indexApp')
-.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, $stateParams) {
+.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
     $rootScope.showModal = false;
-    $scope.productId = $stateParams.productId;
     $scope.gridInfo = {
         gridID: 'productgrid',
         table: null,
@@ -45,7 +44,7 @@
             switch (act) {
                 case 'view':
                     //                    console.log('row', row);
-                    $state.transitionTo('editproduct', { productId: row.ID });
+                    $state.transitionTo('editproduct', { productId: row.ID || row });
                     // day neu em nhan vieư em data cua view , hoac neu em can update thi row la object data em dung de show len man hinh, ok ko
                     //                    alert('xem console view:' + act);
                     //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
@@ -187,7 +186,7 @@
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
             coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function (data) {
-                console.log('ProductID', data);
+                //console.log('ProductID', data);
                 convertStringtoNumber(data[1], 'DistrictID');
                 convertStringtoNumber(data[1], 'WardID');
                 convertStringtoNumber(data[1], 'AreaPerFloor');
@@ -197,7 +196,6 @@
                 $scope.dataSelected = data[1][0];
                 $rootScope.showModal = false;
                 $scope.$apply();
-
                 //console.log('ProductID after', data[1]);
             });
         }
@@ -323,7 +321,15 @@
         else
             $rootScope.searchEntryFilter = searchEntry;
 
-        $scope.gridInfo.dtInstance.reloadData();
+
+        if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+            $timeout(function() {
+                $scope.gridInfo.dtInstance.reloadData();
+            }, 1000);
+        } else {
+            $scope.gridInfo.dtInstance.reloadData();
+        }
+        
 
         //coreService.getListEx(searchEntry, function (data) {
         //    // console.log('Search', data);
@@ -337,9 +343,11 @@
         //});
     }
 
-    if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined') {
+    if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined' && $state.current.url == '/product-list') {
         $scope.searchEntry = $rootScope.searchEntryFilter;
+        console.log('$scope.searchEntry', $scope.searchEntry);
         $scope.search($scope.searchEntry);
+
     }
 
 

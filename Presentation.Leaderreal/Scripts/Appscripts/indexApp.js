@@ -504,7 +504,8 @@ angular.module('indexApp')
             }
             $scope.actionClick = function (row, act, obj) {
 
-                $scope.gridInfo.onActionClick(row, act)
+                $scope.gridInfo.onActionClick(row, act);
+                
             }
 
             function standardField2Column(field) {

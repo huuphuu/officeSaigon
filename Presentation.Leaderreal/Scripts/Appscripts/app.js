@@ -61,13 +61,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('addproduct', {
             url: '/add-product',
-            templateUrl: '/Templates/view/product/add-product.html',
-            controller: 'ProductCtrl'
+            templateUrl: '/Templates/view/product/add-product.html'
+            //controller: 'ProductCtrl'
         })
         .state('editproduct', {
             url: '/edit-product/:productId',
             templateUrl: '/Templates/view/product/add-product.html',
-            controller: 'ProductCtrl'
+            controller: function ($scope, $stateParams) {
+                $scope.productId = $stateParams.productId;
+                console.log('$scope.productId', $scope.productId);
+            }
         })
         .state('customerlist', {
             url: '/customer-list',

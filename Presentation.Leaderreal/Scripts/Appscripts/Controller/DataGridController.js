@@ -17,6 +17,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         data.length = vm.rowsPerPage;
         vm.gridInfo.dtInstances = vm.dtInstances;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
+
         $http({
             method: 'POST',
             url: '/service.data/Core/CoreService.asmx/GetContextData',
@@ -136,7 +137,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
 
         }
-        //vm.dtColumns.push(DTColumnBuilder.newColumn(null).withTitle('Thao tác').renderWith(actionHtml).notSortable());
         if (cols[x].type == controls.LIST_ICON)
             vm.dtColumns.push(standardField2Column(cols[x]));
     }
@@ -163,9 +163,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             case controls.LIST_ICON:
                 col.notSortable();
                 col.renderWith(function (data, type, full, meta) {
-
                     var result = '';
-
                     angular.forEach(field.listAction, function (value, key) {
                         result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" >' +
                             '<i  class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>' +
@@ -186,7 +184,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     }
 
     vm.actionClick = function (row, act, obj) {
-        console.log('vao');
+        console.log('row', row);
+        console.log('act', act);
         $scope.gridInfo.onActionClick(row, act)
     }
 
