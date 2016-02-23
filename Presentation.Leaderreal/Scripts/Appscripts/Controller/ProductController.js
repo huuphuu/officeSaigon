@@ -305,11 +305,14 @@
         //    Status: $scope.Status,
         //    Sys_ViewID: 20
         //};
-        debugger;
+     
         var query = $scope.gridInfo.searchQuery;
-        $scope.searchInstance.reloadData();
-        // vm.dtInstance.reloadData();
 
+      
+        $scope.gridInfo.dtInstance.reloadData();
+       
+        // vm.dtInstance.reloadData();
+        return;
 
 
         for (var property in searchEntry) {

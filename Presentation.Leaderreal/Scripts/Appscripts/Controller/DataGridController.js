@@ -76,7 +76,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     var vm = this;
     vm.gridData = [];
     vm.rowsPerPage = 20;
-
+    vm.dtInstances = [];
     vm.dtOptions = DTOptionsBuilder.newOptions()
         //.withOption('ajax', {
         //    //dataSrc: "data",
@@ -103,6 +103,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     .withOption('ajax', function (data, callback, settings) {
         data.Sys_ViewID = vm.gridInfo.sysViewID;
         data.length = vm.rowsPerPage;
+        vm.gridInfo.dtInstances = vm.dtInstances;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
         $http({
             method: 'POST',
@@ -145,8 +146,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("searching", true)
         .withOption("autowidth", false);
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
-
-
+  
+    //vm.dtInstanceCallback = dtInstanceCallback;
+    //function dtInstanceCallback(dtInstance) {
+    //    console.log(dtInstance);
+    //    vm.dtInstance = dtInstance;
+    //}
     vm.init = function (gridInfo, rootScope) {
         vm.gridInfo = gridInfo;
         vm.rootScope = rootScope;
@@ -200,6 +205,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     vm.dtInstanceCallback = function (dtInstance) {
         var datatableObj = dtInstance.DataTable;
         $scope.gridInfo.tableInstance = datatableObj;
+        $scope.gridInfo.dtInstance = dtInstance;
     };
 
     $scope.searchTable = function () {
