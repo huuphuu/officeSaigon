@@ -169,7 +169,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
         vm.dtColumns = [];
         var x, k = 0, cols = $scope.gridInfo.cols, arr = new Array();
-        //sort
+        //sort, isHidden
         for (x in cols) {
             if (typeof cols[x].isSort == 'undefined')
                 cols[x].isSort = true;
@@ -201,11 +201,16 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         var datatableObj = dtInstance.DataTable;
         $scope.gridInfo.tableInstance = datatableObj;
     };
+
     $scope.searchTable = function () {
         var query = $scope.searchQuery;
 
         $scope.gridInfo.tableInstance.search(query).draw();
     };
 
+    //$scope.doFilter = function () {
+    //    console.log(vm.dtInstanceCallback);
+    //    vm.dtInstanceCallback.changeData(ajaxCallback);
+    //};
 
 }

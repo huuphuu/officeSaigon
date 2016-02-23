@@ -375,15 +375,16 @@ angular.module('indexApp')
                 rootScope: '=',
                 gridData: '='
             },
-            controller: function ($scope,DTInstances, gridService) {
+            controller: function ($scope, DTInstances, gridService) {
                 $scope.actionClick = function (row, act, obj) {
                     $scope.gridInfo.onActionClick(row, act)
                 }
                 $timeout(function () {
+                    console.log('DTInstances', DTInstances.getList());
                     DTInstances.getList().then(function (dtInstances) {
+                        console.log('dtInstances', dtInstances);
                         $scope.searchInstance = dtInstances.dtSample;
-                        debugger;
-                    },1000);
+                    }, 1000);
                 });
             }
         };

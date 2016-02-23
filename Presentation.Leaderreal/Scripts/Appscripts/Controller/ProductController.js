@@ -19,18 +19,18 @@
              // { name: 'PriceDescription', heading: 'Giá', width: '115px', className: 'text-center' },
              // { name: 'Action', heading: 'Thao tác', width: '35px', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
 
-             { name: 'ZOrder', heading: 'ZOrder', isHidden: true },
+             { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
               { name: 'ID', heading: 'ID', isHidden: true },
-              { name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
+              //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '85px', className: 'text-center' },
-              { name: 'Name', heading: 'Name', className: 'text-center' },
+              { name: 'Name', heading: 'Tên', className: 'text-center' },
               { name: 'Address', heading: 'Địa chỉ', className: 'text-center' },
               { name: 'ManagerName', heading: 'Tên quản lý', className: 'text-center' },
               { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', className: 'text-center' },
               { name: 'Struture', heading: 'Kết cấu', className: 'text-center' },
               { name: 'AreaDescription', heading: 'Diện tích trống', className: 'text-center' },
               { name: 'PriceDescription', heading: 'Giá', className: 'text-center' },
-              { name: 'Action', heading: 'Thao tác', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+              //{ name: 'Action', heading: 'Thao tác', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
         sysViewID: 20,
