@@ -30,7 +30,7 @@
               { name: 'Struture', heading: 'Kết cấu', className: 'text-center' },
               { name: 'AreaDescription', heading: 'Diện tích trống', className: 'text-center' },
               { name: 'PriceDescription', heading: 'Giá', className: 'text-center' },
-              //{ name: 'Action', heading: 'Thao tác', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+              { name: 'Action', heading: 'Thao tác', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
         sysViewID: 20,
@@ -217,7 +217,7 @@
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
 
-            console.log('entry', entry);
+            //console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -284,6 +284,8 @@
         Sys_ViewID: 20
     };
 
+   
+
     $scope.search = function (searchEntry) {
        // $rootScope.showModal = true;
 
@@ -305,16 +307,7 @@
         //    Status: $scope.Status,
         //    Sys_ViewID: 20
         //};
-     
-        var query = $scope.gridInfo.searchQuery;
-
       
-        $scope.gridInfo.dtInstance.reloadData();
-       
-        // vm.dtInstance.reloadData();
-        return;
-
-
         for (var property in searchEntry) {
             if (searchEntry.hasOwnProperty(property)) {
                 if (searchEntry[property] == '' || searchEntry[property] == false || searchEntry[property] == null) {
@@ -330,16 +323,18 @@
         else
             $rootScope.searchEntryFilter = searchEntry;
 
-        coreService.getListEx(searchEntry, function (data) {
-            // console.log('Search', data);
-            $scope.gridInfo.data = data[1];
-            $rootScope.showModal = false;
-            $scope.$apply();
+        $scope.gridInfo.dtInstance.reloadData();
 
-            //$rootScope.$broadcast('changeGridData', {
-            //    gridData: data[1]
-            //})
-        });
+        //coreService.getListEx(searchEntry, function (data) {
+        //    // console.log('Search', data);
+        //    $scope.gridInfo.data = data[1];
+        //    $rootScope.showModal = false;
+        //    $scope.$apply();
+
+        //    //$rootScope.$broadcast('changeGridData', {
+        //    //    gridData: data[1]
+        //    //})
+        //});
     }
 
     if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined') {

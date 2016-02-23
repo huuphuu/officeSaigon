@@ -2,105 +2,17 @@
 .controller('dataGridCtrl', dataGridsCtrl)
 
 function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $scope, coreService, $rootScope, $http) {
-    //-------------------------------------
-    // bo comment neu up len server --------------------------------------------------------------------------
-    //-------------------------------------
-
-    //console.log('$scope--------------------------------', $scope, gridService);
-
-    //var vm = this;
-    //vm.gridData = [];
-
-    //vm.dtOptions = DTOptionsBuilder.newOptions()
-    //     .withOption("paging", true)
-    //     .withOption("pagingType", 'simple_numbers')
-    //     .withOption("pageLength", 9)
-    //     .withOption("searching", true)
-    //    .withOption("autowidth", false);
-    ////  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
-
-    //$rootScope.$on('changeGridData', function (event, data) {
-    //    console.log('data', data);
-    //    vm.gridInfo.data = angular.copy(data);
-    //});
-
-    //vm.init = function (gridInfo, rootScope) {
-    //    vm.gridInfo = gridInfo;
-    //    vm.rootScope = rootScope;
-    //    $rootScope.showModal = true;
-    //    if ($rootScope.searchEntryFilter == null || typeof $rootScope.searchEntryFilter == 'undefined') {
-    //        coreService.getList($scope.gridInfo.sysViewID, function (data) {
-    //            vm.gridInfo.data = angular.copy(data[1]);
-    //            $rootScope.showModal = false;
-    //            $scope.$apply();
-    //        });
-    //    }
-
-
-    //    angular.forEach($scope.gridInfo.cols, function (value, key) {
-    //        if (typeof value != "function" && typeof value != "object") {
-    //            // value = html.decode(value);
-    //            inputs.push($.string.Format('{0}="{1}" ', key, objThis.html.encode(value)));
-    //        }
-    //    });
-    //    vm.dtColumnDefs = [];
-    //    var x, k = 0, cols = $scope.gridInfo.cols, arr = new Array();
-    //    for (x in cols) {
-    //        if (typeof cols[x].isSort == 'undefined')
-    //            cols[x].isSort = true;
-    //        if (cols[x].isSort == false)
-    //            vm.dtColumnDefs.push(DTColumnDefBuilder.newColumnDef(k++).notSortable());
-    //        else
-    //            vm.dtColumnDefs.push(DTColumnDefBuilder.newColumnDef(k++));
-    //    }
-
-    //}
-    //vm.setData = function (item, col) {
-    //    var row = angular.copy(item);
-    //    if (angular.isFunction(vm.rootScope.setData)) {
-    //        vm.rootScope.setData(row, col);
-    //    }
-    //}
-    //vm.dtInstanceCallback = function (dtInstance) {
-    //    var datatableObj = dtInstance.DataTable;
-    //    $scope.gridInfo.tableInstance = datatableObj;
-    //};
-    //$scope.searchTable = function () {
-    //    var query = $scope.searchQuery;
-
-    //    $scope.gridInfo.tableInstance.search(query).draw();
-    //};
-
-
     //new configuration for server side processing
     var vm = this;
     vm.gridData = [];
     vm.rowsPerPage = 20;
     vm.dtInstances = [];
+
     vm.dtOptions = DTOptionsBuilder.newOptions()
-        //.withOption('ajax', {
-        //    //dataSrc: "data",
-        //    dataSrc: function (json) {
-        //        console.log('json', json);
-        //        return json;
-        //    },
-        //    url: "/service.data/Core/CoreService.asmx/GetContextData",
-        //    type: "POST",
-        //    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        //    data: function (data, dtInstance) {
-        //        // Modify the data object properties here before being passed to the server
-        //        data.Sys_ViewID = vm.gridInfo.sysViewID;
-        //        var newRequest = { inputValue: coreService.convertServerDataProcessing(data), clientKey: '' };
-        //        return newRequest;
-        //    },
-        //    fnServerData: function (data) {
-        //        console.log('data response', data);
-        //    },
-        //    success: function (data) {
-        //        console.log('data response', data);
-        //    }
-        //})
     .withOption('ajax', function (data, callback, settings) {
+        if (typeof $rootScope.searchEntryFilter != 'undefined' && $rootScope.searchEntryFilter != null)
+            addSearchValueToData(data, $rootScope.searchEntryFilter);
+
         data.Sys_ViewID = vm.gridInfo.sysViewID;
         data.length = vm.rowsPerPage;
         vm.gridInfo.dtInstances = vm.dtInstances;
@@ -122,9 +34,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     }
             //  console.log('res', data);
             callback({
-                //recordsTotal: res.meta.total_count,
-                //recordsFiltered: res.meta.total_count,
-                //  data: res.objects
                 recordsTotal: totalRow,
                 recordsFiltered: totalRow,
                 data: data
@@ -132,8 +41,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             $rootScope.showModal = false;
         }, function errorCallback(response) {
             console.log('error', response);
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
         })
     })
         .withDataProp('data') // server side processing
@@ -146,12 +53,14 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("searching", true)
         .withOption("autowidth", false);
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
-  
-    //vm.dtInstanceCallback = dtInstanceCallback;
-    //function dtInstanceCallback(dtInstance) {
-    //    console.log(dtInstance);
-    //    vm.dtInstance = dtInstance;
-    //}
+
+    function addSearchValueToData(originalDataObj, searchObj) {
+        angular.forEach(searchObj, function (value, key) {
+            originalDataObj[key] = value;
+        });
+    }
+
+
     vm.init = function (gridInfo, rootScope) {
         vm.gridInfo = gridInfo;
         vm.rootScope = rootScope;
@@ -176,26 +85,83 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         var x, k = 0, cols = $scope.gridInfo.cols, arr = new Array();
         //sort, isHidden
         for (x in cols) {
-            if (typeof cols[x].isSort == 'undefined')
-                cols[x].isSort = true;
-            if (cols[x].isSort == false) {
-                if (typeof cols[x].isHidden == 'undefined')
-                    cols[x].isHidden = false;
-                if (cols[x].isHidden == false)
-                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable());
-                else
-                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable().notVisible());
-            } else {
-                if (typeof cols[x].isHidden == 'undefined')
-                    cols[x].isHidden = false;
-                if (cols[x].isHidden == false)
-                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading));
-                else
-                    vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notVisible());
+            if (cols[x].type == controls.LIST_ICON);
+            else {
+                if (typeof cols[x].isSort == 'undefined')
+                    cols[x].isSort = true;
+                if (cols[x].isSort == false) {
+                    if (typeof cols[x].isHidden == 'undefined')
+                        cols[x].isHidden = false;
+                    if (cols[x].isHidden == false)
+                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable());
+                    else
+                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable().notVisible());
+                } else {
+                    if (typeof cols[x].isHidden == 'undefined')
+                        cols[x].isHidden = false;
+                    if (cols[x].isHidden == false)
+                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading));
+                    else
+                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notVisible());
+                }
             }
 
+
         }
+        //vm.dtColumns.push(DTColumnBuilder.newColumn(null).withTitle('Thao tác').renderWith(actionHtml).notSortable());
+        if (cols[x].type == controls.LIST_ICON)
+            vm.dtColumns.push(standardField2Column(cols[x]));
     }
+
+    function standardField2Column(field) {
+        var col = DTColumnBuilder.newColumn(field.name);
+        col.withTitle(field.heading);
+        col.notSortable();
+        if (typeof field.className == 'undefined')
+            field.className = '';
+        col.withClass(field.name + " " + field.className);
+        switch (field.type) {
+            //case controls.ICON_AND_TEXT:
+            //    col.notSortable();
+            //    col.renderWith(function (data, type, full, meta) {
+
+            //        return [
+            //           //'<i  ng-click="action(data,field)" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
+            //            '<i  ng-click="action(', full.ID, ",\'", field.name, '\')" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
+            //        ].join('');
+            //    });
+            //    break;
+
+            case controls.LIST_ICON:
+                col.notSortable();
+                col.renderWith(function (data, type, full, meta) {
+
+                    var result = '';
+
+                    angular.forEach(field.listAction, function (value, key) {
+                        result += '<a ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" >' +
+                            '<i  class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>' +
+                            '</a>';
+                    });
+
+                    return result;
+                });
+                break;
+
+            default:
+
+                break;
+        }
+
+        return col;
+
+    }
+
+    vm.actionClick = function (row, act, obj) {
+        console.log('vao');
+        $scope.gridInfo.onActionClick(row, act)
+    }
+
     vm.setData = function (item, col) {
         var row = angular.copy(item);
         if (angular.isFunction(vm.rootScope.setData)) {
@@ -214,9 +180,5 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         $scope.gridInfo.tableInstance.search(query).draw();
     };
 
-    //$scope.doFilter = function () {
-    //    console.log(vm.dtInstanceCallback);
-    //    vm.dtInstanceCallback.changeData(ajaxCallback);
-    //};
 
 }
