@@ -1,7 +1,7 @@
 ﻿angular.module('indexApp')
 .controller('dataGridCtrl', dataGridsCtrl)
 
-function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $scope, coreService, $rootScope, $http) {
+function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $scope, coreService, $rootScope, $http, $compile) {
     //new configuration for server side processing
     var vm = this;
     vm.gridData = [];
@@ -51,7 +51,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("pagingType", 'simple_numbers')
         .withOption("pageLength", vm.rowsPerPage)
         .withOption("searching", true)
-        .withOption("autowidth", false);
+        .withOption("autowidth", false)
+        .withOption('fnRowCallback', function (nRow) {
+                        $compile(nRow)($scope);
+                    })
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
 
     function addSearchValueToData(originalDataObj, searchObj) {
@@ -88,7 +91,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             if (cols[x].type == controls.LIST_ICON);
             else {
                 if (typeof cols[x].isSort == 'undefined')
-                    cols[x].isSort = true;
+                    cols[x].isSort = false;
                 if (cols[x].isSort == false) {
                     if (typeof cols[x].isHidden == 'undefined')
                         cols[x].isHidden = false;
@@ -139,7 +142,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     var result = '';
 
                     angular.forEach(field.listAction, function (value, key) {
-                        result += '<a ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" >' +
+                        result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" >' +
                             '<i  class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>' +
                             '</a>';
                     });

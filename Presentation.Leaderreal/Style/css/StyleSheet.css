@@ -1294,6 +1294,21 @@ a {
 .paddingleft5 {
     padding-left: 5px;
 }
+
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
 /*overlay -------------------------*/
 .modalContentOverlay {
     background: rgba(0,0,0,.5);
