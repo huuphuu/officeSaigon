@@ -54,6 +54,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("autowidth", false)
         .withOption('fnRowCallback', function (nRow) {
                         $compile(nRow)($scope);
+                        //$('td', nRow).attr('nowrap', 'nowrap');
+                        //return nRow;
                     })
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
 
@@ -62,7 +64,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             originalDataObj[key] = value;
         });
     }
-
 
     vm.init = function (gridInfo, rootScope) {
         vm.gridInfo = gridInfo;
@@ -90,22 +91,46 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         for (x in cols) {
             if (cols[x].type == controls.LIST_ICON);
             else {
+                if (typeof cols[x].className == 'undefined')
+                    cols[x].className = '';
+                if (typeof cols[x].width == 'undefined')
+                    cols[x].width = 'auto';
                 if (typeof cols[x].isSort == 'undefined')
                     cols[x].isSort = false;
                 if (cols[x].isSort == false) {
                     if (typeof cols[x].isHidden == 'undefined')
                         cols[x].isHidden = false;
                     if (cols[x].isHidden == false)
-                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable());
+                        vm.dtColumns.push(
+                            DTColumnBuilder.newColumn(cols[x].name, cols[x].heading)
+                            .withOption(cols[x].name, cols[x].heading)
+                            .withOption('className', cols[x].className)
+                            .withOption('width', cols[x].width)
+                            .notSortable());
                     else
-                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notSortable().notVisible());
+                        vm.dtColumns.push(
+                            DTColumnBuilder.newColumn(cols[x].name, cols[x].heading)
+                            .withOption(cols[x].name, cols[x].heading)
+                            .withOption('className', cols[x].className)
+                            .withOption('width', cols[x].width)
+                            .notSortable()
+                            .notVisible());
                 } else {
                     if (typeof cols[x].isHidden == 'undefined')
                         cols[x].isHidden = false;
                     if (cols[x].isHidden == false)
-                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading));
+                        vm.dtColumns.push(DTColumnBuilder.newColumn(
+                            cols[x].name, cols[x].heading)
+                            .withOption(cols[x].name, cols[x].heading)
+                            .withOption('className', cols[x].className)
+                            .withOption('width', cols[x].width));
                     else
-                        vm.dtColumns.push(DTColumnBuilder.newColumn(cols[x].name, cols[x].heading).withOption(cols[x].name, cols[x].heading).notVisible());
+                        vm.dtColumns.push(
+                            DTColumnBuilder.newColumn(cols[x].name, cols[x].heading)
+                            .withOption(cols[x].name, cols[x].heading)
+                            .withOption('className', cols[x].className)
+                            .withOption('width', cols[x].width)
+                            .notVisible());
                 }
             }
 

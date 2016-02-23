@@ -1309,6 +1309,9 @@ a {
     font-weight: bold;
 }
 
+.pd-0 {
+    padding: 0 !important;
+}
 /*overlay -------------------------*/
 .modalContentOverlay {
     background: rgba(0,0,0,.5);
