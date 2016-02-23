@@ -65,7 +65,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             //controller: 'ProductCtrl'
         })
         .state('editproduct', {
-            url: '/edit-product/:productId',
+            //url: '/edit-product/:productId', // not hide productId
+            url: '/edit-product',
+            params: { productId: null, },
             templateUrl: '/Templates/view/product/add-product.html',
             controller: function ($scope, $stateParams) {
                 $scope.productId = $stateParams.productId;
