@@ -186,7 +186,7 @@
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
             coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function (data) {
-                //console.log('ProductID', data);
+                console.log('ProductID', data);
                 convertStringtoNumber(data[1], 'DistrictID');
                 convertStringtoNumber(data[1], 'WardID');
                 convertStringtoNumber(data[1], 'AreaPerFloor');

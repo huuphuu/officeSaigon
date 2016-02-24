@@ -164,6 +164,21 @@ var customerTypeOptions = [
         }
 ];
 
+var contractStatus = [
+        {
+            name: 'NotReContactYet',
+            value: '1'
+        },
+        {
+            name: 'Processing',
+            value: '2'
+        },
+        {
+            name: 'Finish',
+            value: '3'
+        }
+];
+
 /****CONSTANT*******************/
 var controls = {
     BUTTON: 'button',

@@ -49,6 +49,9 @@
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
 
     $scope.statusOptions = statusOptions;
+    $scope.potentialOptions = potentialOptions;
+    $scope.customerTypeOptions = customerTypeOptions;
+    $scope.contractStatus = contractStatus;
     $scope.layout = {
         enableClear: false,
         enableButtonOrther: false
@@ -146,7 +149,7 @@
     //phu viet cho nay
     coreService.getListEx({ Code: "BUILDINGDIRECTION", Sys_ViewID: 22 }, function (data) {
         //        console.log('BUILDINGDIRECTION', data);
-        $scope.assignedUserIDSelectList = data[1];
+        $scope.assignIDSelectList = data[1];
     });
 
     //coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
@@ -156,11 +159,14 @@
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
             coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
-                console.log('CustomerID', data);
+                //console.log('CustomerID', data);
                 //convertStringtoNumber(data[1], 'DistrictID');
+                convertStringtoBoolean(data[1], 'Potential');
+                convertStringtoBoolean(data[1], 'IsSaleDeparment');
 
                 $scope.dataSelected = data[1][0];
                 $rootScope.showModal = false;
+                console.log('$scope.dataSelected', $scope.dataSelected);
                 $scope.$apply();
                 //console.log('CustomerID after', data[1]);
             });
@@ -179,7 +185,7 @@
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
-
+            
             //console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
@@ -188,7 +194,7 @@
                     }
                 }
             }
-
+            //console.log('entry', entry);
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
                     switch (act) {
@@ -271,7 +277,7 @@
 
     if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined' && $state.current.url == '/customer-list') {
         $scope.searchEntry = $rootScope.searchEntryFilter;
-        console.log('$scope.searchEntry', $scope.searchEntry);
+        //console.log('$scope.searchEntry', $scope.searchEntry);
         $scope.search($scope.searchEntry);
 
     }

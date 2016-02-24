@@ -69,8 +69,8 @@
                     Xem trên user?
                 </td>
                 <td class="td" style="padding: 5px;">
-                    <select ng-model="searchEntry.UserID"
-                            ng-options="item.ID as item.Name for item in assignedUserIDSelectList"></select>
+                    <select ng-model="searchEntry.AssignID"
+                            ng-options="item.ID as item.Name for item in assignIDSelectList"></select>
                 </td>
             </tr>
             <tr>
@@ -103,8 +103,8 @@
                     Tình trạng hợp đồng
                 </td>
                 <td class="td" style="padding: 5px;">
-                    <select ng-model="dataSelected.Status" name="Status" id="Status"
-                            ng-options="option.value as option.name for option in statusOptions"></select>
+                    <select ng-model="dataSelected.ContractStatus" name="ContractStatus" id="ContractStatus"
+                            ng-options="option.value as option.name for option in contractStatus"></select>
                 </td>
             </tr>
             <tr>
