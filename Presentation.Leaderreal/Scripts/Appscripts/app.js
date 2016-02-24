@@ -5,7 +5,7 @@ var app = angular.module('indexApp', ['toaster', 'ngSanitize', 'ui.router', 'ang
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-//    $urlRouterProvider.otherwise('/welcome');
+    //    $urlRouterProvider.otherwise('/welcome');
     $urlRouterProvider.otherwise('/product-list');
 
     $stateProvider
@@ -54,6 +54,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
          url: '/test',
          templateUrl: '/Templates/view/chart/baseline-index.html'
      })
+        //product
         .state('productlist', {
             url: '/product-list',
             templateUrl: '/Templates/view/product/product-index.html',
@@ -61,27 +62,39 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('addproduct', {
             url: '/add-product',
-            templateUrl: '/Templates/view/product/add-product.html'
-            //controller: 'ProductCtrl'
+            templateUrl: '/Templates/view/product/add-product.html',
+            controller: 'ProductCtrl'
         })
         .state('editproduct', {
             //url: '/edit-product/:productId', // not hide productId
             url: '/edit-product',
-            params: { productId: null, },
+            params: { productId: null},
             templateUrl: '/Templates/view/product/add-product.html',
             controller: function ($scope, $stateParams) {
                 $scope.productId = $stateParams.productId;
-                console.log('$scope.productId', $scope.productId);
             }
         })
+        //customer
         .state('customerlist', {
             url: '/customer-list',
-            templateUrl: '/Templates/view/customer/customer-index.html'
+            templateUrl: '/Templates/view/customer/customer-index.html',
+            controller: 'CustomerCtrl'
         })
         .state('addcustomer', {
             url: '/add-customer',
-            templateUrl: '/Templates/view/customer/add-customer.html'
+            templateUrl: '/Templates/view/customer/add-customer.html',
+            controller: 'CustomerCtrl'
         })
+        .state('editcustomer', {
+            url: '/edit-customer',
+            params: { customerId: null },
+            templateUrl: '/Templates/view/customer/add-customer.html',
+            controller: function ($scope, $stateParams) {
+                $scope.customerId = $stateParams.customerId;
+                console.log('$scope.customerId', $scope.customerId);
+            }
+        })
+        //job
         .state('joblist', {
             url: '/customer-list',
             templateUrl: '/Templates/view/job/job-index.html'
@@ -96,7 +109,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 app.run(function ($rootScope, $location, accessFac) {
     // Register listener to watch route changes. 
     $rootScope.$on('$stateChangeStart', function (event, next, current) {
-        
+
         if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
             // return true;
         } else {
@@ -123,15 +136,37 @@ var statusOptions = [
             name: 'InActive',
             value: '1'
         },
-{
-    name: 'Active',
-    value: '0'
-}
+        {
+            name: 'Active',
+            value: '0'
+        }
+];
+
+var potentialOptions = [
+        {
+            name: 'Không',
+            value: '1'
+        },
+        {
+            name: 'Có',
+            value: '0'
+        }
+];
+
+var customerTypeOptions = [
+        {
+            name: 'AssignedToMe',
+            value: '1'
+        },
+        {
+            name: 'General',
+            value: '0'
+        }
 ];
 
 /****CONSTANT*******************/
 var controls = {
-    BUTTON:'button',
+    BUTTON: 'button',
     ICON_AND_TEXT: 'button&text',
     LIST_ICON: 'listicon',
 }

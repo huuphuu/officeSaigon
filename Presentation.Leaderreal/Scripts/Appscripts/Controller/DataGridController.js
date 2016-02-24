@@ -24,16 +24,18 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
+            
             var data = [], totalRow = 0;
             if (typeof res != 'undefined')
                 if (typeof res.data != 'undefined')
                     if (typeof res.data.d != 'undefined') {
                         var pData = res.data.d;
                         pData = pData.CSV2JSON2();
+                        console.log('res', pData);
                         data = pData[1];
                         totalRow = pData[2][0].TotalRow;
                     }
-            //  console.log('res', data);
+              
             callback({
                 recordsTotal: totalRow,
                 recordsFiltered: totalRow,
@@ -184,9 +186,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     }
 
     vm.actionClick = function (row, act, obj) {
-        console.log('row', row);
-        console.log('act', act);
-        $scope.gridInfo.onActionClick(row, act)
+        $scope.gridInfo.onActionClick(row, act);
     }
 
     vm.setData = function (item, col) {

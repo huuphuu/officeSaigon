@@ -10,12 +10,10 @@
               //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0' },
               { name: 'Name', heading: 'Tên', className: 'text-center pd-0' },
-              { name: 'Address', heading: 'Địa chỉ', className: 'text-center pd-0' },
-              { name: 'ManagerName', heading: 'Tên quản lý', className: 'text-center pd-0' },
-              { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', className: 'text-center pd-0' },
-              { name: 'Struture', heading: 'Kết cấu', className: 'text-center pd-0' },
-              { name: 'AreaDescription', heading: 'Diện tích trống', className: 'text-center pd-0' },
-              { name: 'PriceDescription', heading: 'Giá', className: 'text-center pd-0' },
+              { name: 'Phone', heading: 'Phone', className: 'text-center pd-0' },
+              { name: 'Email', heading: 'Email', className: 'text-center pd-0' },
+              { name: 'Request', heading: 'Yêu cầu', className: 'text-center pd-0' },
+              { name: 'CareNote', heading: 'Quá trình chăm sóc', className: 'text-center pd-0' },
               { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
@@ -31,7 +29,7 @@
             switch (act) {
                 case 'view':
                     //                    console.log('row', row);
-                    $state.transitionTo('editproduct', { productId: row.ID || row });
+                    $state.transitionTo('editcustomer', { customerId: row.ID || row });
                     // day neu em nhan vieư em data cua view , hoac neu em can update thi row la object data em dung de show len man hinh, ok ko
                     //                    alert('xem console view:' + act);
                     //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
@@ -146,44 +144,25 @@
     // $scope.launch('error');
 
     //phu viet cho nay
-    coreService.getListEx({ Code: "BUILDINGDIRECTION", Sys_ViewID: 17 }, function (data) {
+    coreService.getListEx({ Code: "BUILDINGDIRECTION", Sys_ViewID: 22 }, function (data) {
         //        console.log('BUILDINGDIRECTION', data);
-        $scope.buildingDirectionIDSelectList = data[1];
-    });
-
-    //phu viet cho nay
-    $scope.districtSelectList = null;
-    $scope.wardSelectList = null;
-    coreService.getListEx({ CityID: 2, Sys_ViewID: 18 }, function (data) {
-        //console.log('District--ward', data);
-        $scope.districtSelectList = data[1];
-        $scope.wardSelectList = data[2];
-
-        convertStringtoNumber($scope.districtSelectList, 'ID');
-        convertStringtoNumber($scope.wardSelectList, 'DistrictID');
-        convertStringtoNumber($scope.wardSelectList, 'ID');
-
-        $scope.tempWardSelectList = angular.copy($scope.wardSelectList);
+        $scope.assignedUserIDSelectList = data[1];
     });
 
     //coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
     //    console.log('ProductID', data)
     //});
-    $scope.$watch('productId', function (newVal, oldVal) {
+    $scope.$watch('customerId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
-            coreService.getListEx({ ProductID: $scope.productId, Sys_ViewID: 19 }, function (data) {
-                //console.log('ProductID', data);
-                convertStringtoNumber(data[1], 'DistrictID');
-                convertStringtoNumber(data[1], 'WardID');
-                convertStringtoNumber(data[1], 'AreaPerFloor');
-                convertStringtoBoolean(data[1], 'IsGroundFloor');
-                convertStringtoBoolean(data[1], 'IsHiredWholeBuilding');
+            coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
+                console.log('CustomerID', data);
+                //convertStringtoNumber(data[1], 'DistrictID');
 
                 $scope.dataSelected = data[1][0];
                 $rootScope.showModal = false;
                 $scope.$apply();
-                //console.log('ProductID after', data[1]);
+                //console.log('CustomerID after', data[1]);
             });
         }
     })
@@ -198,9 +177,8 @@
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
-            entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
-            entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
+            entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
 
             //console.log('entry', entry);
             for (var property in entry) {
@@ -225,7 +203,7 @@
                                     $scope.gridInfo.data[key] = angular.copy(entry);
                                 }
                             });
-                            $state.go('productlist', '', { reload: true });
+                            $state.go('customerlist', '', { reload: true });
                             break;
                         case 'DELETE':
                             var index = -1;
@@ -252,46 +230,19 @@
 
     $scope.searchEntry = {
         UnAssignedName: null,
-        UnAssignedAddress: null,
-        PriceFrom: null,
-        PriceTo: null,
-        DistrictID: null,
-        WardID: null,
-        Address: null,
-        AvailableAreaFrom: null,
-        AvailableAreaTo: null,
-        PriceFrom: null,
-        PriceTo: null,
-        IsHiredWholeBuilding: null,
-        IsGroundFloor: null,
-        BuildingDirectionID: null,
+        Phone: null,
+        Email: null,
+        Potential: null,
         Status: null,
-        Sys_ViewID: 20
+        Type: null,
+        UserID: null,
+        Sys_ViewID: 21
     };
 
 
 
     $scope.search = function (searchEntry) {
-        // $rootScope.showModal = true;
-
-        //var entry = {
-        //    UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
-        //    UnAssignedAddress: $scope.Address, //coreService.toASCi($scope.Address),
-        //    PriceFrom: $scope.PriceFrom,
-        //    PriceTo: $scope.PriceTo,
-        //    DistrictID: $scope.DistrictID,
-        //    WardID: $scope.WardID,
-        //    Address: $scope.Address,
-        //    AvailableAreaFrom: $scope.AvailableAreaFrom,
-        //    AvailableAreaTo: $scope.AvailableAreaTo,
-        //    PriceFrom: $scope.PriceFrom,
-        //    PriceTo: $scope.PriceTo,
-        //    IsHiredWholeBuilding: $scope.IsHiredWholeBuilding,
-        //    IsGroundFloor: $scope.IsGroundFloor,
-        //    BuildingDirectionID: $scope.BuildingDirectionID,
-        //    Status: $scope.Status,
-        //    Sys_ViewID: 20
-        //};
+         $rootScope.showModal = true;
 
         for (var property in searchEntry) {
             if (searchEntry.hasOwnProperty(property)) {
@@ -301,7 +252,6 @@
             }
         }
         searchEntry.UnAssignedName = tiengvietkhongdau(searchEntry.Name);
-        searchEntry.UnAssignedAddress = tiengvietkhongdau(searchEntry.Address);
 
         if ($rootScope.searchEntryFilter != null)
             searchEntry = $rootScope.searchEntryFilter;
@@ -317,31 +267,15 @@
             $scope.gridInfo.dtInstance.reloadData();
         }
 
-
-        //coreService.getListEx(searchEntry, function (data) {
-        //    // console.log('Search', data);
-        //    $scope.gridInfo.data = data[1];
-        //    $rootScope.showModal = false;
-        //    $scope.$apply();
-
-        //    //$rootScope.$broadcast('changeGridData', {
-        //    //    gridData: data[1]
-        //    //})
-        //});
     }
 
-    if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined' && $state.current.url == '/product-list') {
+    if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined' && $state.current.url == '/customer-list') {
         $scope.searchEntry = $rootScope.searchEntryFilter;
         console.log('$scope.searchEntry', $scope.searchEntry);
         $scope.search($scope.searchEntry);
 
     }
 
-
-    $scope.changeDistrict = function (districtID) {
-        $scope.dataSelected.WardId = null;
-        $scope.wardSelectList = $filter('filterDistrictID')($scope.tempWardSelectList, districtID);
-    }
 
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {

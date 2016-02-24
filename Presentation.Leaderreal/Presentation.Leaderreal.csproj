@@ -97,6 +97,7 @@
     <Content Include="Scripts\angularjs\plugins\angularFileUpload\angular-file-upload.min.js.map" />
     <Content Include="Scripts\angularjs\plugins\angularFileUpload\angular-file-upload.min.map" />
     <Content Include="Scripts\angularjs\plugins\angularMoment\angular-moment.min.js.map" />
+    <Content Include="Scripts\Appscripts\Controller\CustomerController.js" />
     <Content Include="Scripts\LTEScripts\app.min.js.map" />
     <Content Include="Scripts\old-template\dynamicdrive.js" />
     <Content Include="Scripts\old-template\effects.core.js" />
