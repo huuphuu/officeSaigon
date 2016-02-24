@@ -1507,6 +1507,8 @@ a {
     width: 98%;
     margin: 20px auto;
     border: 1px solid #666666;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
     .old-template-list-table tr.heading {
@@ -1514,6 +1516,11 @@ a {
         font-weight: bold;
         height: 28px;
     }
+
+.break-word {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
 
 .dataTables_wrapper tr td {
     cursor: default;
