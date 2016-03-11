@@ -8,6 +8,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     vm.rowsPerPage = 20;
     vm.dtInstances = [];
 
+    vm.selected = {};
+    vm.selectAll = false;
+
     vm.dtOptions = DTOptionsBuilder.newOptions()
     .withOption('ajax', function (data, callback, settings) {
         if (typeof $rootScope.searchEntryFilter != 'undefined' && $rootScope.searchEntryFilter != null)
@@ -24,18 +27,18 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             //headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
             data: newRequest
         }).then(function successCallback(res) {
-            
+
             var data = [], totalRow = 0;
             if (typeof res != 'undefined')
                 if (typeof res.data != 'undefined')
                     if (typeof res.data.d != 'undefined') {
                         var pData = res.data.d;
                         pData = pData.CSV2JSON2();
-                        console.log('res', pData);
+                        //console.log('res', pData);
                         data = pData[1];
                         totalRow = pData[2][0].TotalRow;
                     }
-              
+
             callback({
                 recordsTotal: totalRow,
                 recordsFiltered: totalRow,
@@ -56,10 +59,21 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("searching", true)
         .withOption("autowidth", false)
         .withOption('fnRowCallback', function (nRow) {
-                        $compile(nRow)($scope);
-                        //$('td', nRow).attr('nowrap', 'nowrap');
-                        //return nRow;
-                    })
+            $compile(nRow)($scope);
+            //$('td', nRow).attr('nowrap', 'nowrap');
+            //return nRow;
+        })
+        .withOption('createdRow', function (row, data, dataIndex) {
+            // Recompiling so we can bind Angular directive to the DT
+            $compile(angular.element(row).contents())($scope);
+        })
+        .withOption('headerCallback', function (header) {
+            if (!vm.headerCompiled) {
+                // Use this headerCompiled field to only compile header once
+                vm.headerCompiled = true;
+                $compile(angular.element(header).contents())($scope);
+            }
+        })
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
 
     function addSearchValueToData(originalDataObj, searchObj) {
@@ -92,7 +106,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         var x, k = 0, cols = $scope.gridInfo.cols, arr = new Array();
         //sort, isHidden
         for (x in cols) {
-            if (cols[x].type == controls.LIST_ICON);
+            if (cols[x].type == controls.LIST_ICON || cols[x].type == controls.CHECKBOX);
             else {
                 if (typeof cols[x].className == 'undefined')
                     cols[x].className = '';
@@ -137,10 +151,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 }
             }
 
-
+            if (cols[x].type == controls.LIST_ICON || cols[x].type == controls.CHECKBOX) {
+                vm.dtColumns.push(standardField2Column(cols[x]));
+            }
         }
-        if (cols[x].type == controls.LIST_ICON)
-            vm.dtColumns.push(standardField2Column(cols[x]));
     }
 
     function standardField2Column(field) {
@@ -176,6 +190,18 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 });
                 break;
 
+            case controls.CHECKBOX:
+                col.notSortable();
+                col.renderWith(function (data, type, full, meta) {
+                    var result = '';
+                    angular.forEach(field.listAction, function (value, key) {
+                        result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-click="vm.toggleOne(vm.selected)">';
+                    });
+
+                    return result;
+                });
+                break;
+
             default:
 
                 break;
@@ -183,6 +209,29 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
         return col;
 
+    }
+
+    vm.toggleAll = function (selectAll, selectedItems) {
+        console.log('selectAll', selectAll);
+        console.log('selectedItems', selectedItems);
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                selectedItems[id] = selectAll;
+            }
+        }
+    }
+
+    vm.toggleOne = function (selectedItems) {
+        console.log('selectedItems', selectedItems);
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if (!selectedItems[id]) {
+                    vm.selectAll = false;
+                    return;
+                }
+            }
+        }
+        vm.selectAll = true;
     }
 
     vm.actionClick = function (row, act, obj) {

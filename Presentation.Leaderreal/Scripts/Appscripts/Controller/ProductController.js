@@ -1,6 +1,7 @@
 ﻿angular.module('indexApp')
 .controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
     $rootScope.showModal = false;
+    var titleHtml = '<input type="checkbox" ng-model="vm.selectAll" ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
     $scope.gridInfo = {
         gridID: 'productgrid',
         table: null,
@@ -18,18 +19,18 @@
              // { name: 'PriceDescription', heading: 'Giá', width: '115px', className: 'text-center' },
              // { name: 'Action', heading: 'Thao tác', width: '35px', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
 
-             { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
-              { name: 'ID', heading: 'ID', isHidden: true },
-              //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
-              { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
-              { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
-              { name: 'Address', heading: 'Địa chỉ', className: 'text-center pd-0 break-word' },
-              { name: 'ManagerName', heading: 'Tên quản lý', className: 'text-center pd-0 break-word' },
-              { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', className: 'text-center pd-0 break-word' },
-              { name: 'Struture', heading: 'Kết cấu', className: 'text-center pd-0 break-word' },
-              { name: 'AreaDescription', heading: 'Diện tích trống', width: '150px', className: 'text-center pd-0 break-word' },
-              { name: 'PriceDescription', heading: 'Giá', className: 'text-center pd-0 break-word' },
-              { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+            { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
+            { name: 'ID', heading: 'ID', isHidden: true },
+            { name: 'MultiSelect', heading: titleHtml, className: 'text-center pd-0 break-word', type: controls.CHECKBOX, listAction: [{ classIcon: 'form-control', action: 'multiSelect' }] },
+            { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
+            { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
+            { name: 'Address', heading: 'Địa chỉ', className: 'text-center pd-0 break-word' },
+            { name: 'ManagerName', heading: 'Tên quản lý', className: 'text-center pd-0 break-word' },
+            { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', className: 'text-center pd-0 break-word' },
+            { name: 'Struture', heading: 'Kết cấu', className: 'text-center pd-0 break-word' },
+            { name: 'AreaDescription', heading: 'Diện tích trống', width: '150px', className: 'text-center pd-0 break-word' },
+            { name: 'PriceDescription', heading: 'Giá', className: 'text-center pd-0 break-word' },
+            { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
         sysViewID: 20,
@@ -51,8 +52,14 @@
                     //    console.log('ProductID', data)
                     //});
                     break;
+
+                case 'multiSelect':
+
+                    break;
+
                 case 'chart':
                     $scope.openDialogChart(rowID);
+
 
                     break;
 
@@ -282,10 +289,10 @@
         Sys_ViewID: 20
     };
 
-   
+
 
     $scope.search = function (searchEntry) {
-       // $rootScope.showModal = true;
+        // $rootScope.showModal = true;
 
         //var entry = {
         //    UnAssignedName: $scope.Name, //coreService.toASCi($scope.Name),
@@ -305,7 +312,7 @@
         //    Status: $scope.Status,
         //    Sys_ViewID: 20
         //};
-      
+
         for (var property in searchEntry) {
             if (searchEntry.hasOwnProperty(property)) {
                 if (searchEntry[property] == '' || searchEntry[property] == false || searchEntry[property] == null) {
@@ -323,13 +330,13 @@
 
 
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
-            $timeout(function() {
+            $timeout(function () {
                 $scope.gridInfo.dtInstance.reloadData();
             }, 1000);
         } else {
             $scope.gridInfo.dtInstance.reloadData();
         }
-        
+
 
         //coreService.getListEx(searchEntry, function (data) {
         //    // console.log('Search', data);

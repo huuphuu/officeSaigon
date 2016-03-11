@@ -1507,8 +1507,7 @@ a {
     width: 98%;
     margin: 20px auto;
     border: 1px solid #666666;
-    -ms-word-wrap: break-word;
-    word-wrap: break-word;
+    table-layout: fixed;
 }
 
     .old-template-list-table tr.heading {

@@ -131,6 +131,7 @@ app.run(function ($templateCache) {
         '</div>'
     ].join(''));
 })
+
 var statusOptions = [
         {
             name: 'InActive',
@@ -184,4 +185,5 @@ var controls = {
     BUTTON: 'button',
     ICON_AND_TEXT: 'button&text',
     LIST_ICON: 'listicon',
+    CHECKBOX: 'checkbox'
 }
