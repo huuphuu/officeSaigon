@@ -96,12 +96,23 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         //job
         .state('joblist', {
-            url: '/customer-list',
-            templateUrl: '/Templates/view/job/job-index.html'
+            url: '/job-list',
+            templateUrl: '/Templates/view/job/job-index.html',
+            controller: 'JobCtrl'
         })
         .state('addjob', {
-            url: '/add-customer',
-            templateUrl: '/Templates/view/job/add-job.html'
+            url: '/add-job',
+            templateUrl: '/Templates/view/job/add-job.html',
+            controller: 'JobCtrl'
+        })
+        .state('editjob', {
+            url: '/edit-job',
+            params: { jobId: null },
+            templateUrl: '/Templates/view/customer/add-job.html',
+            controller: function ($scope, $stateParams) {
+                $scope.jobId = $stateParams.jobId;
+                console.log('$scope.jobId', $scope.jobId);
+            }
         })
 
 })
@@ -178,6 +189,44 @@ var contractStatus = [
             name: 'Finish',
             value: '3'
         }
+];
+
+var yearSelectList = [
+        {
+            name: '2016',
+            value: '1'
+        },
+        {
+            name: '2015',
+            value: '2'
+        },
+        {
+            name: '2013',
+            value: '3'
+        }
+];
+
+var monthSelectList = [
+        { name: '1', value: '1'},
+        { name: '2', value: '2'},
+        { name: '3', value: '3'},
+        { name: '4', value: '4'},
+        { name: '5', value: '5'},
+        { name: '6', value: '6'},
+        { name: '7', value: '7'},
+        { name: '8', value: '8'},
+        { name: '9', value: '9'},
+        { name: '10', value: '10'},
+        { name: '11', value: '11'},
+        { name: '12', value: '12'}
+];
+
+var weekSelectList = [
+        { name: '1', value: '1' },
+        { name: '2', value: '2' },
+        { name: '3', value: '3' },
+        { name: '4', value: '4' },
+        { name: '5', value: '5' }
 ];
 
 /****CONSTANT*******************/
