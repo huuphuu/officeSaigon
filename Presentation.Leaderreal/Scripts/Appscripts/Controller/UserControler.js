@@ -40,9 +40,6 @@
                  dialogs.notify(data.Message.Name, data.Message.Description, function () {
 
                  });
-
-                
-
                  $scope.$apply();
              });
          }, function (btn) {

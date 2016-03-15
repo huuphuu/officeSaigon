@@ -1,143 +1,281 @@
-﻿<content-header title-name="User Management"></content-header>
+﻿<content-header title-name="Quản lý tài khoản"></content-header>
 
-<!-- Main content -->
-<section class="content">
-    <div class="row ng-scope" ng-controller="UserCtrl" ng-init="init()">
-        <div class="col-md-7 col-sm-8">
-            <!---Directive left-action-->
-            <left-action theme-button="themeButton"></left-action>
+<div style="background-color: #72b3e9; height: 5px; width: 100%;">
+</div>
 
-            <div class="row">
-                <!---Directive left-action-->
+<div ng-controller="UserCtrl" ng-init="init()">
+    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+        <tr>
+            <td style="vertical-align: top;">
                 <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
-            </div>
-            <!-- Navigator part -->
+            </td>
+            <td>
+                <!---Directive right-->
+                <right-action theme-button="themeButton" full-action="false"></right-action>
 
-
-        </div>
-
-        <div class="col-md-5 col-sm-4">
-            <!---Directive right-->
-            <right-action theme-button="themeButton" full-action="false"></right-action>
-
-            <form class="form-horizontal row">
-                <div class="box-body">
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Login Name</label>
-                        <div class="col-sm-9 padding-right-19">
-                            <input ng-model="dataSeleted.UserName" type="text" class="form-control" id="inputEmail3" placeholder="Email" ng-change="changeText()"></input>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-                        <div class="col-sm-9 padding-right-19 " ng-hide="dataSeleted.ID!=0">
-                            <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                        </div>
-
-                        <div class="col-sm-7" ng-hide="dataSeleted.ID==0">
-                            <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password1" placeholder="Password">
-                        </div>
-                        <div class="col-sm-2 padding-right-19 pull-right" ng-hide="dataSeleted.ID==0">
-                            <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()">
-                                <span>Reset  </span>
-
-                            </button>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="employee" class="col-sm-3 control-label">Employee</label>
-                        <div class="col-sm-9 padding-right-19">
-                            <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">
-                                <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>
-                                <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">
-                                  <span ng-bind-html="item.Name | highlight: $select.search"></span>
-                                  <small ng-bind-html="item.Code | highlight: $select.search"></small>
-                                </ui-select-choices>
-                              </ui-select>
-                            </ui-select>
-                        </div>
-                    </div>
-
-                </div>
-
-            </form>
-            <div class="box panel panel-default">
-                <div class="box-header panel-heading ng-binding">
-                    <h3 class="box-title"><strong>Role</strong></h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <table class="table table-condensed">
+                <form class="form-horizontal row">
+                    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
                         <tbody>
                             <tr>
-                                <th style="width: 35%">Function</th>
-                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsView')">View</th>
-                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsInsert')">Add</th>
-                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsUpdate')">Edit</th>
-                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsDelete')">Delete</th>
-                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsSpecial')">Other</th>
-                            </tr>
-                            <tr ng-repeat="role in roles">
-                                <td>{{role.Name}}</td>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="checkbox" class="minimal" ng-model="role.IsView" ng-true-value="'True'" ng-false-value="'False'" />
-                                    </label>
+                                <td style="width: 150px; padding: 5px;" class="td">
+                                    Tên đăng nhập
                                 </td>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="checkbox" class="minimal" ng-model="role.IsInsert" ng-true-value="'True'" ng-false-value="'False'" />
-                                    </label>
-                                </td>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="checkbox" class="minimal" ng-model="role.IsUpdate" ng-true-value="'True'" ng-false-value="'False'" />
-                                    </label>
-                                </td>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="checkbox" class="minimal" ng-model="role.IsDelete" ng-true-value="'True'" ng-false-value="'False'" />
-                                    </label>
-                                </td>
-                                <td class="text-center">
-                                    <label>
-                                        <input type="checkbox" class="minimal" ng-model="role.IsSpecial" ng-true-value="'True'" ng-false-value="'False'" />
-                                    </label>
+                                <td class="td" style="padding: 5px;">
+                                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName" ng-change="changeText()" ng-model="dataSeleted.UserName" />
                                 </td>
                             </tr>
-
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                    Mật khẩu
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password"
+                                           ng-hide="dataSeleted.ID!=0">
+                                    <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password1" placeholder="Password"
+                                           ng-hide="dataSeleted.ID==0">
+                                    <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()"
+                                            ng-hide="dataSeleted.ID==0">
+                                        <span>Reset</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 150px; padding: 5px;" class="td">
+                                    Nhân viên
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">
+                                        <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>
+                                        <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">
+                                            <span ng-bind-html="item.Name | highlight: $select.search"></span>
+                                            <small ng-bind-html="item.Code | highlight: $select.search"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    </ui-select>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                </form>
+                <div class="box panel panel-default">
+                    <div class="box-header panel-heading ng-binding">
+                        <h3 class="box-title"><strong>Role</strong></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="old-template-list-table" cellspacing="0" align="Center" rules="all" border="1">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 35%">Function</th>
+                                    <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsView')">View</th>
+                                    <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsInsert')">Add</th>
+                                    <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsUpdate')">Edit</th>
+                                    <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsDelete')">Delete</th>
+                                    <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsSpecial')">Other</th>
+                                </tr>
+                                <tr ng-repeat="role in roles">
+                                    <td>{{role.Name}}</td>
+                                    <td class="text-center">
+                                        <label>
+                                            <input type="checkbox" class="minimal" ng-model="role.IsView" ng-true-value="'True'" ng-false-value="'False'" />
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label>
+                                            <input type="checkbox" class="minimal" ng-model="role.IsInsert" ng-true-value="'True'" ng-false-value="'False'" />
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label>
+                                            <input type="checkbox" class="minimal" ng-model="role.IsUpdate" ng-true-value="'True'" ng-false-value="'False'" />
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label>
+                                            <input type="checkbox" class="minimal" ng-model="role.IsDelete" ng-true-value="'True'" ng-false-value="'False'" />
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label>
+                                            <input type="checkbox" class="minimal" ng-model="role.IsSpecial" ng-true-value="'True'" ng-false-value="'False'" />
+                                        </label>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+
                 </div>
-                <!-- /.box-body -->
 
-            </div>
+                <div class="mt-10 pull-right">
+                    <!-- <button type="button" class="btn ng-binding" ng-show="user.id==0" ng-click="addUser();">
+                        <span class="glyphicon glyphicon-plus"></span>Add
+                    </button>-->
+                    <button type="button" class="btn ng-binding" ng-class="themeButton" ng-show="user.id==0" ng-click="resetUser();">
+                        <span class="glyphicon glyphicon-ban-circle"></span>
+                        Reset Password
+                    </button>
+                    <!--<button type="button" class="btn btn-primary ng-binding ng-hide" ng-show="user.id>0" ng-click="updateUser();">
+                        <span class="glyphicon glyphicon-ok"></span>Save
+                    </button>
+                    <button type="button" class="btn btn-danger ng-binding ng-hide" ng-show="user.id>0" ng-click="showConfirm('account.lock.confirm',disableUser);">
+                        <span class="glyphicon glyphicon-lock"></span>Lock
+                    </button>
 
-
-
-            <div class="mt-10 pull-right">
-                <!-- <button type="button" class="btn ng-binding" ng-show="user.id==0" ng-click="addUser();">
-                    <span class="glyphicon glyphicon-plus"></span>Add
-                </button>-->
-                <button type="button" class="btn ng-binding" ng-class="themeButton" ng-show="user.id==0" ng-click="resetUser();">
-                    <span class="glyphicon glyphicon-ban-circle"></span>
-                    Reset Password
-                </button>
-                <!--<button type="button" class="btn btn-primary ng-binding ng-hide" ng-show="user.id>0" ng-click="updateUser();">
-                    <span class="glyphicon glyphicon-ok"></span>Save
-                </button>
-                <button type="button" class="btn btn-danger ng-binding ng-hide" ng-show="user.id>0" ng-click="showConfirm('account.lock.confirm',disableUser);">
-                    <span class="glyphicon glyphicon-lock"></span>Lock
-                </button>
-
-                <button type="button" class="btn btn-default ng-hide" ng-click="resetUser();">
-                    <span class="glyphicon glyphicon-arrow-left"></span>
-                </button>-->
-            </div>
-        </div>
+                    <button type="button" class="btn btn-default ng-hide" ng-click="resetUser();">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </button>-->
+                </div>
+            </td>
+        </tr>
+    </table>
 
 
-    </div>
+</div>
 
-</section>
+
+<!--<content-header title-name="User Management"></content-header>-->
+<!---->
+<!--$1$ Main content #1#-->
+<!--<section class="content">-->
+<!--    <div class="row ng-scope" ng-controller="UserCtrl" ng-init="init()">-->
+<!--        <div class="col-md-7 col-sm-8">-->
+<!--            $1$-Directive left-action#1#-->
+<!--            $1$<left-action theme-button="themeButton"></left-action>#1#-->
+<!---->
+<!--            <div class="row">-->
+<!--                $1$-Directive left-action#1#-->
+<!--                <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>-->
+<!--            </div>-->
+<!--            $1$ Navigator part #1#-->
+<!---->
+<!---->
+<!--        </div>-->
+<!---->
+<!--        <div class="col-md-5 col-sm-4">-->
+<!--            $1$-Directive right#1#-->
+<!--            <right-action theme-button="themeButton" full-action="false"></right-action>-->
+<!---->
+<!--            <form class="form-horizontal row">-->
+<!--                <div class="box-body">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="inputEmail3" class="col-sm-3 control-label">Login Name</label>-->
+<!--                        <div class="col-sm-9 padding-right-19">-->
+<!--                            <input ng-model="dataSeleted.UserName" type="text" class="form-control" id="inputEmail3" placeholder="Email" ng-change="changeText()"></input>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>-->
+<!--                        <div class="col-sm-9 padding-right-19 " ng-hide="dataSeleted.ID!=0">-->
+<!--                            <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password">-->
+<!--                        </div>-->
+<!---->
+<!--                        <div class="col-sm-7" ng-hide="dataSeleted.ID==0">-->
+<!--                            <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password1" placeholder="Password">-->
+<!--                        </div>-->
+<!--                        <div class="col-sm-2 padding-right-19 pull-right" ng-hide="dataSeleted.ID==0">-->
+<!--                            <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()">-->
+<!--                                <span>Reset  </span>-->
+<!---->
+<!--                            </button>-->
+<!--                        </div>-->
+<!---->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="employee" class="col-sm-3 control-label">Employee</label>-->
+<!--                        <div class="col-sm-9 padding-right-19">-->
+<!--                            <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">-->
+<!--                                <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>-->
+<!--                                <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">-->
+<!--                                    <span ng-bind-html="item.Name | highlight: $select.search"></span>-->
+<!--                                    <small ng-bind-html="item.Code | highlight: $select.search"></small>-->
+<!--                                </ui-select-choices>-->
+<!--                            </ui-select>-->
+<!--                            </ui-select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!---->
+<!--                </div>-->
+<!---->
+<!--            </form>-->
+<!--            <div class="box panel panel-default">-->
+<!--                <div class="box-header panel-heading ng-binding">-->
+<!--                    <h3 class="box-title"><strong>Role</strong></h3>-->
+<!--                </div>-->
+<!--                $1$ /.box-header #1#-->
+<!--                <div class="box-body no-padding">-->
+<!--                    <table class="table table-condensed">-->
+<!--                        <tbody>-->
+<!--                            <tr>-->
+<!--                                <th style="width: 35%">Function</th>-->
+<!--                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsView')">View</th>-->
+<!--                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsInsert')">Add</th>-->
+<!--                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsUpdate')">Edit</th>-->
+<!--                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsDelete')">Delete</th>-->
+<!--                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsSpecial')">Other</th>-->
+<!--                            </tr>-->
+<!--                            <tr ng-repeat="role in roles">-->
+<!--                                <td>{{role.Name}}</td>-->
+<!--                                <td class="text-center">-->
+<!--                                    <label>-->
+<!--                                        <input type="checkbox" class="minimal" ng-model="role.IsView" ng-true-value="'True'" ng-false-value="'False'" />-->
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                                <td class="text-center">-->
+<!--                                    <label>-->
+<!--                                        <input type="checkbox" class="minimal" ng-model="role.IsInsert" ng-true-value="'True'" ng-false-value="'False'" />-->
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                                <td class="text-center">-->
+<!--                                    <label>-->
+<!--                                        <input type="checkbox" class="minimal" ng-model="role.IsUpdate" ng-true-value="'True'" ng-false-value="'False'" />-->
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                                <td class="text-center">-->
+<!--                                    <label>-->
+<!--                                        <input type="checkbox" class="minimal" ng-model="role.IsDelete" ng-true-value="'True'" ng-false-value="'False'" />-->
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                                <td class="text-center">-->
+<!--                                    <label>-->
+<!--                                        <input type="checkbox" class="minimal" ng-model="role.IsSpecial" ng-true-value="'True'" ng-false-value="'False'" />-->
+<!--                                    </label>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!---->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--                $1$ /.box-body #1#-->
+<!---->
+<!--            </div>-->
+<!---->
+<!---->
+<!---->
+<!--            <div class="mt-10 pull-right">-->
+<!--                <!-- <button type="button" class="btn ng-binding" ng-show="user.id==0" ng-click="addUser();">-->
+<!--                    <span class="glyphicon glyphicon-plus"></span>Add-->
+<!--                </button>-->-->
+<!--                <button type="button" class="btn ng-binding" ng-class="themeButton" ng-show="user.id==0" ng-click="resetUser();">-->
+<!--                    <span class="glyphicon glyphicon-ban-circle"></span>-->
+<!--                    Reset Password-->
+<!--                </button>-->
+<!--                <!--<button type="button" class="btn btn-primary ng-binding ng-hide" ng-show="user.id>0" ng-click="updateUser();">-->
+<!--                    <span class="glyphicon glyphicon-ok"></span>Save-->
+<!--                </button>-->
+<!--                <button type="button" class="btn btn-danger ng-binding ng-hide" ng-show="user.id>0" ng-click="showConfirm('account.lock.confirm',disableUser);">-->
+<!--                    <span class="glyphicon glyphicon-lock"></span>Lock-->
+<!--                </button>-->
+<!---->
+<!--                <button type="button" class="btn btn-default ng-hide" ng-click="resetUser();">-->
+<!--                    <span class="glyphicon glyphicon-arrow-left"></span>-->
+<!--                </button>-->-->
+<!--            </div>-->
+<!--        </div>-->
+<!---->
+<!---->
+<!--    </div>-->
+<!---->
+<!--</section>-->

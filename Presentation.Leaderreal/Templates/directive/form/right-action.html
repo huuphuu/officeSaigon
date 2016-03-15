@@ -1,5 +1,51 @@
 ﻿<form class="form-inline row">
-    <div class="form-group col-md-12 actionRight ">
+    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+        <tr style="vertical-align: top;">
+            <td>
+                <button class="btn col-xs-12 " ng-click="reset()" ng-class="{'{{themeButton}}':layout.enableClear, 'disabled':!layout.enableClear}">
+                    <span class="glyphicon glyphicon-flash"></span>
+                    Clear
+                </button>
+            </td>
+            <td>
+                <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}"
+                        ng-click="actionConfirm('DELETE')"
+                        ng-hide="dataSelected.ID==0" ng-if="listRight.IsDelete=='True'">
+                    <span class="glyphicon glyphicon-minus"></span>
+                    Delete
+                </button>
+            </td>
+            <td>
+                <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}"
+                        ng-click="actionConfirm('UPDATE')"
+                        ng-hide="dataSelected.ID==0" ng-if="listRight.IsUpdate=='True'">
+                    <span class="glyphicon glyphicon-save"></span>
+                    Save
+                </button>
+            </td>
+            <td>
+                <button class="btn col-xs-12" ng-class="themeButton" ng-hide="!fullAction">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Active
+                </button>
+            </td>
+            <td>
+                <button class="btn col-xs-12" ng-class="themeButton" ng-hide="!fullAction">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    Deactive
+                </button>
+            </td>
+            <td>
+                <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}"
+                        ng-click="actionConfirm('INSERT')"
+                        ng-show="dataSelected.ID==0" ng-if="listRight.IsInsert=='True'">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Add
+                </button>
+            </td>
+        </tr>
+    </table>
+    <!--<div class="form-group col-md-12 actionRight ">
         <div class="col-md-3 pull-left">
             <button class="btn col-xs-12 " ng-click="reset()" ng-class="{'{{themeButton}}':layout.enableClear, 'disabled':!layout.enableClear}">
                 <span class="glyphicon glyphicon-flash"></span>
@@ -33,8 +79,8 @@
         <div class="col-md-3 pull-left" ng-show="dataSelected.ID==0" ng-if="listRight.IsInsert=='True'">
             <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}" ng-click="actionConfirm('INSERT')">
                 <span class="glyphicon glyphicon-plus"></span>
-              Add</button>
+                Add</button>
         </div>
-    </div>
+    </div>-->
 
 </form>

@@ -114,6 +114,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     cols[x].width = 'auto';
                 if (typeof cols[x].isSort == 'undefined')
                     cols[x].isSort = false;
+
                 if (cols[x].isSort == false) {
                     if (typeof cols[x].isHidden == 'undefined')
                         cols[x].isHidden = false;
@@ -187,7 +188,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     });
 
                     return result;
-                });
+                }).withOption('width', field.width);
                 break;
 
             case controls.CHECKBOX:
@@ -199,7 +200,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     });
 
                     return result;
-                });
+                }).withOption('width', field.width);
                 break;
 
             default:

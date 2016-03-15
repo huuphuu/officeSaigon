@@ -21,7 +21,7 @@
 
             { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
             { name: 'ID', heading: 'ID', isHidden: true },
-            { name: 'MultiSelect', heading: titleHtml, className: 'text-center pd-0 break-word', type: controls.CHECKBOX, listAction: [{ classIcon: 'form-control', action: 'multiSelect' }] },
+            { name: 'MultiSelect', heading: titleHtml, width: '50px', className: 'text-center pd-0 break-word', type: controls.CHECKBOX, listAction: [{ classIcon: 'form-control', action: 'multiSelect' }] },
             { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
             { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
             { name: 'Address', heading: 'Địa chỉ', className: 'text-center pd-0 break-word' },
@@ -30,7 +30,7 @@
             { name: 'Struture', heading: 'Kết cấu', className: 'text-center pd-0 break-word' },
             { name: 'AreaDescription', heading: 'Diện tích trống', width: '150px', className: 'text-center pd-0 break-word' },
             { name: 'PriceDescription', heading: 'Giá', className: 'text-center pd-0 break-word' },
-            { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+            { name: 'Action', heading: 'Thao tác', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
         sysViewID: 20,
