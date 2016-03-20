@@ -24,5 +24,14 @@ namespace Service.Data.Base
         {
             return System.Web.HttpUtility.HtmlDecode(xmlString);
         }
+
+        protected DataSet CallDataSetService(string ClientKey, string inputValue, dlg_CallFunction callFunction)
+        {
+            inputValue = HtmlDecode(inputValue);
+            DataSet ds = null;
+            ds = callFunction(ClientKey, inputValue);
+            return ds;
+
+        }
     }
 }

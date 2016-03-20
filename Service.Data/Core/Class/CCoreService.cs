@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Datalayer.DataObject.Core;
 using Service.Data.Base;
+using System.Data;
 
 namespace Service.Data.Core.Class
 {
@@ -12,6 +13,13 @@ namespace Service.Data.Core.Class
         public string GetContextData(string clientKey, string inputValue)
         {
             return CallCSVService(clientKey, inputValue,
+                new dlg_CallFunction((c, i) => new CCoreDao().GetContextData(c, i)));
+
+        }
+
+        public DataSet GetContextDataSet(string clientKey, string inputValue)
+        {
+            return CallDataSetService(clientKey, inputValue,
                 new dlg_CallFunction((c, i) => new CCoreDao().GetContextData(c, i)));
 
         }

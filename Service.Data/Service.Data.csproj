@@ -41,15 +41,47 @@
     <Reference Include="EPPlus">
       <HintPath>..\DLL\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Excel">
+      <HintPath>..\DLL\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client">
+      <HintPath>..\DLL\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="HttpCompress">
+      <HintPath>..\DLL\HttpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Microsoft.Office.Interop.Excel">
+      <HintPath>..\DLL\Interop.Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\DLL\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json.Net20">
       <HintPath>..\DLL\Newtonsoft.Json.Net20.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\DLL\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\DLL\office.dll</HintPath>
+    </Reference>
+    <Reference Include="PMSA.Framework.Log">
+      <HintPath>..\DLL\PMSA.Framework.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="PMSA.Framework.Utils">
+      <HintPath>..\DLL\PMSA.Framework.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -65,6 +97,8 @@
   <ItemGroup>
     <Content Include="Core\CoreService.asmx" />
     <Content Include="Core\TemplateService.asmx" />
+    <Content Include="Excel\TextFile1.txt" />
+    <Content Include="Excel\WebForm1.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -84,6 +118,20 @@
       <DependentUpon>TemplateService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Excel\Class\CExcelCSVOutput.cs" />
+    <Compile Include="Excel\Class\CExcelUtil.cs" />
+    <Compile Include="Excel\Class\CExcelUtilEx.cs" />
+    <Compile Include="Excel\Class\CMixExcel.cs" />
+    <Compile Include="Excel\Class\CProduct.cs" />
+    <Compile Include="Excel\Class\CTradeInterface.cs" />
+    <Compile Include="Excel\Class\test.cs" />
+    <Compile Include="Excel\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Excel\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,12 +142,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="_Template\NIPPON_4SSTemplate.xlsx" />
+    <Content Include="_Template\Excel\Template_InterfaceOrder.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Datalayer.DataObject\Datalayer.DataObject.csproj">
       <Project>{5826fbae-6c78-49f3-9997-d6c221e58328}</Project>
       <Name>Datalayer.DataObject</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_Template\Export\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

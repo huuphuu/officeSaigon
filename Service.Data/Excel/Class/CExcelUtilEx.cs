@@ -24,13 +24,13 @@ namespace PMSA.iMarkets.Service.Core.Class
                 CFormatForExcelUtilEx formatForExcelUtilEx = new CFormatForExcelUtilEx(resultFromCore);
                 if (formatForExcelUtilEx.LPartData.Count >= 3)
                     resultFromCore = String.Format("{{\"isSuccess\":true,\"data\":\"{0}\"}}", formatForExcelUtilEx.ToCSVOutput());
-                else 
+                else
                     resultFromCore = string.Format("{{\"isSuccess\":false,\"error\":\"{0}\"}}", formatForExcelUtilEx.Message);
             }
             return resultFromCore;
         }
 
-        public static string MakeExcelOnlineSub(string xmlInput)
+        public static string MakeExcelOnlineSub(string xmlInput, DataTable dt)
         {
             string result = string.Empty;
             CExcelCSVOutput output = new CExcelCSVOutput();
@@ -49,11 +49,11 @@ namespace PMSA.iMarkets.Service.Core.Class
                     //string fileName = xNode.Attributes["FileName"].Value;
                     //string content64 = xNode.Attributes["FileStructContent"].Value;
                     string fileName = String.Format("Template_InterfaceOrder_{0:ddMMyyyy_hhmmss}.xlsx", DateTime.Now);
-                    string samplePath = HttpRuntime.AppDomainAppPath +"_Template\\Excel";
-                    byte[] bSampleFileContent = File.ReadAllBytes(samplePath +"\\Template_InterfaceOrder.xlsx");
+                    string samplePath = HttpRuntime.AppDomainAppPath + "_Template\\Excel";
+                    byte[] bSampleFileContent = File.ReadAllBytes(samplePath + "\\Template_InterfaceOrder.xlsx");
                     string content64 = Convert.ToBase64String(bSampleFileContent);
-                    string contentJSon = xNode.Attributes["FileJSonData"].Value;
-                    result = MakeInputFromJSonAndExcelFile(fileName, content64, contentJSon);
+                    string contentJSon = "";//xNode.Attributes["FileJSonData"].Value;
+                    result = MakeInputFromJSonAndExcelFile(fileName, content64, contentJSon, dt);
                 }
                 else
                     result = output.CreateOutput("0", "1", "Error", "Error.Invalid Input!!!", null);
@@ -67,7 +67,7 @@ namespace PMSA.iMarkets.Service.Core.Class
         }
 
 
-        private static string MakeInputFromJSonAndExcelFile(string fileName,string content64,string sJSonDatabase64)
+        private static string MakeInputFromJSonAndExcelFile(string fileName, string content64, string sJSonDatabase64, DataTable dt)
         {
             StringBuilder sBuilder = new StringBuilder();
             var jsonSerializer = new JavaScriptSerializer();
@@ -75,18 +75,18 @@ namespace PMSA.iMarkets.Service.Core.Class
             string RawJsonData = ASCIIEncoding.ASCII.GetString(bJSonData);
             PMSA.Framework.Log.CLogManager.WriteSL("JsonRawInput", RawJsonData);
             var objtest = jsonSerializer.Deserialize<CTradeInterfaceList>(RawJsonData);
-            if(objtest is CTradeInterfaceList)
-            {
-               CTradeInterfaceList oCTradeInterfaceList = (CTradeInterfaceList)objtest;
-                //string CSVContent = "ID;Code;Name;Phone;BirthDate\n1;'KH01';'Tuong';'0989876666';'2013-12-01'\n2;'KH02';'Nam';'0102001111';'2013-12-20'" +
-                //                              "\n3;'KH03';'Thien';'0102001111';'2013-12-24'" +
-                //                              "\n###\nID;Code;Name;Phone;BirthDate\n1;'KH01';'Tuong';'0989876666';'2013-12-01'\n2;'KH02';'Nam';'0102001111';'2013-12-20'";
-               int sheetsNumber = 1;
-               string fileContent = CreateExcelSampleContent(fileName, content64,ref sheetsNumber);
-               List<CTradeInterface>[] lTemp = new List<CTradeInterface>[3];
-               lTemp[0] = new List<CTradeInterface>();
-               lTemp[1] = new List<CTradeInterface>();
-               lTemp[2] = new List<CTradeInterface>();
+            //   if(objtest is CTradeInterfaceList)
+            //    {
+            CTradeInterfaceList oCTradeInterfaceList = (CTradeInterfaceList)objtest;
+            //string CSVContent = "ID;Code;Name;Phone;BirthDate\n1;'KH01';'Tuong';'0989876666';'2013-12-01'\n2;'KH02';'Nam';'0102001111';'2013-12-20'" +
+            //                              "\n3;'KH03';'Thien';'0102001111';'2013-12-24'" +
+            //                              "\n###\nID;Code;Name;Phone;BirthDate\n1;'KH01';'Tuong';'0989876666';'2013-12-01'\n2;'KH02';'Nam';'0102001111';'2013-12-20'";
+            int sheetsNumber = 1;
+            string fileContent = CreateExcelSampleContent(fileName, content64, ref sheetsNumber);
+            List<CTradeInterface>[] lTemp = new List<CTradeInterface>[1];
+            lTemp[0] = new List<CTradeInterface>();
+            //lTemp[1] = new List<CTradeInterface>();
+            //lTemp[2] = new List<CTradeInterface>();
             /*   foreach (var item in oCTradeInterfaceList.ListTrade)
                {
                    if (item.IsFixedIncome == "1")
@@ -105,13 +105,30 @@ namespace PMSA.iMarkets.Service.Core.Class
                        lTemp[0].Add(item);
                }
                 */
-               string JSONContent = FormatCSV(lTemp, sheetsNumber);
-               JSONContent = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(JSONContent));
-               string inputXML = string.Format("<InputValue FileName=\"{0}\" FileStructContent=\"{1}\" FileCSVContent=\"{2}\"/>",fileName,fileContent,JSONContent);
-               
-               sBuilder.Append(MakeExcelOnlineEx(inputXML));
+            int i = 1;
+            foreach (DataRow r in dt.Rows)
+            {
+                CTradeInterface item = new CTradeInterface();
+                item.ID = i++;
+                item.Address = r["Address"] != null ? r["Address"].ToString() : "";
+                item.Name = r["Name"] != null ? r["Name"].ToString() : "";
+                item.AvailableArea = r["AvailableArea"] != null ? r["AvailableArea"].ToString() : "";
+                item.PriceDescription = r["PriceDescription"] != null ? r["PriceDescription"].ToString() : "";
+                item.VATTax = r["VATTax"] != null ? r["VATTax"].ToString() : "";
+                item.ServiceFee = r["ServiceFee"] != null ? r["ServiceFee"].ToString() : "";
+                item.Description = r["Description"] != null ? r["Description"].ToString() : "";
+
+                lTemp[0].Add(item);
             }
-            
+            //ltemp[1].add(item);
+            // ltemp[2].add(item);
+            string JSONContent = FormatCSV(lTemp, sheetsNumber);
+            JSONContent = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(JSONContent));
+            string inputXML = string.Format("<InputValue FileName=\"{0}\" FileStructContent=\"{1}\" FileCSVContent=\"{2}\"/>", fileName, fileContent, JSONContent);
+
+            sBuilder.Append(MakeExcelOnlineEx(inputXML));
+            // }
+
             return sBuilder.ToString();
         }
 
@@ -162,7 +179,7 @@ namespace PMSA.iMarkets.Service.Core.Class
 
         private static string CreateExcelSampleContent(string fileName, string content64, ref int sheetsNumber)
         {
-            string tempPath = System.Configuration.ConfigurationManager.AppSettings["iMarkets.Service.Core.ExcelService.TempPath"];
+            string tempPath = HttpRuntime.AppDomainAppPath + "_Template\\Export";// System.Configuration.ConfigurationManager.AppSettings["iMarkets.Service.Core.ExcelService.TempPath"];
             if (!Directory.Exists(tempPath))
                 Directory.CreateDirectory(tempPath);
             byte[] content = Convert.FromBase64String(content64);
@@ -173,7 +190,7 @@ namespace PMSA.iMarkets.Service.Core.Class
             return content64;
         }
 
-        private static string MakeFileExcelSample(CMixExcel mixExcel,ref int sheetsNumber)
+        private static string MakeFileExcelSample(CMixExcel mixExcel, ref int sheetsNumber)
         {
             string result = string.Empty;
             Stream _stream = null;
@@ -182,7 +199,7 @@ namespace PMSA.iMarkets.Service.Core.Class
             string pathsamplefileName = String.Format("{0}_Sample{1}", samplefileName, fileNameTail);
             FileStream fstream = File.Open(pathsamplefileName, FileMode.OpenOrCreate);
             fstream.Close();
-            File.Copy(mixExcel.PathFile,pathsamplefileName,true);
+            File.Copy(mixExcel.PathFile, pathsamplefileName, true);
             CMixExcel mixExcelSample = new CMixExcel(pathsamplefileName);
             if (mixExcel != null && mixExcel.ExcelMixCore is ExcelPackage)
             {
@@ -196,7 +213,7 @@ namespace PMSA.iMarkets.Service.Core.Class
                 for (int i = 1; i <= workSheetsSample.Count; i++)
                 {
                     var worksheetSample = workSheetsSample[i];
-                    var worksheet       = workSheets[i];
+                    var worksheet = workSheets[i];
                     System.Xml.XmlNodeList test = worksheetSample.WorksheetXml.GetElementsByTagName("dimension");
                     if (test != null && test.Count > 0)
                     {
@@ -264,14 +281,14 @@ namespace PMSA.iMarkets.Service.Core.Class
                     NPOI.HSSF.UserModel.HSSFSheet excelSheetSample = (NPOI.HSSF.UserModel.HSSFSheet)hssWorkbookSample.GetSheetAt(i);
                     NPOI.HSSF.UserModel.HSSFSheet excelSheet = (NPOI.HSSF.UserModel.HSSFSheet)hssWorkbook.GetSheetAt(i);
                     NPOI.HSSF.Record.DimensionsRecord sheetDementionSample = excelSheetSample.Sheet.Dimensions;
-                    NPOI.HSSF.Record.DimensionsRecord sheetDemention       = excelSheet.Sheet.Dimensions;
+                    NPOI.HSSF.Record.DimensionsRecord sheetDemention = excelSheet.Sheet.Dimensions;
                     for (int r = sheetDementionSample.FirstRow; r <= sheetDementionSample.LastRow; r++)
                     {
                         IRow rowSample = excelSheetSample.GetRow(r);
                         if (rowSample != null)
                             excelSheetSample.RemoveRow(rowSample);
                     }
-                        
+
                     for (int r = sheetDemention.FirstRow; r <= sheetDemention.LastRow; r++)
                     {
                         int maxCol = sheetDementionSample.LastCol;
@@ -281,7 +298,7 @@ namespace PMSA.iMarkets.Service.Core.Class
                             try
                             {
                                 IRow rowSample = excelSheetSample.GetRow(r);
-                                IRow row       = excelSheet.GetRow(r);
+                                IRow row = excelSheet.GetRow(r);
                                 if (row != null)
                                 {
                                     ICell excelSheetGetRowGetCellSample = rowSample.GetCell(c);
@@ -391,7 +408,8 @@ namespace PMSA.iMarkets.Service.Core.Class
         }
     }
 
-    public class CFormatForExcelUtilEx {
+    public class CFormatForExcelUtilEx
+    {
         public List<string> LPartData = new List<string>();
         public DataSet DSSheets = new DataSet();
         public string Result = "1";
@@ -403,10 +421,10 @@ namespace PMSA.iMarkets.Service.Core.Class
             for (int i = 0; i < strResultFromCore.Length; i++)
             {
                 LPartData.Add(strResultFromCore[i]);
-                if(i >= 2)
+                if (i >= 2)
                 {
                     csvContentSub += strResultFromCore[i];
-                    if(i < strResultFromCore.Length - 1)
+                    if (i < strResultFromCore.Length - 1)
                         csvContentSub += "\n###\n";
                 }
             }
@@ -449,21 +467,21 @@ namespace PMSA.iMarkets.Service.Core.Class
                                             if (dt.Rows[r][c] != null)
                                             {
                                                 dataCell = dt.Rows[r][c].ToString();
-                                                switch(dataCell)
+                                                switch (dataCell)
                                                 {
                                                     case "OrderID":
-                                                        sBuilder.Append("ID");break;
+                                                        sBuilder.Append("ID"); break;
                                                     case "Trs. Code":
                                                     case "Side":
-                                                        sBuilder.Append("SideString");break;
+                                                        sBuilder.Append("SideString"); break;
                                                     case "Order":
                                                     case "OrderType":
-                                                        sBuilder.Append("OrderTypeString");break;
+                                                        sBuilder.Append("OrderTypeString"); break;
                                                     case "Duration":
                                                     case "OrderDuration":
-                                                        sBuilder.Append("Durration");break;
+                                                        sBuilder.Append("Durration"); break;
                                                     case "Sec. Code":
-                                                        sBuilder.Append("SecuritiesCode");break;
+                                                        sBuilder.Append("SecuritiesCode"); break;
                                                     case "N. Units":
                                                         sBuilder.Append("FilledUnits"); break;
                                                     case "Price":
@@ -489,8 +507,8 @@ namespace PMSA.iMarkets.Service.Core.Class
                                         else
                                             sBuilder.Append(dt.Rows[r][c]);
                                         sBuilder.Append(";");
-                                        X:
-                                            int nothingToDo = 1;
+                                    X:
+                                        int nothingToDo = 1;
                                     }
 
                                     if (r == 1)

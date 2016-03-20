@@ -34,7 +34,7 @@ namespace Service.Data.Excel
              //   inputXml = PMSA.Framework.Utils.CXmlUtils.AddXmlAttribute(inputXml, "InputValue", "FileJSonData", dataInBase64);
 
                 CLogManager.WritePL("ExcelPlusExport", "Input Value::" + inputXml);
-                string outputXml =  PMSA.iMarkets.Service.Core.Class.CExcelUtilEx.MakeExcelOnlineSub(inputXml);
+                string outputXml =  PMSA.iMarkets.Service.Core.Class.CExcelUtilEx.MakeExcelOnlineSub(inputXml,sData);
 
                 CLogManager.WritePL("ExcelPlusExport", "Output Value::" + outputXml);
                 // Xy ly output

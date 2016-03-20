@@ -126,7 +126,7 @@ namespace PMSA.iMarkets.Service.Core.Class
                         contentCSV = System.Text.ASCIIEncoding.ASCII.GetString(Convert.FromBase64String(contentCSV));
                     }
                     catch { }
-                    string tempPath = System.Configuration.ConfigurationManager.AppSettings["iMarkets.Service.Core.ExcelService.TempPath"];
+                    string tempPath = HttpRuntime.AppDomainAppPath + "_Template\\Export";//System.Configuration.ConfigurationManager.AppSettings["iMarkets.Service.Core.ExcelService.TempPath"];
                     byte[] content = Convert.FromBase64String(content64);
                     File.WriteAllBytes(tempPath + "\\" + fileName, content);
                     DataSet ds = ConvertCVSToDataSet(contentCSV);
