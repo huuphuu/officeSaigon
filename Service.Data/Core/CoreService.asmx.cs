@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using Service.Data.Core.Class;
+using System.Data;
 
 namespace Service.Data.Core
 {
@@ -33,6 +34,12 @@ namespace Service.Data.Core
         public string Login(string clientKey, string inputValue)
         {
             return new CCoreService().Login(clientKey, inputValue);
+        }
+
+        [WebMethod]
+        public DataSet GetContextDataSet(string clientKey, string inputValue)
+        {
+            return new CCoreService().GetContextDataSet(clientKey, inputValue);
         }
     }
 }
