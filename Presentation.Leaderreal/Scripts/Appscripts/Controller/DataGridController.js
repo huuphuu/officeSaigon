@@ -5,11 +5,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     //new configuration for server side processing
     var vm = this;
     vm.gridData = [];
-    vm.rowsPerPage = 20;
+    vm.rowsPerPage = 25;
     vm.dtInstances = [];
 
     vm.selected = {};
     vm.selectAll = false;
+    $rootScope.selectedItems = {};
 
     vm.dtOptions = DTOptionsBuilder.newOptions()
     .withOption('ajax', function (data, callback, settings) {
@@ -195,10 +196,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 col.notSortable();
                 col.renderWith(function (data, type, full, meta) {
                     var result = '';
+                    vm.selected[full.ID] = false;
                     angular.forEach(field.listAction, function (value, key) {
                         result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-click="vm.toggleOne(vm.selected)">';
                     });
-
                     return result;
                 }).withOption('width', field.width);
                 break;
@@ -212,9 +213,14 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
     }
 
+    $scope.$watch('vm.selected', function (newVal, oldVal) {
+        console.log('vao', newVal, oldVal);
+        
+        angular.extend($rootScope.selectedItems, vm.selected);
+        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
+    });
+
     vm.toggleAll = function (selectAll, selectedItems) {
-        console.log('selectAll', selectAll);
-        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 selectedItems[id] = selectAll;
@@ -223,7 +229,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     }
 
     vm.toggleOne = function (selectedItems) {
-        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 if (!selectedItems[id]) {
