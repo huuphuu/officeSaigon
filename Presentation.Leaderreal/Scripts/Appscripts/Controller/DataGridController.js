@@ -213,19 +213,13 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
     }
 
-    $scope.$watch('vm.selected', function (newVal, oldVal) {
-        console.log('vao', newVal, oldVal);
-        
-        angular.extend($rootScope.selectedItems, vm.selected);
-        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
-    });
-
     vm.toggleAll = function (selectAll, selectedItems) {
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 selectedItems[id] = selectAll;
             }
         }
+        $rootScope.selectedItems = selectedItems;
     }
 
     vm.toggleOne = function (selectedItems) {
@@ -233,6 +227,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             if (selectedItems.hasOwnProperty(id)) {
                 if (!selectedItems[id]) {
                     vm.selectAll = false;
+                    $rootScope.selectedItems = selectedItems;
                     return;
                 }
             }
@@ -243,6 +238,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     vm.actionClick = function (row, act, obj) {
         $scope.gridInfo.onActionClick(row, act);
     }
+
+
 
     vm.setData = function (item, col) {
         var row = angular.copy(item);

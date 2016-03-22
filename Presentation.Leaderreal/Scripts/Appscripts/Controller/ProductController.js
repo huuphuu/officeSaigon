@@ -54,7 +54,7 @@
                     break;
 
                 case 'multiSelect':
-
+                    console.log();
                     break;
 
                 case 'chart':
@@ -357,6 +357,19 @@
 
     }
 
+
+    $scope.exportExcels = function () {
+        var selectedId = [];
+        var selectedItems = $rootScope.selectedItems;
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if (selectedItems[id]) {
+                    selectedId.push(id);
+                }
+            }
+        }
+        console.log('selectedId', selectedId);
+    };
 
     $scope.changeDistrict = function (districtID) {
         $scope.dataSelected.WardId = null;
