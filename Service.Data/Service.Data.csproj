@@ -97,7 +97,8 @@
   <ItemGroup>
     <Content Include="Core\CoreService.asmx" />
     <Content Include="Core\TemplateService.asmx" />
-    <Content Include="Excel\TextFile1.txt" />
+    <Content Include="Excel\export.aspx" />
+    <Content Include="Excel\js\jquery-2.2.2.min.js" />
     <Content Include="Excel\WebForm1.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -125,6 +126,13 @@
     <Compile Include="Excel\Class\CProduct.cs" />
     <Compile Include="Excel\Class\CTradeInterface.cs" />
     <Compile Include="Excel\Class\test.cs" />
+    <Compile Include="Excel\export.aspx.cs">
+      <DependentUpon>export.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Excel\export.aspx.designer.cs">
+      <DependentUpon>export.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Excel\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

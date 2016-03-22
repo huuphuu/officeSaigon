@@ -4,6 +4,7 @@
 var coreApp;
 (function () {
     coreApp = {
+       
         cookie: {
             set: function (name, value, exdays) {
                 if (typeof exdays == 'undefined') exdays = 7;
@@ -260,6 +261,58 @@ var coreApp;
             slug = "@" + slug + "@";
             slug = slug.replace(/\@\-|\-\@|\@/gi, "");
             return slug;
+        },
+        iFrame: function (obj) {
+            try {
+                var iFrame = $(obj)[0];
+                var iFrameWindow = iFrame.contentWindow ? iFrame.contentWindow : iFrame.contentDocument.defaultView;
+                return iFrameWindow;
+            }
+            catch (ex) {
+
+            }
+        },
+        GetFunctionFromiFrame: function (frame, methodName, methodParam, count, limit, callback) {
+            var thisObj = this;
+            count = count || 0;
+            limit = limit || 20;
+            if (frame && methodName) {
+                if (typeof frame == "string") {
+                    if (frame.indexOf("#") == -1 && frame.indexOf(".") == -1)
+                        frame = "#" + frame;
+                }
+                var fr = thisObj.iFrame(frame);
+                if (typeof fr != "undefined" && fr) {
+                    var method = "fr." + methodName;
+                    var fn = eval(method);
+                    if (fr.document.readyState == "complete" && typeof fn == "function") {
+                        var ret = fn(methodParam);
+                        if (typeof callback == "function") {
+                            callback();
+                        }
+                        return ret;
+                    }
+                    count++;
+                    if (count >= limit) {
+                        if (typeof callback == "function") {
+                            callback();
+                        }
+                        return false;
+                    }
+                    window.setTimeout(function () {
+                        return thisObj.GetFunctionFromiFrame(frame, methodName, methodParam, count, limit, callback);
+                    }, 1000);
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        },
+        CallFunctionFromiFrame: function (frameID, methodName, methodParam, callback, limit) {
+            return this.GetFunctionFromiFrame(frameID, methodName, methodParam, 0, limit, callback);
         }
     }
 })();
@@ -378,6 +431,7 @@ var coreApp;
 
             };
         }
+       
     }
 })(coreApp);
 //-----------------------------------------------------------------------------
@@ -397,3 +451,8 @@ angular.module('app.service', [])
 
 //.service('filledInfoService', coreApp.service.filledInfo)
 ;
+
+
+
+
+

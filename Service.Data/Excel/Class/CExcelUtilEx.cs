@@ -123,7 +123,7 @@ namespace PMSA.iMarkets.Service.Core.Class
             //ltemp[1].add(item);
             // ltemp[2].add(item);
             string JSONContent = FormatCSV(lTemp, sheetsNumber);
-            JSONContent = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(JSONContent));
+            JSONContent = Convert.ToBase64String(ASCIIEncoding.UTF8.GetBytes(JSONContent));
             string inputXML = string.Format("<InputValue FileName=\"{0}\" FileStructContent=\"{1}\" FileCSVContent=\"{2}\"/>", fileName, fileContent, JSONContent);
 
             sBuilder.Append(MakeExcelOnlineEx(inputXML));

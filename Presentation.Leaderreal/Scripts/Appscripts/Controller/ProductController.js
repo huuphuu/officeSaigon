@@ -289,7 +289,10 @@
         Sys_ViewID: 20
     };
 
+    $scope.exportExcel = function () {
 
+        alert('a');
+    }
 
     $scope.search = function (searchEntry) {
         // $rootScope.showModal = true;
@@ -368,7 +371,16 @@
                 }
             }
         }
-        console.log('selectedId', selectedId);
+        selectedId.push(615);
+        selectedId.push(616);
+        selectedId.push(617);
+        selectedId.push(618);
+        selectedId.push(619);
+        var hiddenIframeId = "#hiddenDownloader";
+        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", selectedId.toString(), function () { }, 100);
+        //   thisObj._win.RunExport(_data);
+
+        console.log('selectedId', selectedId.toString());
     };
 
     $scope.changeDistrict = function (districtID) {

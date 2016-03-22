@@ -1,42 +1,53 @@
-﻿using PMSA.Framework.Utils;
-using PMSA.Framework.Log;
+﻿using PMSA.Framework.Log;
+using Service.Data.Core.Class;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO;
-using System.Text;
-using System.Data;
-using Service.Data.Core.Class;
-
 
 namespace Service.Data.Excel
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class export : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string inputValue = "<InputValue UserID=\"2\" /><RequestParams draw=\"1\"  start=\"0\"  length=\"1\"  Sys_ViewID=\"20\" />";
-            DataSet data = new CCoreService().GetContextDataSet("", inputValue);
+            string sData = Context.Request.Form["data"];
+            if (String.IsNullOrEmpty(sData)) { return; }
+            try
+            {
+                string inputValue =string.Format( "<InputValue UserID=\"2\" /><RequestParams ListProductId=\"{0}\"  start=\"0\"  length=\"1\"  Sys_ViewID=\"23\" />",sData);
+                DataSet data = new CCoreService().GetContextDataSet("", inputValue);
 
-            ExcelPlusExport(data.Tables[0], Context);
+                ExcelPlusExport(data.Tables[0], Context);
+                Response.Cookies["iscompleteexport"].Value = "true";
+                //Export(sData);
+
+            }
+            catch (Exception ex)
+            {
+                Response.Cookies["iscompleteexport"].Value = "false";
+                Response.Write(ex.ToString());
+                Response.End();
+                // Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "Exception", string.Format("alert('{0}')", ex.ToString()), true);
+            }
         }
-        private void ExcelPlusExport( DataTable sData, HttpContext context)
+        private void ExcelPlusExport(DataTable sData, HttpContext context)
         {
             try
             {
-                //CLogManager.WritePL("ExcelPlusExport", "Input Data::" + sData);
+                CLogManager.WritePL("ExcelPlusExport", "Input Data::" + sData);
                 //build Input <InputValue FileJSonData="StrinInBase64"/>
                 string inputXml = "<InputValue />";
                 string dataInBase64 = "";// PMSA.Framework.Utils.CBinaryUtils.BinaryToBase64(System.Text.Encoding.UTF8.GetBytes(sData));
-             //   inputXml = PMSA.Framework.Utils.CXmlUtils.AddXmlAttribute(inputXml, "InputValue", "FileJSonData", dataInBase64);
+                //   inputXml = PMSA.Framework.Utils.CXmlUtils.AddXmlAttribute(inputXml, "InputValue", "FileJSonData", dataInBase64);
 
-                CLogManager.WritePL("ExcelPlusExport", "Input Value::" + inputXml);
-                string outputXml =  PMSA.iMarkets.Service.Core.Class.CExcelUtilEx.MakeExcelOnlineSub(inputXml,sData);
+             //   CLogManager.WritePL("ExcelPlusExport", "Input Value::" + inputXml);
+                string outputXml = PMSA.iMarkets.Service.Core.Class.CExcelUtilEx.MakeExcelOnlineSub(inputXml, sData);
 
-                CLogManager.WritePL("ExcelPlusExport", "Output Value::" + outputXml);
+            //    CLogManager.WritePL("ExcelPlusExport", "Output Value::" + outputXml);
                 // Xy ly output
                 string result = PMSA.Framework.Utils.CXmlUtils.GetXmlNodeValue(outputXml, "OutputValue/@Result");
                 if (result == "1")
@@ -79,7 +90,7 @@ namespace Service.Data.Excel
             }
             catch (Exception ex)
             {
-                CLogManager.WritePL("ExcelPlusExport", ex.ToString());
+            //    CLogManager.WritePL("ExcelPlusExport", ex.ToString());
                 throw ex;
             }
         }

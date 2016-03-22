@@ -123,7 +123,7 @@ namespace PMSA.iMarkets.Service.Core.Class
                     string contentCSV = xNode.Attributes["FileCSVContent"].Value;
                     try
                     {
-                        contentCSV = System.Text.ASCIIEncoding.ASCII.GetString(Convert.FromBase64String(contentCSV));
+                        contentCSV = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(contentCSV));
                     }
                     catch { }
                     string tempPath = HttpRuntime.AppDomainAppPath + "_Template\\Export";//System.Configuration.ConfigurationManager.AppSettings["iMarkets.Service.Core.ExcelService.TempPath"];
