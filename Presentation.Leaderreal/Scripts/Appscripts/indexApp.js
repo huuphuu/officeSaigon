@@ -373,7 +373,8 @@ angular.module('indexApp')
             scope: {
                 gridInfo: '=',
                 rootScope: '=',
-                gridData: '='
+                gridData: '=',
+                setData: '&'
             },
             controller: function ($scope, gridService) {
                 $scope.actionClick = function (row, act, obj) {

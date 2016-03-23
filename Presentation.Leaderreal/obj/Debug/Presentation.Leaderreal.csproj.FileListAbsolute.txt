@@ -4,3 +4,9 @@ C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.Leade
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.csprojResolveAssemblyReference.cache
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.dll
 C:\Users\Ly\Dropbox\Websites\Du an website\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.pdb
+C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\bin\Presentation.Leaderreal.dll.config
+C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\bin\Presentation.Leaderreal.dll
+C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\bin\Presentation.Leaderreal.pdb
+C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.csprojResolveAssemblyReference.cache
+C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.dll
+C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.pdb

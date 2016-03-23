@@ -59,8 +59,17 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("pageLength", vm.rowsPerPage)
         .withOption("searching", true)
         .withOption("autowidth", false)
-        .withOption('fnRowCallback', function (nRow) {
+        .withOption('fnRowCallback', function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
             $compile(nRow)($scope);
+            // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+            $('td', nRow).unbind('click');
+            $('td', nRow).bind('click', function () {
+                $scope.$apply(function () {
+                    vm.setData(aData);
+                    vm.someClickHandler(aData);
+                });
+            });
+            return nRow;
             //$('td', nRow).attr('nowrap', 'nowrap');
             //return nRow;
         })
@@ -68,6 +77,17 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
         })
+//        .withOption('rowCallback', function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+//            console.log('vao');
+//            // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+//            $('td', nRow).unbind('click');
+//            $('td', nRow).bind('click', function () {
+//                $scope.$apply(function () {
+//                    vm.someClickHandler(aData);
+//                });
+//            });
+//            return nRow;
+//        })
         .withOption('headerCallback', function (header) {
             if (!vm.headerCompiled) {
                 // Use this headerCompiled field to only compile header once
@@ -76,6 +96,11 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             }
         })
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
+    vm.someClickHandler = function (info) {
+        console.log('info', info);
+        vm.message = info.id + ' - ' + info.firstName;
+    }
+
 
     function addSearchValueToData(originalDataObj, searchObj) {
         angular.forEach(searchObj, function (value, key) {

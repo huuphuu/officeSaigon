@@ -64,7 +64,9 @@
 
 
      $scope.setData = function (data) {
+         console.log('data', data);
          if (typeof data != 'undefined') {
+             
              $scope.dataSeleted = data;
              $scope.layout.enableClear = true;
              $scope.layout.enableButtonOrther = true;
