@@ -39,7 +39,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                         data = pData[1];
                         totalRow = pData[2][0].TotalRow;
                     }
-
+            
             callback({
                 recordsTotal: totalRow,
                 recordsFiltered: totalRow,
@@ -77,17 +77,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
         })
-//        .withOption('rowCallback', function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-//            console.log('vao');
-//            // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
-//            $('td', nRow).unbind('click');
-//            $('td', nRow).bind('click', function () {
-//                $scope.$apply(function () {
-//                    vm.someClickHandler(aData);
-//                });
-//            });
-//            return nRow;
-//        })
         .withOption('headerCallback', function (header) {
             if (!vm.headerCompiled) {
                 // Use this headerCompiled field to only compile header once
@@ -101,6 +90,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         vm.message = info.id + ' - ' + info.firstName;
     }
 
+    function convertStringtoNumber(array, fieldName) {
+        angular.forEach(array, function (item, key) {
+            if (!isNaN(item[fieldName]) && item[fieldName] != '')
+                item[fieldName] = parseInt(item[fieldName]);
+        });
+    }
 
     function addSearchValueToData(originalDataObj, searchObj) {
         angular.forEach(searchObj, function (value, key) {

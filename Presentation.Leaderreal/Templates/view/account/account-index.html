@@ -4,7 +4,7 @@
 </div>
 
 <div ng-controller="UserCtrl" ng-init="init()">
-    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0 auto;">
         <tr>
             <td style="vertical-align: top;">
                 <angular-grid-table grid-info="gridInfo" root-scope="this" set-data="setData"></angular-grid-table>
@@ -31,7 +31,7 @@
                                 <td class="td" style="padding: 5px;">
                                     <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password"
                                            ng-hide="dataSeleted.ID!=0">
-                                    <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password1" placeholder="Password"
+                                    <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password" placeholder="Password"
                                            ng-hide="dataSeleted.ID==0">
                                     <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()"
                                             ng-hide="dataSeleted.ID==0">
@@ -39,21 +39,27 @@
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="width: 150px; padding: 5px;" class="td">
-                                    Nhân viên
-                                </td>
-                                <td class="td" style="padding: 5px;">
-                                    <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">
-                                        <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>
-                                        <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">
-                                            <span ng-bind-html="item.Name | highlight: $select.search"></span>
-                                            <small ng-bind-html="item.Code | highlight: $select.search"></small>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                    </ui-select>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td class="td" style="padding: 5px;">
+                                Họ tên
+                            </td>
+                            <td class="td" style="padding: 5px;">
+                                <input type="text" class="form-control" id="FullName" name="FullName" ng-model="dataSeleted.FullName" placeholder="Họ tên">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td" style="padding: 5px;">
+                                Tình trạng
+                            </td>
+                            <td class="td" style="padding: 5px;">
+                                <select ng-model="dataSeleted.Status" name="Status" id="Status"
+                                        ng-options="option.value as option.name for option in statusOptions">
+                                    <option value="">
+                                        -- Chọn Tình trạng
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </form>

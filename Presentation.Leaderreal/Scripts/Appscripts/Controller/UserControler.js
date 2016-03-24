@@ -4,20 +4,23 @@
          gridID: 'usergrid',
          table: null,
          cols: [
-             { name: 'UserName', heading: 'Login Name', width: '20%', isHidden: false },
-             { name: 'EmployeeName', heading: 'Employee Name', wdth: '20%', isHidden: false },
-             { name: 'StatusName', heading: 'Status', width: '30%' }
+             { name: 'UserName', heading: 'Login Name', width: '20%', className: 'text-center pd-0 break-word', isHidden: false },
+             { name: 'EmployeeName', heading: 'Employee Name', wdth: '20%', className: 'text-center pd-0 break-word', isHidden: false },
+             { name: 'StatusName', heading: 'Status', width: '30%', className: 'text-center pd-0 break-word' }
          ],
 
          data: [],
          sysViewID: 7,
          searchQuery: '',
      }
+     //Defines variables
      $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+     $scope.statusOptions = statusOptions;
      $scope.userlist = [];
      $scope.employeelist = [];
      $scope.roles = [];
-     $scope.dataSeleted = { ID: 0, UserName: "", Password: "", EmployeeID: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+     $scope.dataSeleted = { ID: 0, UserName: "", Password: "", FullName: "", EmployeeID: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+
      coreService.getList(3, function (data) {
          $scope.employeelist = data[1];
      });
@@ -29,9 +32,7 @@
              //console.log("user roles::", data);
          });
      }
-     $scope.resetPassword = function () {
-
-         
+     $scope.resetPassword = function () {    
          var hashPass = md5.createHash($scope.dataSeleted.Password || '');
          var entry = { UserID: $scope.dataSeleted.ID, Password: hashPass, Action: 'UPDATE::RESETPASS' };
          var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
@@ -46,6 +47,7 @@
              //$scope.confirmed = 'You confirmed "No."';
          });
      }
+
      $scope.checkRoleAll = function (propertyName) {
 
          if ($scope.roles == undefined) return;
@@ -128,7 +130,7 @@
      }
 
      $scope.reset = function (data) {
-         $scope.dataSeleted = { ID: 0, UserName: '', Password: '', EmployeeID: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+//         $scope.dataSeleted = { ID: 0, UserName: '', Password: '', FullName: '', EmployeeID: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
          $scope.layout = {
              enableClear: false,
              enableButtonOrther: false
@@ -147,6 +149,7 @@
          }, 200);
 
          $scope.reset(null);
+         console.log('$scope.dataSeleted', $scope.dataSeleted);
      }
 
      $scope.changeText = function () {
