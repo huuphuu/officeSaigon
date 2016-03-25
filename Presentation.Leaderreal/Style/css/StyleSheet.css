@@ -1067,18 +1067,22 @@
 }
 
 body {
-    margin: 0; padding: 0 5px;
+    margin: 0;
+    padding: 0 5px;
 }
 
 .hide {
     display: none;
 }
+
 .showw {
     display: block;
 }
+
 .text-uppercase {
     text-transform: uppercase;
 }
+
 .text-lowercase {
     text-transform: lowercase;
 }
@@ -1298,9 +1302,11 @@ a {
 .text-center {
     text-align: center;
 }
+
 .text-left {
     text-align: left;
 }
+
 .text-right {
     text-align: right;
 }
@@ -1767,7 +1773,7 @@ a {
 
     .modal-header .close {
         margin-top: -2px;
-            float: right;
+        float: right;
     }
 
 .modal-title {
@@ -1828,6 +1834,18 @@ a {
         width: 900px;
     }
 }
+
 m:hover {
     cursor: pointer;
 }
+
+    .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+        pointer-events: none;
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        opacity: .65;
+    }
+
+
