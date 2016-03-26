@@ -22,6 +22,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
                  //    }
                  //}
              })
+        .state('assigncustomer', {
+            url: '/assign-customer',
+            templateUrl: '/Templates/view/assignCustomer/assign-customer-index.html',
+            controller: 'AssignCustomerCtrl'
+        })
         .state('employee', {
             url: '/employee',
             templateUrl: '/Templates/view/employee/employee-index.html'
