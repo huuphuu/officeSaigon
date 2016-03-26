@@ -1,0 +1,104 @@
+﻿<content-header title-name="ASSIGN CUSTOMER TO USER"></content-header>
+
+<div style="background-color: #72b3e9; height: 5px; width: 100%;">
+</div>
+<!--search table-->
+<form name="searchProductForm" class="form-horizontal" novalidate="">
+    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+        <tbody>
+            <tr>
+                <td class="td" colspan="4" style="background-color: #cccccc; padding-left: 5px; height: 28px;">
+                    Tìm kiếm
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Tên người dùng:
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <ui-select ng-model="dataSelected.userID" theme="selectize" ng-disabled="disabled" title="Choose a employee">
+                        <ui-select-match placeholder="Select or search a user in the list...">{{$select.selected.FullName}}</ui-select-match>
+                        <ui-select-choices repeat="item.ID as item in userList | filter: $select.search">
+                            <span ng-bind-html="item.FullName | highlight: $select.search"></span>
+                            <small ng-bind-html="item.UserName | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    <button ng-click="assignCustomers()">Cập nhật</button>
+                </td>
+            </tr>
+            <!--<tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Tên khách hàng
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="Name" name="Name" ng-model="searchEntry.Name" placeholder="">
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Số điện thoại
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="Phone" name="Phone" ng-model="searchEntry.Phone" placeholder="">
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Email
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <input type="text" id="Email" name="Email" ng-model="searchEntry.Email" placeholder="">
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Khách hàng tiềm năng?
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.Potential"
+                            ng-options="option.value as option.name for option in potentialOptions">
+                        <option value="">Tất cả</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Tình trạng
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.Status" name="Status" id="Status"
+                            ng-options="option.value as option.name for option in statusOptions">
+                        <option value="">
+                            -- Tất cả
+                        </option>
+                    </select>
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Loại khách hàng
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.Potential"
+                            ng-options="option.value as option.name for option in customerTypeOptions"></select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    Chỉ định tới user?
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;">
+                    <select ng-model="searchEntry.Potential"
+                            ng-options="item.ID as item.Name for item in assignedUserIDSelectList"></select>
+                </td>
+                <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
+                    <input type="submit" class="form-control btn-success" ng-click="search(searchEntry)" value="TÌM KIẾM" style="width: 142px;" />
+                </td>
+                <td class="td" style="background-color: #dddddd; padding-left: 5px;"></td>
+            </tr>-->
+        </tbody>
+    </table>
+</form>
+<div>
+    <!--list table-->
+    <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
+</div>
+
+<div style="margin-top: 10px;">
+</div>
