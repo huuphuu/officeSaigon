@@ -21,7 +21,7 @@
                                     Tên đăng nhập
                                 </td>
                                 <td class="td" style="padding: 5px;">
-                                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName" ng-change="changeText()" ng-model="dataSeleted.UserName" />
+                                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName" ng-change="changeText()" ng-model="dataSelected.UserName" />
                                 </td>
                             </tr>
                             <tr>
@@ -29,9 +29,9 @@
                                     Mật khẩu
                                 </td>
                                 <td class="td" style="padding: 5px;">
-                                    <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password"
+                                    <input ng-model="dataSelected.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password"
                                            ng-hide="dataSeleted.ID!=0">
-                                    <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password" placeholder="Password"
+                                    <input ng-model="dataSelected.Password" type="text" class="form-control" id="Password" placeholder="Password"
                                            ng-hide="dataSeleted.ID==0">
                                     <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()"
                                             ng-hide="dataSeleted.ID==0">
@@ -44,7 +44,7 @@
                                 Họ tên
                             </td>
                             <td class="td" style="padding: 5px;">
-                                <input type="text" class="form-control" id="FullName" name="FullName" ng-model="dataSeleted.FullName" placeholder="Họ tên">
+                                <input type="text" class="form-control" id="FullName" name="FullName" ng-model="dataSelected.FullName" placeholder="Họ tên">
                             </td>
                         </tr>
                         <tr>
@@ -52,7 +52,7 @@
                                 Tình trạng
                             </td>
                             <td class="td" style="padding: 5px;">
-                                <select ng-model="dataSeleted.Status" name="Status" id="Status"
+                                <select ng-model="dataSelected.Status" name="Status" id="Status"
                                         ng-options="option.value as option.name for option in statusOptions">
                                     <option value="">
                                         -- Chọn Tình trạng
@@ -169,17 +169,17 @@
 <!--                    <div class="form-group">-->
 <!--                        <label for="inputEmail3" class="col-sm-3 control-label">Login Name</label>-->
 <!--                        <div class="col-sm-9 padding-right-19">-->
-<!--                            <input ng-model="dataSeleted.UserName" type="text" class="form-control" id="inputEmail3" placeholder="Email" ng-change="changeText()"></input>-->
+<!--                            <input ng-model="dataSelected.UserName" type="text" class="form-control" id="inputEmail3" placeholder="Email" ng-change="changeText()"></input>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                    <div class="form-group">-->
 <!--                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>-->
 <!--                        <div class="col-sm-9 padding-right-19 " ng-hide="dataSeleted.ID!=0">-->
-<!--                            <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password">-->
+<!--                            <input ng-model="dataSelected.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password">-->
 <!--                        </div>-->
 <!---->
 <!--                        <div class="col-sm-7" ng-hide="dataSeleted.ID==0">-->
-<!--                            <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password1" placeholder="Password">-->
+<!--                            <input ng-model="dataSelected.Password" type="text" class="form-control" id="Password1" placeholder="Password">-->
 <!--                        </div>-->
 <!--                        <div class="col-sm-2 padding-right-19 pull-right" ng-hide="dataSeleted.ID==0">-->
 <!--                            <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()">-->
@@ -192,7 +192,7 @@
 <!--                    <div class="form-group">-->
 <!--                        <label for="employee" class="col-sm-3 control-label">Employee</label>-->
 <!--                        <div class="col-sm-9 padding-right-19">-->
-<!--                            <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">-->
+<!--                            <ui-select ng-model="dataSelected.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">-->
 <!--                                <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>-->
 <!--                                <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">-->
 <!--                                    <span ng-bind-html="item.Name | highlight: $select.search"></span>-->
@@ -277,7 +277,7 @@
 <!---->
 <!--                <button type="button" class="btn btn-default ng-hide" ng-click="resetUser();">-->
 <!--                    <span class="glyphicon glyphicon-arrow-left"></span>-->
-<!--                </button>-->-->
+<!--                </button>-->
 <!--            </div>-->
 <!--        </div>-->
 <!---->
