@@ -1,4 +1,4 @@
-﻿<content-header title-name="KHÁCH HÀNG - XEM DANH SÁCH"></content-header>
+﻿<content-header title-name="KHÁCH HÀNG - XEM DS"></content-header>
 
 <div style="background-color: #72b3e9; height: 5px; width: 100%;">
 </div>
@@ -58,7 +58,7 @@
                     Loại khách hàng
                 </td>
                 <td class="td" style="background-color: #dddddd; padding-left: 5px;">
-                    <select ng-model="searchEntry.Potential"
+                    <select ng-model="searchEntry.Assign"
                             ng-options="option.value as option.name for option in customerTypeOptions"></select>
                 </td>
             </tr>
@@ -67,7 +67,7 @@
                     Chỉ định tới user?
                 </td>
                 <td class="td" style="background-color: #dddddd; padding-left: 5px;">
-                    <select ng-model="searchEntry.Potential"
+                    <select ng-model="searchEntry.UserID"
                             ng-options="item.ID as item.Name for item in assignedUserIDSelectList"></select>
                 </td>
                 <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">

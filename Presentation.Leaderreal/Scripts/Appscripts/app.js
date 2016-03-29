@@ -173,11 +173,11 @@ var potentialOptions = [
 var customerTypeOptions = [
         {
             name: 'AssignedToMe',
-            value: '1'
+            value: '0'
         },
         {
             name: 'General',
-            value: '0'
+            value: '1'
         }
 ];
 

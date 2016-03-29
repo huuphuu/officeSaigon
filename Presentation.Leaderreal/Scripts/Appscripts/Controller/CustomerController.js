@@ -1,9 +1,56 @@
 ﻿angular.module('indexApp')
 .controller('CustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
     $rootScope.showModal = false;
+
+
+    $scope.statusOptions = statusOptions;
+    $scope.potentialOptions = potentialOptions;
+    $scope.customerTypeOptions = customerTypeOptions;
+    $scope.contractStatus = contractStatus;
+    $scope.layout = {
+        enableClear: false,
+        enableButtonOrther: false
+    }
+
+    $scope.searchEntry = {
+        UnAssignedName: null,
+        Phone: null,
+        Email: null,
+        Potential: null,
+        Status: null,
+        Type: null,
+        UserID: null,
+        Assign: $scope.customerTypeOptions[0].value,
+        Sys_ViewID: 21
+    };
+
+    //var gridCols1 = [
+    //         { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
+    //          { name: 'ID', heading: 'ID', isHidden: true },
+    //          //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
+    //          { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
+    //          { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
+    //          { name: 'Phone', heading: 'Phone', className: 'text-center pd-0 break-word' },
+    //          { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
+    //          { name: 'Request', heading: 'Yêu cầu', className: 'text-center pd-0 break-word' },
+    //          { name: 'CareNote', heading: 'Quá trình chăm sóc', className: 'text-center pd-0 break-word' },
+    //          { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+    //]
+
+    //var gridCols2 = [
+    //         { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
+    //          { name: 'ID', heading: 'ID', isHidden: true },
+    //          { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
+    //          { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
+    //          { name: 'Phone', heading: 'Phone', className: 'text-center pd-0 break-word' },
+    //          { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
+    //          { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+    //]
+
     $scope.gridInfo = {
         gridID: 'customergrid',
         table: null,
+        //cols: $scope.searchEntry.Assign == '0' ? gridCols1 : gridCols2,
         cols: [
              { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
               { name: 'ID', heading: 'ID', isHidden: true },
@@ -46,16 +93,15 @@
         }
     }
 
-    $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    //$scope.$watch('searchEntry.Assign', function (newVal, oldVal) {
+    //    if (newVal == '0')
+    //        $scope.gridInfo.cols = gridCols1;
+    //    else
+    //        $scope.gridInfo.cols = gridCols2;
+    //});
 
-    $scope.statusOptions = statusOptions;
-    $scope.potentialOptions = potentialOptions;
-    $scope.customerTypeOptions = customerTypeOptions;
-    $scope.contractStatus = contractStatus;
-    $scope.layout = {
-        enableClear: false,
-        enableButtonOrther: false
-    }
+
+    $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
     $scope.dataSelected = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
         window.setTimeout(function () {
@@ -166,7 +212,7 @@
 
                 $scope.dataSelected = data[1][0];
                 $rootScope.showModal = false;
-                console.log('$scope.dataSelected', $scope.dataSelected);
+                //console.log('$scope.dataSelected', $scope.dataSelected);
                 $scope.$apply();
                 //console.log('CustomerID after', data[1]);
             });
@@ -185,7 +231,7 @@
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
-            
+
             //console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
@@ -234,25 +280,12 @@
         }
     }
 
-    $scope.searchEntry = {
-        UnAssignedName: null,
-        Phone: null,
-        Email: null,
-        Potential: null,
-        Status: null,
-        Type: null,
-        UserID: null,
-        Sys_ViewID: 21
-    };
-
-
-
     $scope.search = function (searchEntry) {
-         $rootScope.showModal = true;
+        $rootScope.showModal = true;
 
         for (var property in searchEntry) {
             if (searchEntry.hasOwnProperty(property)) {
-                if (searchEntry[property] == '' || searchEntry[property] == false || searchEntry[property] == null) {
+                if (searchEntry[property] == '' || searchEntry[property] == null) {
                     delete searchEntry[property];
                 }
             }
@@ -267,9 +300,24 @@
 
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
+                if ($scope.searchEntry.Assign == '1') {
+                    $scope.gridInfo.dtInstance.DataTable.column(6).visible(false);
+                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+                } else {
+                    $scope.gridInfo.dtInstance.DataTable.column(6).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                }
                 $scope.gridInfo.dtInstance.reloadData();
             }, 1000);
         } else {
+            if ($scope.searchEntry.Assign == '1') {
+                $scope.gridInfo.dtInstance.DataTable.column(6).visible(false);
+                $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+            } else {
+                $scope.gridInfo.dtInstance.DataTable.column(6).visible(true);
+                $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+            }
+            
             $scope.gridInfo.dtInstance.reloadData();
         }
 
