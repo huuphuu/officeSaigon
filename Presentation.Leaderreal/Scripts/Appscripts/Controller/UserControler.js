@@ -4,9 +4,9 @@
          gridID: 'usergrid',
          table: null,
          cols: [
-             { name: 'UserName', heading: 'Login Name', width: '20%', className: 'text-center pd-0 break-word', isHidden: false },
-             { name: 'EmployeeName', heading: 'Employee Name', wdth: '20%', className: 'text-center pd-0 break-word', isHidden: false },
-             { name: 'StatusName', heading: 'Status', width: '30%', className: 'text-center pd-0 break-word' }
+             { name: 'UserName', heading: 'Tên đăng nhập', width: '20%', className: 'text-center pd-0 break-word', isHidden: false },
+             { name: 'FullName', heading: 'Họ tên', wdth: '20%', className: 'text-center pd-0 break-word', isHidden: false },
+             { name: 'StatusName', heading: 'Trạng thái', width: '30%', className: 'text-center pd-0 break-word' }
          ],
 
          data: [],
