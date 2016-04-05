@@ -1,36 +1,55 @@
-﻿<section class="content-header">
-    <h1>Dashboard
-            <small>Control panel</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Dashboard</li>
-    </ol>
-</section>
-
-<section class="content">
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-        <div class="col-lg-3 col-xs-6 Pointer" ng-repeat="item in metroNavigation" ng-if="item.LinkURL!=''" ui-sref="{{item.Code.toLowerCase()}}" href="#">
-            <!-- small box -->
-            <div class="small-box" ng-class="item.BGMetro" >
-                <div class="inner">
-                    <h3>{{item.Title}}</h3>
-                    <p>&nbsp;</p>
-                </div>
-                <div class="icon">
-                    <i ng-class="item.IconMetro"></i>
-                </div>
-                <a ui-sref="{{item.Code.toLowerCase()}}" href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-
-
-        <!-- ./col -->
-    </div>
-    <!-- /.row -->
-    <!-- Main row -->
-
-    <!-- /.row (main row) -->
-
-</section>
+﻿<content-header title-name="WELCOME"></content-header>
+<h3 class="text-danger" style="margin: 50px auto; text-align: center;">Đây là trang quản trị, nếu bạn không có quyền truy cập, vui lòng thoát ra!</h3>
+<!--<section class="content-header">-->
+<!--    <h1>Dashboard-->
+<!--            <small>Control panel</small>-->
+<!--    </h1>-->
+<!--    <ol class="breadcrumb">-->
+<!--        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>-->
+<!--        <li class="active">Dashboard</li>-->
+<!--    </ol>-->
+<!--</section>-->
+<!---->
+<!--<section class="content">-->
+<!--     Small boxes (Stat box) -->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-3 col-xs-6 Pointer" ng-repeat="item in metroNavigation" ng-if="item.LinkURL!=''" ui-sref="{{item.Code.toLowerCase()}}" href="#">-->
+<!--            $1$ small box #1#-->
+<!--            <div class="small-box" ng-class="item.BGMetro">-->
+<!--                <div class="inner">-->
+<!--                    <h3>{{item.Title}}</h3>-->
+<!--                    <p>&nbsp;</p>-->
+<!--                </div>-->
+<!--                <div class="icon">-->
+<!--                    <i ng-class="item.IconMetro"></i>-->
+<!--                </div>-->
+<!--                <a ui-sref="{{item.Code.toLowerCase()}}" href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <!-- ./col -->
+<!--    </div>-->
+<!---->
+<!--    <table cellspacing="2" cellpadding="0" border="1" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">-->
+<!--        <tr class="Pointer" ng-repeat="item in metroNavigation" ng-if="item.LinkURL!=''" ui-sref="{{item.Code.toLowerCase()}}" href="#">-->
+<!--            <td>-->
+<!--                $1$ small box #1#-->
+<!--                <div class="small-box" ng-class="item.BGMetro">-->
+<!--                    <div class="inner">-->
+<!--                        <h3>{{item.Title}}</h3>-->
+<!--                    </div>-->
+<!--                    <div class="icon">-->
+<!--                        <i ng-class="item.IconMetro"></i>-->
+<!--                    </div>-->
+<!--                    <a ui-sref="{{item.Code.toLowerCase()}}" href="#" class="small-box-footer">Xem thêm<i class="fa fa-arrow-circle-right"></i></a>-->
+<!--                </div>-->
+<!--            </td>-->
+<!---->
+<!--        </tr>-->
+<!---->
+<!--    </table>-->
+<!--    $1$ /.row #1#-->
+<!--    $1$ Main row #1#-->
+<!---->
+<!--    $1$ /.row (main row) #1#-->
+<!---->
+<!--</section>-->

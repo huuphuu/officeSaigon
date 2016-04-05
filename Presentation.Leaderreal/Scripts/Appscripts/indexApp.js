@@ -20,6 +20,13 @@ angular.module('indexApp')
             $scope.sidebarNavigation = pData;
             $scope.$apply();
 
+            console.log('$scope.sidebarNavigation.length', $scope.sidebarNavigation.length);
+            if ($scope.sidebarNavigation.length == 0) {
+                dialogs.notify('Error', 'Bạn không có quyền truy cập!');
+//                window.location.href = "/";
+
+            }
+                
             //old-template ko xai
             //setTimeout(function () {
             //    $.AdminLTE.tree('.sidebar');

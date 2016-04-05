@@ -10,11 +10,13 @@
 }
 
 .dialog-header-notify {
-    background-color: #00a65a;
+    /*background-color: #00a65a;*/
+    background-color: #428bca;
 }
 
 .dialog-header-confirm {
-    background-color: #00a65a;
+    /*background-color: #00a65a;*/
+    background-color: #428bca;
 }
 
     .dialog-header-error span, .dialog-header-error h4,

@@ -6,7 +6,7 @@ var app = angular.module('indexApp', ['toaster', 'ngSanitize', 'ui.router', 'ang
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
     //    $urlRouterProvider.otherwise('/welcome');
-    $urlRouterProvider.otherwise('/product-list');
+    $urlRouterProvider.otherwise('/welcome');
 
     $stateProvider
              .state('account', {
