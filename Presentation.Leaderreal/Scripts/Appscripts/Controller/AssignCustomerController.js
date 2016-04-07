@@ -17,7 +17,7 @@
               //{ name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
-        sysViewID: 21,
+        sysViewID: 25,
         searchQuery: '',
         onActionClick: function (row, act) {
             //            console.log(row, act);
@@ -207,9 +207,11 @@
         entry.Action = 'UPDATE';
         entry.LoginId = $scope.dataSelected.userID;
 
-        console.log('assign entry', entry);
         coreService.actionEntry2(entry, function (data) {
             console.log('data',data);
+            if (data.Success) {
+                dialogs.notify(data.Message.Name, data.Message.Description);
+            }
         });
 
         console.log('selectedId', selectedId.toString());
@@ -313,6 +315,21 @@
         //console.log('$scope.searchEntry', $scope.searchEntry);
         $scope.search($scope.searchEntry);
 
+    }
+
+    $scope.reloadAssignCustomers = function ($item, $model) {
+        console.log('$item, $model', $item, $model);
+        var assignCustomerEntry = {};
+        assignCustomerEntry.LoginId = $item.ID;
+        $rootScope.searchEntryFilter = assignCustomerEntry;
+
+        if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+            $timeout(function () {
+                $scope.gridInfo.dtInstance.reloadData();
+            }, 1000);
+        } else {
+            $scope.gridInfo.dtInstance.reloadData();
+        }
     }
 
 

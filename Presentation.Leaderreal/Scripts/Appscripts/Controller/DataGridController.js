@@ -35,9 +35,20 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     if (typeof res.data.d != 'undefined') {
                         var pData = res.data.d;
                         pData = pData.CSV2JSON2();
-//                        console.log('pData', pData);
+//                        console.log('pData1', pData);
                         data = pData[1];
                         totalRow = pData[2][0].TotalRow;
+
+                        angular.forEach(data, function (item, key) {
+                            if (item.hasOwnProperty('Cheked')) {
+                                if (item.Cheked === "1") {
+                                    item.Cheked = true;
+                                } else {
+                                    item.Cheked = false;
+                                }
+                            }
+                        });
+//                        console.log('pData', pData);
                     }
             
             callback({
@@ -65,8 +76,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             $('td', nRow).unbind('click');
             $('td', nRow).bind('click', function () {
                 $scope.$apply(function () {
-                    vm.setData(aData);
-                    vm.someClickHandler(aData);
+                    if ($scope.gridInfo.sysViewID == 7)
+                        vm.setData(aData);
+//                    vm.someClickHandler(aData);
                 });
             });
             return nRow;
@@ -89,7 +101,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         console.log('info', info);
         vm.message = info.id + ' - ' + info.firstName;
     }
-
+        vm.setData = function (item, col) {
+            var row = angular.copy(item);
+            if (angular.isFunction(vm.rootScope.setData)) {
+                vm.rootScope.setData(row, col);
+            }
+        }
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {
             if (!isNaN(item[fieldName]) && item[fieldName] != '')
@@ -218,7 +235,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     var result = '';
                     vm.selected[full.ID] = false;
                     angular.forEach(field.listAction, function (value, key) {
-                        result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-click="vm.toggleOne(vm.selected)">';
+                        result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-checked="' + full.Cheked + '" ng-click="vm.toggleOne(vm.selected)">';
                     });
                     return result;
                 }).withOption('width', field.width);
@@ -261,12 +278,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
 
 
-    vm.setData = function (item, col) {
-        var row = angular.copy(item);
-        if (angular.isFunction(vm.rootScope.setData)) {
-            vm.rootScope.setData(row, col);
-        }
-    }
+
     vm.dtInstanceCallback = function (dtInstance) {
         var datatableObj = dtInstance.DataTable;
         $scope.gridInfo.tableInstance = datatableObj;

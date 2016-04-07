@@ -16,7 +16,7 @@
                     Tên người dùng:
                 </td>
                 <td class="td" style="background-color: #dddddd; padding-left: 5px;">
-                    <ui-select ng-model="dataSelected.userID" theme="selectize" ng-disabled="disabled" title="Choose a employee">
+                    <ui-select ng-model="dataSelected.userID" theme="selectize" ng-disabled="disabled" title="Choose a employee" on-select="reloadAssignCustomers($item, $model)">
                         <ui-select-match placeholder="Select or search a user in the list...">{{$select.selected.FullName}}</ui-select-match>
                         <ui-select-choices repeat="item.ID as item in userList | filter: $select.search">
                             <span ng-bind-html="item.FullName | highlight: $select.search"></span>
