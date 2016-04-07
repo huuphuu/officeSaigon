@@ -94,6 +94,7 @@
                   entry.Roles.Role = $scope.roles;
                   entry.Sys_ViewID = $scope.gridInfo.sysViewID;
                   entry.Password = md5.createHash(entry.Password || '');
+                  console.log('entry',entry);
                   coreService.actionEntry2(entry, function (data) {
                       console.log(data);
                       if (data.Success) {

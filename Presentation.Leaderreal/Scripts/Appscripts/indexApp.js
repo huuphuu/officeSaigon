@@ -50,7 +50,8 @@ angular.module('indexApp')
                 tempData[i].cssIcon = tempData[i].CssIcon;
                 tempData[i].labelCss = tempData[i].LabelCss;
                 if (tempData[i].ParentID == "0") {
-                    tempData[i].url = '#';
+//                    tempData[i].url = '#';
+                    tempData[i].url = tempData[i].State.toLowerCase();
                     masterArr.push(tempData[i]);
                 } else {
                     childArr.push(tempData[i]);

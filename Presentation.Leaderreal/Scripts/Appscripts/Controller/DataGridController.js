@@ -35,7 +35,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     if (typeof res.data.d != 'undefined') {
                         var pData = res.data.d;
                         pData = pData.CSV2JSON2();
-                        //console.log('res', pData);
+//                        console.log('pData', pData);
                         data = pData[1];
                         totalRow = pData[2][0].TotalRow;
                     }

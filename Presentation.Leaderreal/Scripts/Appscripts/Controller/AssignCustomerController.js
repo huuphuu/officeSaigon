@@ -148,17 +148,24 @@
                 break;
         }
     }// end launch
-    // $scope.launch('error');
 
-    //phu viet cho nay
     coreService.getListEx({ Code: "BUILDINGDIRECTION", Sys_ViewID: 22 }, function (data) {
         //        console.log('BUILDINGDIRECTION', data);
         $scope.assignIDSelectList = data[1];
     });
 
-    //coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
-    //    console.log('ProductID', data)
-    //});
+    coreService.getListEx({ LoginId: 2, Sys_ViewID: 25 }, function (data) {
+        //console.log('District--ward', data);
+        $scope.districtSelectList = data[1];
+        $scope.wardSelectList = data[2];
+
+        convertStringtoNumber($scope.districtSelectList, 'ID');
+        convertStringtoNumber($scope.wardSelectList, 'DistrictID');
+        convertStringtoNumber($scope.wardSelectList, 'ID');
+
+        $scope.tempWardSelectList = angular.copy($scope.wardSelectList);
+    });
+
     $scope.$watch('customerId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
             $rootScope.showModal = true;
@@ -177,12 +184,36 @@
         }
     })
 
-    //var entry = { Name: 'thanh', WardID: 1, DistrictID: 1, Address: '537/7A Đường Tân Chánh Hiệp. P. Tân Chánh Hiệp. Q.12. TPHCM.' };
-    //entry.Action = 'INSERT';
-    //entry.Sys_ViewID = 19;
-    //coreService.actionEntry2(entry, function (data) {
-    //    console.log('InsertdataProduct', data)
-    //});
+    $scope.assignCustomers = function () {
+        console.log('dataSelected.userID', $scope.dataSelected.userID);
+        var selectedId = [];
+        var selectedItems = $rootScope.selectedItems;
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if (selectedItems[id]) {
+                    selectedId.push(id);
+                }
+            }
+        }
+        var selectIdObj = [];
+        for (var i = 0; i < selectedId.length; i++) {
+            var object = { "CustomerId": selectedId[i] };
+            selectIdObj.push(object);
+        }
+
+        var entry = {};
+        entry.Item = selectIdObj;
+        entry.Sys_ViewID = 25;
+        entry.LoginId = $scope.dataSelected.userID;
+
+        console.log('assign entry', entry);
+        coreService.actionEntry2(entry, function (data) {
+            console.log('data',data);
+        });
+
+        console.log('selectedId', selectedId.toString());
+    };
+
     $scope.actionEntry = function (act) {
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
@@ -248,9 +279,6 @@
         UserID: null,
         Sys_ViewID: 21
     };
-
-
-
     $scope.search = function (searchEntry) {
         $rootScope.showModal = true;
 
