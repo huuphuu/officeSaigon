@@ -204,6 +204,7 @@
         var entry = {};
         entry.Item = selectIdObj;
         entry.Sys_ViewID = 25;
+        entry.Action = 'UPDATE';
         entry.LoginId = $scope.dataSelected.userID;
 
         console.log('assign entry', entry);
