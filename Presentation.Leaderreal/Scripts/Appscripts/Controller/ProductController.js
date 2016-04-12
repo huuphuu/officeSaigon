@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
+.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils) {
     $rootScope.showModal = false;
     var titleHtml = '<input type="checkbox" ng-model="vm.selectAll" ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
     $scope.gridInfo = {
@@ -30,7 +30,7 @@
             { name: 'Struture', heading: 'Kết cấu', className: 'text-center pd-0 break-word' },
             { name: 'AreaDescription', heading: 'Diện tích trống', width: '150px', className: 'text-center pd-0 break-word' },
             { name: 'PriceDescription', heading: 'Giá', className: 'text-center pd-0 break-word' },
-            { name: 'Action', heading: 'Thao tác', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+            { name: 'Action', heading: 'Thao tác', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: 'fa-times', action: 'delete' }] }
         ],
         data: [],
         sysViewID: 20,
@@ -52,6 +52,20 @@
                     //    console.log('ProductID', data)
                     //});
                     break;
+                case 'delete':
+                    console.log('row', row);
+                    if (modalUtils.modalsExist())
+                        modalUtils.closeAllModals();
+                    var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+                    dlg.result.then(function (btn) {
+                        $scope.deleteId = row.ID || row;
+                        $scope.actionEntry('DELETE');
+                    }, function (btn) {
+//                        console.log('no');
+                    });
+
+
+                    break;
 
                 case 'multiSelect':
                     console.log();
@@ -69,7 +83,6 @@
     }
 
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
-
     $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,
@@ -230,6 +243,8 @@
                     }
                 }
             }
+            if (act == 'DELETE')
+                entry.ID = $scope.deleteId;
 
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
@@ -257,6 +272,16 @@
                             });
                             if (index > -1)
                                 $scope.gridInfo.data.splice(index, 1);
+
+                            dialogs.notify(data.Message.Name, data.Message.Description);
+
+                            if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+                                $timeout(function () {
+                                    $scope.gridInfo.dtInstance.reloadData();
+                                }, 1000);
+                            } else {
+                                $scope.gridInfo.dtInstance.reloadData();
+                            }
                             break;
                     }
                     $scope.reset();

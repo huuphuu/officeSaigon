@@ -20,13 +20,13 @@ angular.module('indexApp')
             $scope.sidebarNavigation = pData;
             $scope.$apply();
 
-            console.log('$scope.sidebarNavigation.length', $scope.sidebarNavigation.length);
+//            console.log('$scope.sidebarNavigation.length', $scope.sidebarNavigation.length);
             if ($scope.sidebarNavigation.length == 0) {
                 dialogs.notify('Error', 'Bạn không có quyền truy cập!');
-//                window.location.href = "/";
+                //                window.location.href = "/";
 
             }
-                
+
             //old-template ko xai
             //setTimeout(function () {
             //    $.AdminLTE.tree('.sidebar');
@@ -50,8 +50,8 @@ angular.module('indexApp')
                 tempData[i].cssIcon = tempData[i].CssIcon;
                 tempData[i].labelCss = tempData[i].LabelCss;
                 if (tempData[i].ParentID == "0") {
-//                    tempData[i].url = '#';
-                    tempData[i].url = tempData[i].State.toLowerCase();
+                    tempData[i].url = '#';
+//                    tempData[i].url = tempData[i].State.toLowerCase();
                     masterArr.push(tempData[i]);
                 } else {
                     childArr.push(tempData[i]);
@@ -180,7 +180,7 @@ angular.module('indexApp')
             templateUrl: '/Templates/directive/header/nav/header-Navbar-Menu.html'
         };
     })
-    .directive('sidebarNavigation', function () {
+    .directive('sidebarNavigation', function ($rootScope) {
         return {
             restrict: 'EA',
             replace: true,
@@ -266,6 +266,12 @@ angular.module('indexApp')
                     } catch (e) {
                         console.log('error img', img);
                     }
+                }
+
+                scope.resetFilter = function () {
+                    
+                    $rootScope.searchEntryFilter = null;
+                    console.log('vao', $rootScope.searchEntryFilter);
                 }
             }
 
@@ -382,16 +388,28 @@ angular.module('indexApp')
                 gridInfo: '=',
                 rootScope: '=',
                 gridData: '=',
+                listRight: '=',
                 setData: '&'
             },
             controller: function ($scope, gridService) {
-                $scope.actionClick = function (row, act, obj) {
-                    $scope.gridInfo.onActionClick(row, act)
-                }
-                
+//                $scope.actionClick = function (row, act, obj) {
+//                    $scope.gridInfo.onActionClick(row, act)
+//                }
+
             }
         };
     })
+    .factory('modalUtils', ['$modalStack',function ($modalStack) {
+        return {
+            modalsExist: function () {
+                return !!$modalStack.getTop();
+            },
+            closeAllModals: function () {
+                $modalStack.dismissAll();
+            }
+        };
+    }
+    ])
     .config(['dialogsProvider', '$translateProvider', function (dialogsProvider) {
         dialogsProvider.useBackdrop('static');
         dialogsProvider.useEscClose(false);
@@ -514,7 +532,7 @@ angular.module('indexApp')
             $scope.actionClick = function (row, act, obj) {
 
                 $scope.gridInfo.onActionClick(row, act);
-                
+
             }
 
             function standardField2Column(field) {

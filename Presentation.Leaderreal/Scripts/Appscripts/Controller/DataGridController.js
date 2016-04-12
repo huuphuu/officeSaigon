@@ -35,7 +35,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     if (typeof res.data.d != 'undefined') {
                         var pData = res.data.d;
                         pData = pData.CSV2JSON2();
-//                        console.log('pData1', pData);
+                        //                        console.log('pData1', pData);
                         data = pData[1];
                         totalRow = pData[2][0].TotalRow;
 
@@ -48,9 +48,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                                 }
                             }
                         });
-//                        console.log('pData', pData);
+                        //                        console.log('pData', pData);
                     }
-            
+
             callback({
                 recordsTotal: totalRow,
                 recordsFiltered: totalRow,
@@ -78,7 +78,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 $scope.$apply(function () {
                     if ($scope.gridInfo.sysViewID == 7)
                         vm.setData(aData);
-//                    vm.someClickHandler(aData);
+                    //                    vm.someClickHandler(aData);
                 });
             });
             return nRow;
@@ -101,12 +101,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         console.log('info', info);
         vm.message = info.id + ' - ' + info.firstName;
     }
-        vm.setData = function (item, col) {
-            var row = angular.copy(item);
-            if (angular.isFunction(vm.rootScope.setData)) {
-                vm.rootScope.setData(row, col);
-            }
+    vm.setData = function (item, col) {
+        var row = angular.copy(item);
+        if (angular.isFunction(vm.rootScope.setData)) {
+            vm.rootScope.setData(row, col);
         }
+    }
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {
             if (!isNaN(item[fieldName]) && item[fieldName] != '')
@@ -150,6 +150,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     cols[x].className = '';
                 if (typeof cols[x].width == 'undefined')
                     cols[x].width = 'auto';
+                if (typeof cols[x].fixedHeight == 'undefined')
+                    cols[x].fixedHeight = false;
                 if (typeof cols[x].isSort == 'undefined')
                     cols[x].isSort = false;
 
@@ -162,6 +164,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                             .withOption(cols[x].name, cols[x].heading)
                             .withOption('className', cols[x].className)
                             .withOption('width', cols[x].width)
+                            .renderWith(function (data, type, full, meta) {
+                                result = '<div class="dtWrapperDiv">' + data + '</div>';
+                                return result;
+                            })
                             .notSortable());
                     else
                         vm.dtColumns.push(
@@ -169,6 +175,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                             .withOption(cols[x].name, cols[x].heading)
                             .withOption('className', cols[x].className)
                             .withOption('width', cols[x].width)
+                            .renderWith(function (data, type, full, meta) {
+                                result = '<div class="dtWrapperDiv">' + data + '</div>';
+                                return result;
+                            })
                             .notSortable()
                             .notVisible());
                 } else {
@@ -179,13 +189,21 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                             cols[x].name, cols[x].heading)
                             .withOption(cols[x].name, cols[x].heading)
                             .withOption('className', cols[x].className)
-                            .withOption('width', cols[x].width));
+                            .withOption('width', cols[x].width))
+                            .renderWith(function (data, type, full, meta) {
+                                result = '<div class="dtWrapperDiv">' + data + '</div>';
+                                return result;
+                            });
                     else
                         vm.dtColumns.push(
                             DTColumnBuilder.newColumn(cols[x].name, cols[x].heading)
                             .withOption(cols[x].name, cols[x].heading)
                             .withOption('className', cols[x].className)
                             .withOption('width', cols[x].width)
+                            .renderWith(function (data, type, full, meta) {
+                                result = '<div class="dtWrapperDiv">' + data + '</div>';
+                                return result;
+                            })
                             .notVisible());
                 }
             }
@@ -218,13 +236,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             case controls.LIST_ICON:
                 col.notSortable();
                 col.renderWith(function (data, type, full, meta) {
-                    var result = '';
+                    var result = '{{vm.listRight | json}}';
                     angular.forEach(field.listAction, function (value, key) {
-                        result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" >' +
+                        result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" ng-hide="listRight.IsDelete == \'False\' && \''+ value.action+'\' == \'delete\'">' +
                             '<i  class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>' +
                             '</a>';
                     });
-
                     return result;
                 }).withOption('width', field.width);
                 break;
@@ -275,9 +292,6 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     vm.actionClick = function (row, act, obj) {
         $scope.gridInfo.onActionClick(row, act);
     }
-
-
-
 
     vm.dtInstanceCallback = function (dtInstance) {
         var datatableObj = dtInstance.DataTable;

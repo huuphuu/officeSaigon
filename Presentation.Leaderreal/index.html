@@ -55,11 +55,11 @@
             <div class="head">
                 <img src="images/user.png" alt="" />
             </div>
-            <form>
+            <form name="loginForm" ng-submit="login()">
                 <input type="text" class="text" ng-model="loginData.userName" value="USERNAME" placeholder="USERNAME">
                 <input type="password" value="Password" ng-model="loginData.password" placeholder="PASSWORD" ng-keyup="$event.keyCode == 13 ? login() : null">
                 <div class="submit">
-                    <input type="button" ng-click="login()" value="LOGIN">
+                    <input type="submit" value="LOGIN">
                 </div>
                 <p><a href="#">Forgot Password ?</a></p>
             </form>

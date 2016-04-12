@@ -59,9 +59,9 @@
               { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
               { name: 'Phone', heading: 'Phone', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
-              { name: 'Request', heading: 'Yêu cầu', className: 'text-center pd-0 break-word' },
-              { name: 'CareNote', heading: 'Quá trình chăm sóc', className: 'text-center pd-0 break-word' },
-              { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+              { name: 'Request', heading: 'Yêu cầu', width: '250px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
+              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
+              { name: 'Action', heading: 'Thao tác', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
         ],
         data: [],
         sysViewID: 21,

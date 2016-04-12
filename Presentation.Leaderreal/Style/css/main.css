@@ -2,24 +2,24 @@
 }
 
     .actionRight div {
-        padding-left: 2px!important;
-        padding-right: 0px!important;
+        padding-left: 2px !important;
+        padding-right: 0px !important;
     }
 
         .actionRight div.first {
-            padding-left: 0px!important;
+            padding-left: 0px !important;
         }
 
 .btnPrint {
-    padding-right: 0px!important;
+    padding-right: 0px !important;
 }
 
 .padding-right-4 {
-    padding-right: 4px!important;
+    padding-right: 4px !important;
 }
 
 .padding-left-0 {
-    padding-left: 0px!important;
+    padding-left: 0px !important;
 }
 
 .margin-top-8 {
@@ -27,15 +27,15 @@
 }
 
 .padding-left-22 {
-    padding-left: 21px!important;
+    padding-left: 21px !important;
 }
 
 .padding-0 {
-    padding-right: 0px!important;
+    padding-right: 0px !important;
 }
 
 .padding-right-19 {
-    padding-right: 19px!important;
+    padding-right: 19px !important;
     padding-left: 12px;
 }
 
@@ -47,12 +47,14 @@
     float: right;
 }
 
-#cbocustomserch{
-    width:111px;
+#cbocustomserch {
+    width: 111px;
 }
-.nonePadding{
-    padding: 0px!important;
+
+.nonePadding {
+    padding: 0px !important;
 }
+
 .dataTables_filter, .dataTables_length {
     display: none;
 }
@@ -73,7 +75,7 @@ table.dataTable tbody tr.selected {
 }
 
     .projectForm label {
-        text-align: left!important;
+        text-align: left !important;
         font-size: 13px;
     }
 
@@ -207,9 +209,10 @@ table#AreaGrid tbody td {
     max-width: 350px;
     min-width: 350px;
 }
-#BaseChart .popover  div {
-     font-weight:100;
-}
+
+    #BaseChart .popover div {
+        font-weight: 100;
+    }
 
 #BaseChart .boder-right {
     border-left: solid 1px #ccc;
@@ -220,10 +223,10 @@ table#AreaGrid tbody td {
     padding: 9em 0 9em 0;
     background-color: #4686a0;
     color: rgba(255, 255, 255, 0.75);
-    background-attachment: fixed,	fixed,	fixed;
+    background-attachment: fixed, fixed, fixed;
     background-image: url("images/overlay2.png"), url("images/overlay3.svg"), linear-gradient(45deg, #9dc66b 5%, #4fa49a 30%, #4361c2);
-    background-position: top left,	center center,	center center;
-    background-size: auto,	cover,	cover;
+    background-position: top left, center center, center center;
+    background-size: auto, cover, cover;
     overflow: hidden;
     position: relative;
     text-align: center;
@@ -236,10 +239,11 @@ table#AreaGrid tbody td {
 .overflow-x-scroll {
     overflow-x: scroll;
 }
+
 .custom-fixed-column {
-    -ms-word-wrap: break-word; 
-    word-wrap: break-word; 
-    min-width: 50px; 
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    min-width: 50px;
     max-width: 130px;
     white-space: normal;
 }
@@ -296,10 +300,25 @@ table#AreaGrid tbody td {
     left: 0;
     z-index: 99;
 }
+
 .pd-0 {
     padding: 0;
 }
+
 .box-body {
     padding: 2px;
     padding-left: 2px;
 }
+
+.fa.fa-times {
+    color: red;
+}
+
+.customerGrid table tbody td.height-150 .dtWrapperDiv {
+    height: 150px;
+    max-height: 150px;
+    overflow: auto;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
