@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('CustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
+.controller('CustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils) {
     $rootScope.showModal = false;
 
 
@@ -56,12 +56,13 @@
               { name: 'ID', heading: 'ID', isHidden: true },
               //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
-              { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
-              { name: 'Phone', heading: 'Phone', className: 'text-center pd-0 break-word' },
+              { name: 'Name', heading: 'Tên', width: '90px', className: 'text-center pd-0 break-word' },
+              { name: 'Phone', heading: 'Phone', width :'100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
-              { name: 'Request', heading: 'Yêu cầu', width: '250px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
+              { name: 'Request', heading: 'Yêu cầu', width: '220px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
               { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
-              { name: 'Action', heading: 'Thao tác', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
+              { name: 'Action1', heading: 'Sửa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
+              { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] }
         ],
         data: [],
         sysViewID: 21,
@@ -82,6 +83,21 @@
                     //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
                     //    console.log('ProductID', data)
                     //});
+                    break;
+
+                case 'delete':
+                    console.log('row', row);
+                    if (modalUtils.modalsExist())
+                        modalUtils.closeAllModals();
+                    var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+                    dlg.result.then(function (btn) {
+                        $scope.deleteId = row.ID || row;
+                        $scope.actionEntry('DELETE');
+                    }, function (btn) {
+                        //                        console.log('no');
+                    });
+
+
                     break;
                 case 'chart':
                     $scope.openDialogChart(rowID);
@@ -240,6 +256,10 @@
                     }
                 }
             }
+
+            if (act == 'DELETE')
+                entry.ID = $scope.deleteId;
+
             //console.log('entry', entry);
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
@@ -258,6 +278,7 @@
                             $state.go('customerlist', '', { reload: true });
                             break;
                         case 'DELETE':
+                            console.log('vao');
                             var index = -1;
                             var i = 0;
                             angular.forEach($scope.gridInfo.data, function (item, key) {
@@ -267,6 +288,16 @@
                             });
                             if (index > -1)
                                 $scope.gridInfo.data.splice(index, 1);
+
+                            dialogs.notify(data.Message.Name, data.Message.Description);
+
+                            if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+                                $timeout(function () {
+                                    $scope.gridInfo.dtInstance.reloadData();
+                                }, 1000);
+                            } else {
+                                $scope.gridInfo.dtInstance.reloadData();
+                            }
                             break;
                     }
                     $scope.reset();
@@ -301,20 +332,24 @@
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
                 if ($scope.searchEntry.Assign == '1') {
-                    $scope.gridInfo.dtInstance.DataTable.column(6).visible(false);
+                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
+                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
                     $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
                 } else {
-                    $scope.gridInfo.dtInstance.DataTable.column(6).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
                 }
                 $scope.gridInfo.dtInstance.reloadData();
             }, 1000);
         } else {
             if ($scope.searchEntry.Assign == '1') {
-                $scope.gridInfo.dtInstance.DataTable.column(6).visible(false);
+                $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
+                $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
                 $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
             } else {
-                $scope.gridInfo.dtInstance.DataTable.column(6).visible(true);
+                $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+                $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
             }
             

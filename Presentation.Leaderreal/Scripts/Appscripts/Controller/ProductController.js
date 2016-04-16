@@ -30,7 +30,8 @@
             { name: 'Struture', heading: 'Kết cấu', className: 'text-center pd-0 break-word' },
             { name: 'AreaDescription', heading: 'Diện tích trống', width: '150px', className: 'text-center pd-0 break-word' },
             { name: 'PriceDescription', heading: 'Giá', className: 'text-center pd-0 break-word' },
-            { name: 'Action', heading: 'Thao tác', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: 'fa-times', action: 'delete' }] }
+            { name: 'Action1', heading: 'Sửa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
+            { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] }
         ],
         data: [],
         sysViewID: 20,
