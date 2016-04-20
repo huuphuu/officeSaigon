@@ -19,6 +19,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
 
         data.Sys_ViewID = vm.gridInfo.sysViewID;
         data.length = vm.rowsPerPage;
+
+//        if (data.start > 0)
+//            data.start = data.start + 1;
+
         vm.gridInfo.dtInstances = vm.dtInstances;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
 

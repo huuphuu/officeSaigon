@@ -6,19 +6,6 @@
         gridID: 'productgrid',
         table: null,
         cols: [
-             //{ name: 'ZOrder', heading: 'ZOrder', width: '0', isHidden: true },
-             // { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-             // { name: 'MultiSelect', heading: '', width: '35px', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
-             // { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '50px', className: 'text-center' },
-             // { name: 'Name', heading: 'Name', width: '50px', className: 'text-center' },
-             // { name: 'Address', heading: 'Địa chỉ', width: '100px', className: 'text-center' },
-             // { name: 'ManagerName', heading: 'Tên quản lý', width: '180px', className: 'text-center' },
-             // { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', width: '200px', className: 'text-center' },
-             // { name: 'Struture', heading: 'Kết cấu', width: '80px', className: 'text-center' },
-             // { name: 'AreaDescription', heading: 'Diện tích trống', width: '35px', className: 'text-center' },
-             // { name: 'PriceDescription', heading: 'Giá', width: '115px', className: 'text-center' },
-             // { name: 'Action', heading: 'Thao tác', width: '35px', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
-
             { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
             { name: 'ID', heading: 'ID', isHidden: true },
             { name: 'MultiSelect', heading: titleHtml, width: '50px', className: 'text-center pd-0 break-word', type: controls.CHECKBOX, listAction: [{ classIcon: 'form-control', action: 'multiSelect' }] },

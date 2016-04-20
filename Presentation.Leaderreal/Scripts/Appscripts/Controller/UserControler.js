@@ -29,7 +29,7 @@
          coreService.getListEx({ Sys_ViewID: 9, UserID: userId }, function (data) {
              $scope.roles = data[1];
              $scope.$apply();
-             //console.log("user roles::", data);
+             console.log("user roles::", data);
          });
      }
 
@@ -93,6 +93,7 @@
                   entry.Roles = {};
                   entry.Roles.Role = $scope.roles;
                   entry.Sys_ViewID = $scope.gridInfo.sysViewID;
+                  console.log('entry.Password', entry.Password);
                   entry.Password = md5.createHash(entry.Password || '');
                   console.log('entry',entry);
                   coreService.actionEntry2(entry, function (data) {

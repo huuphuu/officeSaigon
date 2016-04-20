@@ -30,9 +30,9 @@
                                 </td>
                                 <td class="td" style="padding: 5px;">
                                     <input ng-model="dataSelected.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password"
-                                           ng-hide="dataSeleted.ID!=0">
+                                           ng-hide="dataSelected.ID!=0">
                                     <input ng-model="dataSelected.Password" type="text" class="form-control" id="Password" placeholder="Password"
-                                           ng-hide="dataSeleted.ID==0">
+                                           ng-hide="dataSelected.ID==0" required>
                                     <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()"
                                             ng-hide="dataSeleted.ID==0">
                                         <span>Reset</span>

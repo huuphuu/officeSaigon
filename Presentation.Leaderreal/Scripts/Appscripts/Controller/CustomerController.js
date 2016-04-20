@@ -24,29 +24,6 @@
         Sys_ViewID: 21
     };
 
-    //var gridCols1 = [
-    //         { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
-    //          { name: 'ID', heading: 'ID', isHidden: true },
-    //          //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
-    //          { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
-    //          { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
-    //          { name: 'Phone', heading: 'Phone', className: 'text-center pd-0 break-word' },
-    //          { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
-    //          { name: 'Request', heading: 'Yêu cầu', className: 'text-center pd-0 break-word' },
-    //          { name: 'CareNote', heading: 'Quá trình chăm sóc', className: 'text-center pd-0 break-word' },
-    //          { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
-    //]
-
-    //var gridCols2 = [
-    //         { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
-    //          { name: 'ID', heading: 'ID', isHidden: true },
-    //          { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
-    //          { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
-    //          { name: 'Phone', heading: 'Phone', className: 'text-center pd-0 break-word' },
-    //          { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
-    //          { name: 'Action', heading: 'Thao tác', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] }
-    //]
-
     $scope.gridInfo = {
         gridID: 'customergrid',
         table: null,
@@ -55,7 +32,7 @@
              { name: 'RowIndex', heading: 'RowIndex', isHidden: true },
               { name: 'ID', heading: 'ID', isHidden: true },
               //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
-              { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
+              { name: 'LastUpdatedDateTime', heading: 'Ngày nhận khách', width: '90px', className: 'text-center pd-0 break-word' },
               { name: 'Name', heading: 'Tên', width: '90px', className: 'text-center pd-0 break-word' },
               { name: 'Phone', heading: 'Phone', width :'100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
@@ -109,15 +86,8 @@
         }
     }
 
-    //$scope.$watch('searchEntry.Assign', function (newVal, oldVal) {
-    //    if (newVal == '0')
-    //        $scope.gridInfo.cols = gridCols1;
-    //    else
-    //        $scope.gridInfo.cols = gridCols2;
-    //});
-
-
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    console.log('$scope.listRight', $scope.listRight);
     $scope.dataSelected = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
         window.setTimeout(function () {
