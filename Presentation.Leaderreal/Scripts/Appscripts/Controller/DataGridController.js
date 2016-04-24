@@ -80,6 +80,11 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             $('td', nRow).unbind('click');
             $('td', nRow).bind('click', function () {
                 $scope.$apply(function () {
+                    vm.actionClick = function (row, act, obj) {
+//                        console.log('vao action');
+                        $scope.gridInfo.onActionClick(row, act);
+                    }
+
                     if ($scope.gridInfo.sysViewID == 7)
                         vm.setData(aData);
                     //                    vm.someClickHandler(aData);
@@ -293,9 +298,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         vm.selectAll = true;
     }
 
-    vm.actionClick = function (row, act, obj) {
-        $scope.gridInfo.onActionClick(row, act);
-    }
+//    vm.actionClick = function (row, act, obj) {
+//        $scope.gridInfo.onActionClick(row, act);
+//    }
 
     vm.dtInstanceCallback = function (dtInstance) {
         var datatableObj = dtInstance.DataTable;
