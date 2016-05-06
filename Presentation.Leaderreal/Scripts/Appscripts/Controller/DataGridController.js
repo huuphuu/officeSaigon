@@ -20,8 +20,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         data.Sys_ViewID = vm.gridInfo.sysViewID;
         data.length = vm.rowsPerPage;
 
-//        if (data.start > 0)
-//            data.start = data.start + 1;
+        //        if (data.start > 0)
+        //            data.start = data.start + 1;
 
         vm.gridInfo.dtInstances = vm.dtInstances;
         var newRequest = { 'inputValue': coreService.convertServerDataProcessing(data), 'clientKey': '' };
@@ -47,11 +47,13 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                             if (item.hasOwnProperty('Cheked')) {
                                 if (item.Cheked === "1") {
                                     item.Cheked = true;
+                                    $rootScope.selectedItems[item.ID] = true;
                                 } else {
                                     item.Cheked = false;
                                 }
                             }
                         });
+                        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
                         //                        console.log('pData', pData);
                     }
 
@@ -75,24 +77,21 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         .withOption("searching", true)
         .withOption("autowidth", false)
         .withOption('fnRowCallback', function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            if ($scope.gridInfo.sysViewID != 7) return;
+
             $compile(nRow)($scope);
             // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+
             $('td', nRow).unbind('click');
             $('td', nRow).bind('click', function () {
                 $scope.$apply(function () {
-                    vm.actionClick = function (row, act, obj) {
-//                        console.log('vao action');
-                        $scope.gridInfo.onActionClick(row, act);
-                    }
-
                     if ($scope.gridInfo.sysViewID == 7)
                         vm.setData(aData);
-                    //                    vm.someClickHandler(aData);
                 });
             });
             return nRow;
             //$('td', nRow).attr('nowrap', 'nowrap');
-            //return nRow;
+            //return nRow;    
         })
         .withOption('createdRow', function (row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
@@ -107,15 +106,18 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         })
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
     vm.someClickHandler = function (info) {
-        console.log('info', info);
+//        console.log('info', info);
         vm.message = info.id + ' - ' + info.firstName;
     }
-    vm.setData = function (item, col) {
+
+    vm.setData = function (item) {
+//        console.log('item', item);
         var row = angular.copy(item);
         if (angular.isFunction(vm.rootScope.setData)) {
-            vm.rootScope.setData(row, col);
+            vm.rootScope.setData(row);
         }
     }
+
     function convertStringtoNumber(array, fieldName) {
         angular.forEach(array, function (item, key) {
             if (!isNaN(item[fieldName]) && item[fieldName] != '')
@@ -245,9 +247,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             case controls.LIST_ICON:
                 col.notSortable();
                 col.renderWith(function (data, type, full, meta) {
-                    var result = '{{vm.listRight | json}}';
+//                    var result = '{{vm.listRight | json}}';
+                    var result = '';
                     angular.forEach(field.listAction, function (value, key) {
-                        result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" ng-hide="listRight.IsDelete == \'False\' && \''+ value.action+'\' == \'delete\'">' +
+                        result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" ng-hide="listRight.IsDelete == \'False\' && \'' + value.action + '\' == \'delete\'">' +
                             '<i  class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>' +
                             '</a>';
                     });
@@ -260,6 +263,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 col.renderWith(function (data, type, full, meta) {
                     var result = '';
                     vm.selected[full.ID] = false;
+                    if ($rootScope.selectedItems[full.ID]) {
+                        vm.selected[full.ID] = true;
+                    }
                     angular.forEach(field.listAction, function (value, key) {
                         result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-checked="' + full.Cheked + '" ng-click="vm.toggleOne(vm.selected)">';
                     });
@@ -286,6 +292,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     }
 
     vm.toggleOne = function (selectedItems) {
+        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 if (!selectedItems[id]) {
@@ -298,9 +305,9 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         vm.selectAll = true;
     }
 
-//    vm.actionClick = function (row, act, obj) {
-//        $scope.gridInfo.onActionClick(row, act);
-//    }
+    vm.actionClick = function (row, act, obj) {
+        $scope.gridInfo.onActionClick(row, act);
+    }
 
     vm.dtInstanceCallback = function (dtInstance) {
         var datatableObj = dtInstance.DataTable;

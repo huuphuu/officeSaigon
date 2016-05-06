@@ -12,6 +12,20 @@
          data: [],
          sysViewID: 7,
          searchQuery: '',
+         onActionClick: function(row, act) {
+             //            console.log(row, act);
+             // row la data cua dong do
+             //act la hanh dong em muon thao tac, mo cai swich ra xu ly ?? vd dum 1 cai 
+             //  $scope.gridInfo.tableInstance.search(query).draw(); $scope.gridInfo.tableInstance.row( tr ).data();
+
+             //alert('xem console view:' + act)
+             switch (act) {
+             case 'select':
+                 //                    console.log('row', row);
+                 //                    $state.transitionTo('editproduct', { productId: row.ID || row });
+                 break;
+             }
+         }
      }
      //Defines variables
      $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);

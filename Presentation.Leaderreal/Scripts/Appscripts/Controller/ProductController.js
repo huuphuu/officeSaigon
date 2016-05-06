@@ -36,15 +36,9 @@
                     //                    $state.transitionTo('editproduct', { productId: row.ID || row });
                     $scope.productId = row.ID || row;
                     productService.ProductID = row.ID || row;
-                    console.log('productService.ProductID', productService.ProductID);
                     if (modalUtils.modalsExist())
                         modalUtils.closeAllModals();
                     $scope.openDialog('view');
-                    // day neu em nhan vieư em data cua view , hoac neu em can update thi row la object data em dung de show len man hinh, ok ko
-                    //                    alert('xem console view:' + act);
-                    //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
-                    //    console.log('ProductID', data)
-                    //});
                     break;
                 case 'delete':
                     console.log('row', row);
@@ -218,9 +212,10 @@
     })
 
     $scope.openDialog = function (act) {
+        console.log('openDialog');
         var dlg = dialogs.create('/templates/view/product/product-popup.html', 'productDialogCtrl', productService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (refreshList) {
-            console.log('dialogs', refreshList);
+//            console.log('dialogs', refreshList);
             if (refreshList) {
                 if (typeof $scope.gridInfo.dtInstance == 'undefined') {
                     $timeout(function () {
@@ -244,14 +239,16 @@
     //    console.log('InsertdataProduct', data)
     //});
     $scope.actionEntry = function (act) {
+        $scope.clicked = true;
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
             entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
+            entry.Description = entry.Description.replace(/\n\r?/g, '<br />');
 
-            //console.log('entry', entry);
+//            console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -305,6 +302,7 @@
                 }
                 //thong bao ket qua
                 //dialogs.notify(data.Message.Name, data.Message.Description);
+                $scope.clicked = false;
                 $scope.$apply();
 
             });
@@ -523,8 +521,9 @@
             entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
+            entry.Description = entry.Description.replace(/\n\r?/g, '<br />');
+//            console.log('entry', entry);
 
-            //console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {

@@ -185,6 +185,7 @@
     })
 
     $scope.assignCustomers = function () {
+        
         console.log('dataSelected.userID', $scope.dataSelected.userID);
         var selectedId = [];
         var selectedItems = $rootScope.selectedItems;
@@ -195,6 +196,8 @@
                 }
             }
         }
+        console.log('selectedItems', selectedItems);
+        console.log('selectedId', selectedId);
         var selectIdObj = [];
         for (var i = 0; i < selectedId.length; i++) {
             var object = { "CustomerId": selectedId[i] };

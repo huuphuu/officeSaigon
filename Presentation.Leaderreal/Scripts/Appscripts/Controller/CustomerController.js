@@ -55,6 +55,7 @@
                 case 'view':
                     //                    console.log('row', row);
                     $state.transitionTo('editcustomer', { customerId: row.ID || row });
+                    console.log('row.ID || row', row.ID , row);
                     // day neu em nhan vieư em data cua view , hoac neu em can update thi row la object data em dung de show len man hinh, ok ko
                     //                    alert('xem console view:' + act);
                     //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
@@ -212,13 +213,16 @@
     //    console.log('InsertdataProduct', data)
     //});
     $scope.actionEntry = function (act) {
+        $scope.clicked = true;
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
+            entry.Request = entry.Request.replace(/\n\r?/g, '<br />');
+            entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />');
 
-            //console.log('entry', entry);
+            console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -275,6 +279,7 @@
                 }
                 //thong bao ket qua
                 //dialogs.notify(data.Message.Name, data.Message.Description);
+                $scope.clicked = false;
                 $scope.$apply();
 
             });

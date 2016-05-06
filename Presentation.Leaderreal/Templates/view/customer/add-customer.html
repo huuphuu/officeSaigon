@@ -4,123 +4,124 @@
 </div>
 
 <div ng-controller="CustomerCtrl" ng-init="init()">
-    <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%;
-        margin: 20px auto 0px auto;">
-        <tbody>
-            <tr class="hide">
-                <td style="width: 150px; padding: 5px;" class="td">
-                    Mã sản phẩm
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="text" class="form-control" id="ID" name="ID" placeholder="ID" ng-model="dataSelected.ID" ng-change="changeText()" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Tên khách hàng
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="text" id="ID" name="Name" placeholder="" ng-model="dataSelected.Name" ng-change="changeText()" style="width: 400px;" required />
-                </td>
-            </tr>
+    <form name="addCustomerForm">
+        <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+            <tbody>
+                <tr class="hide">
+                    <td style="width: 150px; padding: 5px;" class="td">
+                        Mã sản phẩm
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="text" class="form-control" id="ID" name="ID" placeholder="ID" ng-model="dataSelected.ID" ng-change="changeText()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Tên khách hàng
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="text" id="ID" name="Name" placeholder="" ng-model="dataSelected.Name" ng-change="changeText()" style="width: 400px;" required />
+                    </td>
+                </tr>
 
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Điện thoại di động
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="text" style="width: 400px;" id="Phone" name="Phone" placeholder="" ng-model="dataSelected.Phone" ng-change="changeText()" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Email
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="text" id="Email" name="Email" placeholder="" ng-model="dataSelected.Email" ng-change="changeText()" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Tên công ty
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="text" style="width: 400px;" id="CompanyName" name="CompanyName" placeholder="" ng-model="dataSelected.CompanyName" ng-change="changeText()" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Yêu cầu
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <textarea name="Request" id="Request" style="height: 300px; width: 400px;" rows="2" cols="20" placeholder="" ng-model="dataSelected.Request"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    NVKD/Đối tác?
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="checkbox" id="IsSaleDeparment" name="IsSaleDeparment" ng-model="dataSelected.IsSaleDeparment" ng-change="changeText()" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Xem trên user?
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <select ng-model="searchEntry.AssignID"
-                            ng-options="item.ID as item.Name for item in assignIDSelectList"></select>
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Quá trình chăm sóc
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <textarea name="CareNote" id="CareNote" style="height: 300px; width: 400px;" rows="2" cols="20" placeholder="" ng-model="dataSelected.CareNote"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Kết thúc hợp đồng
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="text" style="width: 400px;" id="ContractFinish" name="ContractFinish" placeholder="" ng-model="dataSelected.ContractFinish" ng-change="changeText()" />
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Tình trạng khách hàng
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <select ng-model="dataSelected.Status" name="Status" id="Status"
-                            ng-options="option.value as option.name for option in statusOptions"></select>
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Tình trạng hợp đồng
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <select ng-model="dataSelected.ContractStatus" name="ContractStatus" id="ContractStatus"
-                            ng-options="option.value as option.name for option in contractStatus"></select>
-                </td>
-            </tr>
-            <tr>
-                <td class="td" style="padding: 5px;">
-                    Khách hàng tiềm năng
-                </td>
-                <td class="td" style="padding: 5px;">
-                    <input type="checkbox" id="Potential" name="Potential" ng-model="dataSelected.Potential" ng-change="changeText()" />
-                </td>
-            </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Điện thoại di động
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="text" style="width: 400px;" id="Phone" name="Phone" placeholder="" ng-model="dataSelected.Phone" ng-change="changeText()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Email
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="text" id="Email" name="Email" placeholder="" ng-model="dataSelected.Email" ng-change="changeText()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Tên công ty
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="text" style="width: 400px;" id="CompanyName" name="CompanyName" placeholder="" ng-model="dataSelected.CompanyName" ng-change="changeText()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Yêu cầu
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <textarea name="Request" id="Request" style="height: 300px; width: 400px;" rows="2" cols="20" placeholder="" ng-model="dataSelected.Request"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        NVKD/Đối tác?
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="checkbox" id="IsSaleDeparment" name="IsSaleDeparment" ng-model="dataSelected.IsSaleDeparment" ng-change="changeText()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Xem trên user?
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <select ng-model="searchEntry.AssignID"
+                                ng-options="item.ID as item.Name for item in assignIDSelectList"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Quá trình chăm sóc
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <textarea name="CareNote" id="CareNote" style="height: 300px; width: 400px;" rows="2" cols="20" placeholder="" ng-model="dataSelected.CareNote"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Kết thúc hợp đồng
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="text" style="width: 400px;" id="ContractFinish" name="ContractFinish" placeholder="" ng-model="dataSelected.ContractFinish" ng-change="changeText()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Tình trạng khách hàng
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <select ng-model="dataSelected.Status" name="Status" id="Status"
+                                ng-options="option.value as option.name for option in statusOptions"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Tình trạng hợp đồng
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <select ng-model="dataSelected.ContractStatus" name="ContractStatus" id="ContractStatus"
+                                ng-options="option.value as option.name for option in contractStatus"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td" style="padding: 5px;">
+                        Khách hàng tiềm năng
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <input type="checkbox" id="Potential" name="Potential" ng-model="dataSelected.Potential" ng-change="changeText()" />
+                    </td>
+                </tr>
 
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </form>
     <div style="text-align: center; margin-top: 10px;">
-        <button ng-disabled="addProductForm.Name.$error.required"
+        <button ng-disabled="addCustomerForm.Name.$error.required || clicked"
                 ng-click="actionConfirm('INSERT')"
                 ng-show="dataSelected.ID==0">
             <span class="glyphicon glyphicon-plus"></span>
