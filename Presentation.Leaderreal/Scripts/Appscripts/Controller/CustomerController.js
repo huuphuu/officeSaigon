@@ -88,7 +88,7 @@
     }
 
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
-    console.log('$scope.listRight', $scope.listRight);
+//    console.log('$scope.listRight', $scope.listRight);
     $scope.dataSelected = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
         window.setTimeout(function () {
@@ -198,6 +198,9 @@
                 convertStringtoBoolean(data[1], 'IsSaleDeparment');
 
                 $scope.dataSelected = data[1][0];
+                $scope.dataSelected.Request && ($scope.dataSelected.Request = $scope.dataSelected.Request.replace(/<br \/>/g, '\n'));
+                $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g,'\n'));
+
                 $rootScope.showModal = false;
                 //console.log('$scope.dataSelected', $scope.dataSelected);
                 $scope.$apply();
@@ -219,10 +222,10 @@
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
-            entry.Request = entry.Request.replace(/\n\r?/g, '<br />');
-            entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />');
+            entry.Request && (entry.Request = entry.Request.replace(/\n\r?/g, '<br />'));
+            entry.CareNote && ( entry.CareNote =  entry.CareNote.replace(/\n\r?/g, '<br />'));
 
-            console.log('entry', entry);
+//            console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {

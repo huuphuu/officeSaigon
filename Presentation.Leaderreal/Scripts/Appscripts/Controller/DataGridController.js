@@ -53,7 +53,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                                 }
                             }
                         });
-                        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
+//                        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
                         //                        console.log('pData', pData);
                     }
 

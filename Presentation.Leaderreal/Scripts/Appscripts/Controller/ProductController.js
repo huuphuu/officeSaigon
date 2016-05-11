@@ -389,7 +389,7 @@
 
     if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined' && $state.current.url == '/product-list') {
         $scope.searchEntry = $rootScope.searchEntryFilter;
-        console.log('$scope.searchEntry', $scope.searchEntry);
+//        console.log('$scope.searchEntry', $scope.searchEntry);
         $scope.search($scope.searchEntry);
 
     }
@@ -486,6 +486,7 @@
     $timeout(function () {
         $scope.dataSelected = productService.dataSelected;
         console.log('$scope.dataSelected', $scope.dataSelected);
+        $scope.dataSelected.Description && ($scope.dataSelected.Description = $scope.dataSelected.Description.replace(/<br \/>/g, '\n'));
         $rootScope.showModal = false;
     }, 2000);
 
@@ -521,7 +522,7 @@
             entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
-            entry.Description = entry.Description.replace(/\n\r?/g, '<br />');
+            entry.Description && ( entry.Description = entry.Description.replace(/\n\r?/g, '<br />'));
 //            console.log('entry', entry);
 
             for (var property in entry) {
