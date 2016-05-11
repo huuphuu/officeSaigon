@@ -325,7 +325,8 @@
         IsGroundFloor: null,
         BuildingDirectionID: null,
         Status: null,
-        Sys_ViewID: 20
+        Sys_ViewID: 20,
+        Status:"0"
     };
 
     $scope.search = function (searchEntry) {
