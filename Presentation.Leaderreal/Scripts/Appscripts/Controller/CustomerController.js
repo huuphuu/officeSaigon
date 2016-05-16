@@ -95,6 +95,7 @@
             $(window).trigger("resize")
         }, 200);
     }
+
     $scope.setData = function (data) {
         if (typeof data != 'undefined') {
             $scope.dataSelected = data;
@@ -111,6 +112,12 @@
         //    //$scope.confirmed = 'You confirmed "No."';
         //});
     }
+
+    //get assignUser
+    coreService.getList(7, function (data) {
+        $scope.userList = data[1];
+        $scope.$apply();
+    });
 
     $scope.reset = function (data) {
         $scope.dataSelected = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };

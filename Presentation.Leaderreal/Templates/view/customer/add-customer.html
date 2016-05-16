@@ -70,7 +70,9 @@
                     </td>
                     <td class="td" style="padding: 5px;">
                         <select ng-model="searchEntry.AssignID"
-                                ng-options="item.ID as item.Name for item in assignIDSelectList"></select>
+                                ng-options="item.ID as item.FullName for item in userList">
+                            <option value="">-- Chọn user</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
