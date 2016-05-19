@@ -321,4 +321,7 @@ table#AreaGrid tbody td {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }
+input.ng-invalid {
+    border: 1px solid  red;
+}
 

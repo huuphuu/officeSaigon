@@ -86,7 +86,7 @@
                         Diện tích cho thuê
                     </td>
                     <td class="td" style="padding: 5px;">
-                        <input type="text" style="width: 400px;" id="AvailableArea" name="AvailableArea" placeholder="" ng-model="dataSelected.AvailableArea" ng-change="changeText)" />
+                        <input type="text" style="width: 400px;" id="AvailableArea" name="AvailableArea" placeholder="" ng-model="dataSelected.AvailableArea" ng-change="changeText)" ng-pattern="productAreaPattern" />
                         <span style="margin-left: 10px; color: Red;">
                             Định dạng dữ liệu cần nhập: aa bb cc dd.
                             Ví dụ: 45 53 60 66
@@ -106,7 +106,8 @@
                         Giá cho thuê
                     </td>
                     <td class="td" style="padding: 5px;">
-                        <input type="text" style="width: 400px;" id="HirePrice" name="HirePrice" placeholder="" ng-model="dataSelected.HirePrice" ng-change="changeText()" />
+                        <input type="text" style="width: 400px;" id="HirePrice" name="HirePrice" placeholder="" ng-model="dataSelected.HirePrice" ng-change="changeText()"
+                               ng-pattern="productPricePattern" />
                         <span style="margin-left: 10px; color: Red;">
                             Định dạng dữ liệu cần nhập: aa,bb cc,dd
                             ee,ff. Ví dụ: 10.5 18.5
@@ -273,7 +274,7 @@
         </table>
     </form>
     <div style="text-align: center; margin-top: 10px;">
-        <button ng-disabled="addProductForm.Name.$error.required || clicked"
+        <button ng-disabled="addProductForm.$invalid || addProductForm.Name.$error.required || clicked"
                 ng-click="actionConfirm('INSERT')"
                 ng-show="dataSelected.ID==0">
             <span class="glyphicon glyphicon-plus"></span>

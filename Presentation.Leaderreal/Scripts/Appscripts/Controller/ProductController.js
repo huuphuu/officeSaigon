@@ -70,6 +70,9 @@
         }
     }
 
+    $scope.productAreaPattern = /^(?:[0-9 ]+$)/;
+    $scope.productPricePattern = /^(?:[0-9 \.]+$)/;
+
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
     $scope.statusOptions = statusOptions;
     $scope.layout = {
