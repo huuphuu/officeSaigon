@@ -88,6 +88,12 @@
     }
 
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    $scope.$watch('listRight', function(newVal, oldVal) {
+        if (newVal == null || oldVal == null) {
+            $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+        }
+    });
+    console.log('listRight.IsDelete', $scope.listRight);
 //    console.log('$scope.listRight', $scope.listRight);
     $scope.dataSelected = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {

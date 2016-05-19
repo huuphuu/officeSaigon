@@ -74,6 +74,12 @@
     $scope.productPricePattern = /^(?:[0-9 \.]+$)/;
 
     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    $scope.$watch('listRight', function (newVal, oldVal) {
+        if (newVal == null || oldVal == null) {
+            $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+        }
+    });
+
     $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,
@@ -487,6 +493,9 @@
 
 .controller('productDialogCtrl', function ($scope, $rootScope, $modalInstance, productService, $timeout, coreService, dialogs, $filter) {
     $rootScope.showModal = true;
+    $scope.productAreaPattern = /^(?:[0-9 ]+$)/;
+    $scope.productPricePattern = /^(?:[0-9 \.]+$)/;
+
     $timeout(function () {
         $scope.dataSelected = productService.dataSelected;
         console.log('$scope.dataSelected', $scope.dataSelected);
@@ -520,6 +529,7 @@
     }
 
     $scope.actionEntry = function (act) {
+        $scope.clicked = true;
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
             entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
@@ -577,6 +587,7 @@
                 }
                 //thong bao ket qua
                 //dialogs.notify(data.Message.Name, data.Message.Description);
+                $scope.clicked = false;
                 $scope.$apply();
 
             });

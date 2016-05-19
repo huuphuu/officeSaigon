@@ -5,7 +5,8 @@
 
 <div class="modal-body">
     <div class="row">
-        <div> <!-- ng-controller="ProductCtrl" ng-init="init()"-->
+    <div> <!-- ng-controller="ProductCtrl" ng-init="init()"-->
+        <form name="addProductForm">
             <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%;
         margin: 20px auto 0px auto;">
                 <tbody>
@@ -88,7 +89,7 @@
                             Diện tích cho thuê
                         </td>
                         <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="AvailableArea" name="AvailableArea" placeholder="" ng-model="dataSelected.AvailableArea" ng-change="changeText)" />
+                            <input type="text" style="width: 400px;" id="AvailableArea" name="AvailableArea" placeholder="" ng-model="dataSelected.AvailableArea" ng-change="changeText)" ng-pattern="productAreaPattern" />
                             <span style="margin-left: 10px; color: Red;">
                                 Định dạng dữ liệu cần nhập: aa bb cc dd.
                                 Ví dụ: 45 53 60 66
@@ -108,7 +109,7 @@
                             Giá cho thuê
                         </td>
                         <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="HirePrice" name="HirePrice" placeholder="" ng-model="dataSelected.HirePrice" ng-change="changeText()" />
+                            <input type="text" style="width: 400px;" id="HirePrice" name="HirePrice" placeholder="" ng-model="dataSelected.HirePrice" ng-change="changeText()" ng-pattern="productPricePattern" />
                             <span style="margin-left: 10px; color: Red;">
                                 Định dạng dữ liệu cần nhập: aa,bb cc,dd
                                 ee,ff. Ví dụ: 10.5 18.5
@@ -273,34 +274,36 @@
                     </tr>
                 </tbody>
             </table>
+        </form>
+            
             <!--<div style="text-align: center; margin-top: 10px;">
-                <button ng-disabled="addProductForm.Name.$error.required"
-                        ng-click="actionConfirm('INSERT')"
-                        ng-show="dataSelected.ID==0">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Thêm
-                </button>
-                <button ng-click="actionConfirm('UPDATE')"
-                        ng-show="dataSelected.ID!=0">
-                    <span class="glyphicon glyphicon-save"></span>
-                    Lưu thay đổi
-                </button>
-                <button ui-sref="productlist">
-                    <span class="glyphicon glyphicon-share-alt"></span>
-                    Trở về
-                </button>
-                <br>
-                <span id="ContentPlaceHolder1_lblInformation"></span>
-            </div>-->
+            <button ng-disabled="addProductForm.Name.$error.required"
+                    ng-click="actionConfirm('INSERT')"
+                    ng-show="dataSelected.ID==0">
+                <span class="glyphicon glyphicon-plus"></span>
+                Thêm
+            </button>
+            <button ng-click="actionConfirm('UPDATE')"
+                    ng-show="dataSelected.ID!=0">
+                <span class="glyphicon glyphicon-save"></span>
+                Lưu thay đổi
+            </button>
+            <button ui-sref="productlist">
+                <span class="glyphicon glyphicon-share-alt"></span>
+                Trở về
+            </button>
+            <br>
+            <span id="ContentPlaceHolder1_lblInformation"></span>
+        </div>-->
             <div style="margin-top: 10px;">
             </div>
-        </div>
+</div>
 
     </div>
 
 </div>
 <div class="modal-footer">
     <input class="btn btn-primary" type="checkbox" value="" ng-model="refreshList" />Tải lại danh sách sản phẩm
-    <button class="btn btn-primary" type="button" ng-click="save()">OK</button>
+    <button class="btn btn-primary" type="button" ng-disabled="addProductForm.$invalid || clicked" ng-click="save()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>
