@@ -87,14 +87,22 @@
         }
     }
 
-    $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
-    $scope.$watch('listRight', function(newVal, oldVal) {
-        if (newVal == null || oldVal == null) {
-            $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    coreService.getList(10, function (data) {
+        authoritiesService.set(data[1]);
+        $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+        $scope.$apply();
+        if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+            $timeout(function() {
+                if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+            }, 100)
+        } else {
+            if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+                $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
         }
+        
     });
-    console.log('listRight.IsDelete', $scope.listRight);
-//    console.log('$scope.listRight', $scope.listRight);
+
     $scope.dataSelected = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
         window.setTimeout(function () {
@@ -326,10 +334,14 @@
                     $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
                     $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
                     $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
+                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
                 } else {
                     $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
                 }
                 $scope.gridInfo.dtInstance.reloadData();
             }, 1000);
@@ -338,12 +350,16 @@
                 $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
                 $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
                 $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+                $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
+                $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
             } else {
                 $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
             }
-            
+
             $scope.gridInfo.dtInstance.reloadData();
         }
 

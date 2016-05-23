@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService, authoritiesService, dialogs) {
+    .controller('BodyController', function ($rootScope, $scope, toaster, coreService, accessFac, localStorageService, authoritiesService, dialogs) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.skin = layoutConfig.skin;
@@ -19,6 +19,7 @@ angular.module('indexApp')
             $scope.metroNavigation = data[1];
             $scope.sidebarNavigation = pData;
             $scope.$apply();
+            $rootScope.$broadcast('userPermission');
 
 //            console.log('$scope.sidebarNavigation.length', $scope.sidebarNavigation.length);
             if ($scope.sidebarNavigation.length == 0) {
