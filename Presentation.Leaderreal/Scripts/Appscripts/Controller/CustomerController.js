@@ -19,7 +19,7 @@
         Potential: null,
         Status: null,
         Type: null,
-        UserID: null,
+        AssignID: null,
         Assign: $scope.customerTypeOptions[0].value,
         Sys_ViewID: 21
     };
@@ -61,6 +61,14 @@
                     //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
                     //    console.log('ProductID', data)
                     //});
+                    break;
+
+                case 'AssignView':
+                    $scope.customerId = row.ID || row;
+                    productService.ProductID = row.ID || row;
+                    if (modalUtils.modalsExist())
+                        modalUtils.closeAllModals();
+                    $scope.openDialog('view');
                     break;
 
                 case 'delete':
