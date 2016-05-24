@@ -19,7 +19,7 @@
         Potential: null,
         Status: null,
         Type: null,
-        AssignID: null,
+        UserID: null,
         Assign: $scope.customerTypeOptions[0].value,
         Sys_ViewID: 21
     };
