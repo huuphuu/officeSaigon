@@ -6,9 +6,8 @@
 <div class="modal-body">
     <div class="row">
     <div> <!-- ng-controller="ProductCtrl" ng-init="init()"-->
-        <form name="addProductForm">
-            <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%;
-        margin: 20px auto 0px auto;">
+        <form name="addCustomerForm">
+            <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
                 <tbody>
                     <tr class="hide">
                         <td style="width: 150px; padding: 5px;" class="td">
@@ -18,258 +17,13 @@
                             <input type="text" class="form-control" id="ID" name="ID" placeholder="ID" ng-model="dataSelected.ID" ng-change="changeText()" />
                         </td>
                     </tr>
+                    
                     <tr>
                         <td class="td" style="padding: 5px;">
-                            Tên sản phẩm
+                            Quá trình chăm sóc
                         </td>
                         <td class="td" style="padding: 5px;">
-                            <input type="text" id="ID" name="Name" placeholder="" ng-model="dataSelected.Name" ng-change="changeText()" style="width: 400px;" required />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Quận/Huyện
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <select ng-model="dataSelected.DistrictID"
-                                    ng-options="item.ID as item.Name for item in districtSelectList"
-                                    ng-change="changeDistrict(dataSelected.DistrictID)">
-                                <option value="">-- Chọn Quận/Huyện</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Phường/Xã
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <select ng-model="dataSelected.WardID"
-                                    ng-options="item.ID as item.Name for item in wardSelectList | filterDistrictID:dataSelected.DistrictID"
-                                    ng-disabled="dataSelected.DistrictID == null || dataSelected.DistrictID == ''">
-                                <option value="">
-                                    -- Chọn Phường/Xã
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Địa chỉ
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="Address" name="Address" placeholder="" ng-model="dataSelected.Address" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Hình minh họa
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" id="FudPicture" name="FudPicture" placeholder="" ng-model="dataSelected.FudPicture" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Kết cấu cao ốc
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="Struture" name="Struture" placeholder="" ng-model="dataSelected.Struture" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Diện tích 1 sàn
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="number" style="width: 400px;" id="AreaPerFloor" name="AreaPerFloor" placeholder="Diện tích 1 sàn. Vd: 500" ng-model="dataSelected.AreaPerFloor" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Diện tích cho thuê
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="AvailableArea" name="AvailableArea" placeholder="" ng-model="dataSelected.AvailableArea" ng-change="changeText)" ng-pattern="productAreaPattern" />
-                            <span style="margin-left: 10px; color: Red;">
-                                Định dạng dữ liệu cần nhập: aa bb cc dd.
-                                Ví dụ: 45 53 60 66
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Mô tả diện tích cho thuê
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="AreaDescription" name="AreaDescription" placeholder="" ng-model="dataSelected.AreaDescription" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Giá cho thuê
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="HirePrice" name="HirePrice" placeholder="" ng-model="dataSelected.HirePrice" ng-change="changeText()" ng-pattern="productPricePattern" />
-                            <span style="margin-left: 10px; color: Red;">
-                                Định dạng dữ liệu cần nhập: aa,bb cc,dd
-                                ee,ff. Ví dụ: 10.5 18.5
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Mô tả giá cho thuê
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="PriceDescription" name="PriceDescription" placeholder="" ng-model="dataSelected.PriceDescription" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Phí dịch vụ
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="ServiceFee" name="ServiceFee" placeholder="" ng-model="dataSelected.ServiceFee" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Thuế VAT
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="VATTax" name="VATTax" placeholder="" ng-model="dataSelected.VATTax" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Giá bao gồm tất cả
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="TotalPrice" name="TotalPrice" placeholder="" ng-model="dataSelected.TotalPrice" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Phí gửi xe
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="ParkingFee" name="ParkingFee" placeholder="" ng-model="dataSelected.ParkingFee" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Tiền điện
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="ElectricityFee" name="ElectricityFee" placeholder="" ng-model="dataSelected.ElectricityFee" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Thời hạn thuê
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="HireDuration" name="HireDuration" placeholder="" ng-model="dataSelected.HireDuration" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Đặt cọc
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="PrePaid" name="PrePaid" placeholder="" ng-model="dataSelected.PrePaid" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Thanh toán
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="Payment" name="Payment" placeholder="" ng-model="dataSelected.Payment" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Thời gian trang trí
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="DecorationTime" name="DecorationTime" placeholder="" ng-model="dataSelected.DecorationTime" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Hướng nhà
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <select ng-model="dataSelected.BuildingDirectionID" name="BuildingDirectionID" id="BuildingDirectionID" style="width: 400px;"
-                                    ng-options="option.Value as option.Name for option in buildingDirectionIDSelectList">
-                                <option value="">-- Chọn hướng nhà</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Loại nhà
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="BuildingType" name="BuildingType" placeholder="" ng-model="dataSelected.BuildingType" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Phí ngoài giờ
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="OtherFee" name="OtherFee" placeholder="" ng-model="dataSelected.OtherFee" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Chú thích
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <textarea name="Description" id="Description" style="height: 300px; width: 400px;" rows="2" cols="20" placeholder="" ng-model="dataSelected.Description"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Tên quản lý
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="ManagerName" name="ManagerName" placeholder="" ng-model="dataSelected.ManagerName" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            SĐT quản lý
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="text" style="width: 400px;" id="ManagerMobilePhone" name="ManagerMobilePhone" placeholder="" ng-model="dataSelected.ManagerMobilePhone" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Cho thuê nguyên căn?
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="checkbox" id="IsHiredWholeBuilding" name="IsHiredWholeBuilding" ng-model="dataSelected.IsHiredWholeBuilding" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Là tầng trệt?
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <input type="checkbox" id="IsGroundFloor" name="IsGroundFloor" ng-model="dataSelected.IsGroundFloor" ng-change="changeText()" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td" style="padding: 5px;">
-                            Tình trạng sản phẩm
-                        </td>
-                        <td class="td" style="padding: 5px;">
-                            <select ng-model="dataSelected.Status" name="Status" id="Status"
-                                    ng-options="option.value as option.name for option in statusOptions"></select>
+                            <textarea name="CareNote" id="CareNote" style="height: 300px; width: 400px;" rows="2" cols="20" placeholder="" ng-model="dataSelected.CareNote"></textarea>
                         </td>
                     </tr>
                 </tbody>
@@ -303,7 +57,7 @@
 
 </div>
 <div class="modal-footer">
-    <input class="btn btn-primary" type="checkbox" value="" ng-model="refreshList" />Tải lại danh sách sản phẩm
-    <button class="btn btn-primary" type="button" ng-disabled="addProductForm.$invalid || clicked" ng-click="save()">OK</button>
+    <input class="btn btn-primary" type="checkbox" value="" ng-model="refreshList" />Tải lại danh sách khách hàng
+    <button class="btn btn-primary" type="button" ng-disabled="addCustomerForm.$invalid || clicked" ng-click="save()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>

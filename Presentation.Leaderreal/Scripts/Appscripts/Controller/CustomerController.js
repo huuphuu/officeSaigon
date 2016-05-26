@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('CustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils) {
+.controller('CustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, customerService, localStorageService) {
     $rootScope.showModal = false;
 
 
@@ -54,22 +54,30 @@
             switch (act) {
                 case 'view':
                     //                    console.log('row', row);
-                    $state.transitionTo('editcustomer', { customerId: row.ID || row });
-                    console.log('row.ID || row', row.ID , row);
-                    // day neu em nhan vieư em data cua view , hoac neu em can update thi row la object data em dung de show len man hinh, ok ko
-                    //                    alert('xem console view:' + act);
-                    //coreService.getListEx({ ProductID: row.ID, Sys_ViewID: 19 }, function (data) {
-                    //    console.log('ProductID', data)
-                    //});
+                    var currentUserInfo = localStorageService.get('authorizationData'),
+                        currentUserID = currentUserInfo.ID;
+
+                    $scope.currentUserID = currentUserID;
+
+                    if ($scope.searchEntry.Assign != '1' && (currentUserID != 13 && currentUserID != 18)) {
+                        $scope.customerId = row.ID || row;
+                        customerService.CustomerID = $scope.customerId;
+                        if (modalUtils.modalsExist())
+                            modalUtils.closeAllModals();
+                        $scope.openDialog('view');
+                    } else {
+                        $state.transitionTo('editcustomer', { customerId: row.ID || row });
+//                        console.log('row.ID || row', row.ID, row);
+                    }
                     break;
 
-                case 'AssignView':
-                    $scope.customerId = row.ID || row;
-                    productService.ProductID = row.ID || row;
-                    if (modalUtils.modalsExist())
-                        modalUtils.closeAllModals();
-                    $scope.openDialog('view');
-                    break;
+//                case 'AssignView':
+//                    $scope.customerId = row.ID || row;
+//                    customerService.CustomerId = row.ID || row;
+//                    if (modalUtils.modalsExist())
+//                        modalUtils.closeAllModals();
+//                    $scope.openDialog('view');
+//                    break;
 
                 case 'delete':
                     console.log('row', row);
@@ -98,6 +106,7 @@
     coreService.getList(10, function (data) {
         authoritiesService.set(data[1]);
         $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+//        console.log('$scope.listRight ', $scope.listRight);
         $scope.$apply();
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function() {
@@ -219,24 +228,53 @@
     //});
     $scope.$watch('customerId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
-            $rootScope.showModal = true;
-            coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
-                //console.log('CustomerID', data);
-                //convertStringtoNumber(data[1], 'DistrictID');
-                convertStringtoBoolean(data[1], 'Potential');
-                convertStringtoBoolean(data[1], 'IsSaleDeparment');
+            var currentUserInfo = localStorageService.get('authorizationData'),
+                        currentUserID = currentUserInfo.ID;
 
-                $scope.dataSelected = data[1][0];
-                $scope.dataSelected.Request && ($scope.dataSelected.Request = $scope.dataSelected.Request.replace(/<br \/>/g, '\n'));
-                $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g,'\n'));
+            if (currentUserID == 13 || currentUserID == 18) {
+                console.log('vao customerId');
+                $rootScope.showModal = true;
+                coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function(data) {
+                    //console.log('CustomerID', data);
+                    //convertStringtoNumber(data[1], 'DistrictID');
+                    convertStringtoBoolean(data[1], 'Potential');
+                    convertStringtoBoolean(data[1], 'IsSaleDeparment');
 
-                $rootScope.showModal = false;
-                //console.log('$scope.dataSelected', $scope.dataSelected);
-                $scope.$apply();
-                //console.log('CustomerID after', data[1]);
-            });
+                    $scope.dataSelected = data[1][0];
+                    $scope.dataSelected.Request && ($scope.dataSelected.Request = $scope.dataSelected.Request.replace(/<br \/>/g, '\n'));
+                    $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
+
+                    $rootScope.showModal = false;
+                    //console.log('$scope.dataSelected', $scope.dataSelected);
+                    $scope.$apply();
+                    //console.log('CustomerID after', data[1]);
+                });
+            } else {
+                customerService.broadcastCustomerData();
+            }   
         }
     })
+
+    $scope.openDialog = function (act) {
+        console.log('openDialog');
+        var dlg = dialogs.create('/templates/view/customer/customer-popup.html', 'customerDialogCtrl', customerService, { size: 'lg', keyboard: false, backdrop: false });
+        dlg.result.then(function (refreshList) {
+            //            console.log('dialogs', refreshList);
+            if (refreshList) {
+                if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+                    $timeout(function () {
+                        $scope.gridInfo.dtInstance.reloadData();
+                    }, 1000);
+                } else {
+                    $scope.gridInfo.dtInstance.reloadData();
+                }
+            }
+
+        }, function () {
+            if (angular.equals($scope.name, ''))
+                $scope.name = 'You did not enter in your name!';
+        });
+    }
 
     //var entry = { Name: 'thanh', WardID: 1, DistrictID: 1, Address: '537/7A Đường Tân Chánh Hiệp. P. Tân Chánh Hiệp. Q.12. TPHCM.' };
     //entry.Action = 'INSERT';
@@ -351,6 +389,10 @@
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
                 }
+
+                if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+
                 $scope.gridInfo.dtInstance.reloadData();
             }, 1000);
         } else {
@@ -367,6 +409,9 @@
                 $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
             }
+
+            if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+                $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
 
             $scope.gridInfo.dtInstance.reloadData();
         }
@@ -441,5 +486,102 @@
         return slug;
     }
 
+
+})
+
+.controller('customerDialogCtrl', function ($scope, $rootScope, $modalInstance, customerService, $timeout, coreService, dialogs, $filter) {
+    $rootScope.showModal = true;
+
+
+    $timeout(function () {
+        $scope.dataSelected = customerService.dataSelected;
+//        console.log('$scope.dataSelected', $scope.dataSelected);
+        $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
+        $rootScope.showModal = false;
+    }, 2000);
+
+    $scope.title = 'Chỉnh sửa khách hàng';
+    $scope.refreshList = false;
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('Canceled');
+    }; // end cancel
+
+    $scope.save = function () {
+        var act = "UPDATE";
+        //console.log("save:data", $scope.dataSelected);
+        if ($scope.dataSelected.ID != undefined && $scope.dataSelected.ID > 0) act = "UPDATE";
+        $scope.actionConfirm(act);
+    }; // end save
+
+    $scope.actionConfirm = function (act) {
+        $scope.actionEntry(act);
+    }
+
+    $scope.actionEntry = function (act) {
+        $scope.clicked = true;
+        if (typeof act != 'undefined') {
+            var entry = angular.copy($scope.dataSelected);
+            entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
+            entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
+            entry.Action = act;
+            entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
+            entry.CareNote && (entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />'));
+            //            console.log('entry', entry);
+
+            for (var property in entry) {
+                if (entry.hasOwnProperty(property)) {
+                    if (entry[property] == '') {
+                        delete entry[property];
+                    }
+                }
+            }
+            if (act == 'DELETE')
+                entry.ID = $scope.deleteId;
+
+            coreService.actionEntry2(entry, function (data) {
+                if (data.Success) {
+                    switch (act) {
+                        case 'INSERT':
+                            //                            entry.ID = data.Result;
+                            //                            $scope.gridInfo.data.unshift(entry);
+                            //                            dialogs.notify(data.Message.Name, data.Message.Description);
+                            break;
+                        case 'UPDATE':
+                            $modalInstance.close($scope.refreshList);
+                            break;
+                        case 'DELETE':
+                            //                            var index = -1;
+                            //                            var i = 0;
+                            //                            angular.forEach($scope.gridInfo.data, function (item, key) {
+                            //                                if (entry.ID == item.ID)
+                            //                                    index = i;
+                            //                                i++;
+                            //                            });
+                            //                            if (index > -1)
+                            //                                $scope.gridInfo.data.splice(index, 1);
+                            //
+                            //                            dialogs.notify(data.Message.Name, data.Message.Description);
+                            //
+                            //                            if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+                            //                                $timeout(function () {
+                            //                                    $scope.gridInfo.dtInstance.reloadData();
+                            //                                }, 1000);
+                            //                            } else {
+                            //                                $scope.gridInfo.dtInstance.reloadData();
+                            //                            }
+                            break;
+                    }
+                    //                    $scope.reset();
+
+                }
+                //thong bao ket qua
+                //dialogs.notify(data.Message.Name, data.Message.Description);
+                $scope.clicked = false;
+                $scope.$apply();
+
+            });
+        }
+    }
 
 })

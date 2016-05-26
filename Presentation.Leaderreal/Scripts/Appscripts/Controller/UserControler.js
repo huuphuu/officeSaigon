@@ -28,7 +28,14 @@
          }
      }
      //Defines variables
-     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+//     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+
+     coreService.getList(10, function (data) {
+         authoritiesService.set(data[1]);
+         $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+         $scope.$apply();
+     });
+
      $scope.statusOptions = statusOptions;
      $scope.userlist = [];
      $scope.employeelist = [];
@@ -43,7 +50,7 @@
          coreService.getListEx({ Sys_ViewID: 9, UserID: userId }, function (data) {
              $scope.roles = data[1];
              $scope.$apply();
-             console.log("user roles::", data);
+//             console.log("user roles::", data);
          });
      }
 
@@ -107,11 +114,22 @@
                   entry.Roles = {};
                   entry.Roles.Role = $scope.roles;
                   entry.Sys_ViewID = $scope.gridInfo.sysViewID;
+
                   console.log('entry.Password', entry.Password);
-                  entry.Password = md5.createHash(entry.Password || '');
-                  console.log('entry',entry);
+
+                  if (entry.Password != '' && typeof entry.Password != 'undefined') {
+//                      console.log('dung');
+                      entry.Password = md5.createHash(entry.Password);
+                  }
+                  else {
+//                      console.log('sai');
+                      delete entry.Password;
+                  }
+
+                  console.log('entry', entry);
+
                   coreService.actionEntry2(entry, function (data) {
-                      console.log(data);
+//                      console.log(data);
                       if (data.Success) {
                           switch (act) {
                               case 'INSERT':

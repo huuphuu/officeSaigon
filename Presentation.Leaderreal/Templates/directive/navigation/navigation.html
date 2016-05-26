@@ -21,7 +21,9 @@
                         </a>
                     </td>
                     <td style="white-space: nowrap;">
-                        <a ui-sref="{{nav.url}}" class="level0">{{nav.Title}}</a><!--ui-sref="{{nav.url}}"-->
+                        <a href="javascript:void(0)" class="level0" ng-click="resetFilter()">
+                            {{nav.Title}}
+                        </a>
                     </td>
                 </tr>
             </tbody>
@@ -44,12 +46,12 @@
                             <img src="Images/old-template/line-treeview.gif" alt="" ng-if="nav.childs.length > 1 && !$last " />
                         </td>
                         <td>
-                            <a class ="old-template-icon" tabindex="-1">
+                            <a class="old-template-icon" tabindex="-1">
                                 <i class="{{menuItem.cssIcon}}"></i>
-                            </aclass>
+                                </aclass>
                         </td>
                         <td>
-                            <a ui-sref="{{menuItem.url}}" class="level1" ng-click="resetFilter()">
+                            <a ui-sref="{{menuItem.url}}" class="level1">
                                 {{menuItem.Title}}
                             </a>
                         </td>

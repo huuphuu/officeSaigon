@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($rootScope, $scope, toaster, coreService, accessFac, localStorageService, authoritiesService, dialogs) {
+    .controller('BodyController', function ($rootScope, $scope, toaster, coreService, accessFac, localStorageService, authoritiesService, dialogs, $location) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.skin = layoutConfig.skin;
@@ -271,7 +271,8 @@ angular.module('indexApp')
 
                 scope.resetFilter = function () {
                     
-                    $rootScope.searchEntryFilter = null;
+//                    $rootScope.searchEntryFilter = null;
+                    location.reload();
                     console.log('vao', $rootScope.searchEntryFilter);
                 }
             }
