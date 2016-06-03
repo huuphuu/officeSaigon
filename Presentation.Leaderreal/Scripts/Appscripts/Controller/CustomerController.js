@@ -17,7 +17,7 @@
         Phone: null,
         Email: null,
         Potential: null,
-        Status: null,
+        Status: "0",
         Type: null,
         UserID: null,
         Assign: $scope.customerTypeOptions[0].value,
@@ -37,7 +37,7 @@
               { name: 'Phone', heading: 'Phone', width :'100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
               { name: 'Request', heading: 'Yêu cầu', width: '220px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
-              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
+              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150' },
               { name: 'Action1', heading: 'Sửa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] }
         ],
@@ -235,14 +235,14 @@
                 console.log('vao customerId');
                 $rootScope.showModal = true;
                 coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function(data) {
-                    //console.log('CustomerID', data);
+                    console.log('data', data);
                     //convertStringtoNumber(data[1], 'DistrictID');
                     convertStringtoBoolean(data[1], 'Potential');
                     convertStringtoBoolean(data[1], 'IsSaleDeparment');
 
                     $scope.dataSelected = data[1][0];
-                    $scope.dataSelected.Request && ($scope.dataSelected.Request = $scope.dataSelected.Request.replace(/<br \/>/g, '\n'));
-                    $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
+                    $scope.dataSelected && $scope.dataSelected.Request && ($scope.dataSelected.Request = $scope.dataSelected.Request.replace(/<br \/>/g, '\n'));
+                    $scope.dataSelected && $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
 
                     $rootScope.showModal = false;
                     //console.log('$scope.dataSelected', $scope.dataSelected);
@@ -522,8 +522,6 @@
         $scope.clicked = true;
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSelected);
-            entry.UnAssignedName = tiengvietkhongdau(entry.Name); //coreService.toASCi(entry.Name);
-            entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
             entry.CareNote && (entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />'));

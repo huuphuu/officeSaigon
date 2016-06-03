@@ -1869,3 +1869,8 @@ m:hover {
     .btn:hover {
         color: #ffffdd;
     }
+
+
+.customerGrid th.text-left {
+    text-align: center;
+}
