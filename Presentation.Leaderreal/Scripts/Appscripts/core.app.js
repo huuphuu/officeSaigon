@@ -378,7 +378,7 @@ var coreApp;
             };
             this.actionEntry2 = function (data, callback) {
                 var inputValue = a.objectToXMLEx('InputValue', { UserID: this.userID }) + a.objectToXMLEx('RequestParams', data);
-                //console.log("inputValue", inputValue);
+//                console.log("actionEntry2 ------inputValue", inputValue);
                 return this.executeAction('ExecuteAction ', inputValue, callback);
             };
             this.callServer = function (url, fnName, data, callback) {

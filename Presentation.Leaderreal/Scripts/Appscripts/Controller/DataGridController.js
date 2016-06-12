@@ -292,7 +292,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     }
 
     vm.toggleOne = function (selectedItems) {
-        console.log('selectedItems', selectedItems);
+//        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 if (!selectedItems[id]) {

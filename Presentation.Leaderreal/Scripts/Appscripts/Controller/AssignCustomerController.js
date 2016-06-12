@@ -186,26 +186,27 @@
 
     $scope.assignCustomers = function () {
         
-        console.log('dataSelected.userID', $scope.dataSelected.userID);
+//        console.log('dataSelected.userID', $scope.dataSelected.userID);
         var selectedId = [];
         var selectedItems = $rootScope.selectedItems;
+//        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
-                if (selectedItems[id]) {
-                    selectedId.push(id);
-                }
+                var object = { "CustomerId": id, "IsChecked": selectedItems[id] };
+                selectedId.push(object);
             }
         }
-        console.log('selectedItems', selectedItems);
-        console.log('selectedId', selectedId);
-        var selectIdObj = [];
+//        console.log('selectedId', selectedId);
+
         for (var i = 0; i < selectedId.length; i++) {
-            var object = { "CustomerId": selectedId[i] };
-            selectIdObj.push(object);
+            if (selectedId[i].IsChecked == true)
+                selectedId[i].IsChecked = 1;
+            else
+                selectedId[i].IsChecked = 0;
         }
 
         var entry = {};
-        entry.Item = selectIdObj;
+        entry.Item = selectedId;
         entry.Sys_ViewID = 25;
         entry.Action = 'UPDATE';
         entry.LoginId = $scope.dataSelected.userID;
@@ -217,7 +218,7 @@
             }
         });
 
-        console.log('selectedId', selectedId.toString());
+//        console.log('selectedId', selectedId.toString());
     };
 
     $scope.actionEntry = function (act) {
