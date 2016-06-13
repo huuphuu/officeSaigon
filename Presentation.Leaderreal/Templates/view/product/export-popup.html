@@ -16,7 +16,7 @@
                                 Gửi đến
                             </td>
                             <td class="td" style="padding: 5px;">
-                                <input type="text" id="SendTo" name="SendTo" placeholder="" ng-model="data.SendTo" style="width: 400px;" />
+                                <input type="text" id="SendTo" name="SendTo" placeholder="" ng-model="data.addressTo" style="width: 400px;" />
                             </td>
                         </tr>
                         <tr>
@@ -24,7 +24,7 @@
                                 Họ tên
                             </td>
                             <td class="td" style="padding: 5px;">
-                                <input type="text" id="Name" name="Name" placeholder="" ng-model="data.Name" style="width: 400px;" />
+                                <input type="text" id="Name" name="Name" placeholder="" ng-model="data.FullName" style="width: 400px;" />
                             </td>
                         </tr>
                         <tr>
@@ -40,7 +40,7 @@
                                 Điện thoại bàn
                             </td>
                             <td class="td" style="padding: 5px;">
-                                <input type="text" id="Phone" name="Phone" placeholder="" ng-model="data.Phone" style="width: 400px;" />
+                                <input type="text" id="Phone" name="Phone" placeholder="" ng-model="data.CellPhone" style="width: 400px;" />
                             </td>
                         </tr>
                     <tr>
@@ -48,7 +48,7 @@
                             Điện thoại di động
                         </td>
                         <td class="td" style="padding: 5px;">
-                            <input type="text" id="Telephone" name="Telephone" placeholder="" ng-model="data.Telephone" style="width: 400px;"/>
+                            <input type="text" id="Telephone" name="Telephone" placeholder="" ng-model="data.TelePhone" style="width: 400px;"/>
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +64,7 @@
                                 Tên File
                             </td>
                             <td class="td" style="padding: 5px;">
-                                <input type="text" id="FileName" name="FileName" placeholder="" ng-model="data.FileName" style="width: 400px;" />
+                                <input type="text" id="FileName" name="FileName" placeholder="" ng-model="data.FileName" style="width: 400px;" value="File_Bao_Gia" />
                             </td>
                         </tr>
                     </tbody>
@@ -81,3 +81,5 @@
     <button class="btn btn-primary" type="button" ng-disabled="exportForm.$invalid || clicked" ng-click="exportExcel(data)">Xuất File</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Đóng</button>
 </div>
+
+<iframe src="../service.data/excel/export.aspx" style="display:none" id="hiddenDownloader" />
