@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, productService) {
+.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, productService, exportExcelService) {
     $rootScope.showModal = false;
     var titleHtml = '<input type="checkbox" ng-model="vm.selectAll" ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
     $scope.gridInfo = {
@@ -428,9 +428,23 @@
             }
         }
 
-        var hiddenIframeId = "#hiddenDownloader";
-        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", selectedId.toString(), function () { }, 100);
-        //   thisObj._win.RunExport(_data);
+        $rootScope.selectedExportIDs = selectedId;
+
+        //mo popup
+        var dlg = dialogs.create('/templates/view/product/export-popup.html', 'exportDialogCtrl', exportExcelService, { size: 'lg', keyboard: false, backdrop: false });
+        dlg.result.then(function (val) {
+            //            console.log('dialogs', val);
+            if (val) {
+                
+            }
+
+        }, function () {
+            
+        });
+
+//        var hiddenIframeId = "#hiddenDownloader";
+//        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", selectedId.toString(), function () { }, 100);
+//        //   thisObj._win.RunExport(_data);
 
         console.log('selectedId', selectedId.toString());
     };
@@ -693,5 +707,24 @@
         slug = "@" + slug + "@";
         slug = slug.replace(/\@\-|\-\@|\@/gi, "");
         return slug;
+    }
+})
+
+.controller('exportDialogCtrl', function ($scope, $rootScope, $modalInstance, exportExcelService, $timeout, coreService, dialogs, $filter) {
+//    $rootScope.showModal = true;
+
+    $scope.title = 'Điền thông tin xuất file';
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('Canceled');
+    }; // end cancel
+
+
+    $scope.exportExcel = function(data) {
+        var exportIDs = $rootScope.selectedExportIDs;
+        console.log('data export', data);
+
+        //tat popup 
+        $modalInstance.close('Success');
     }
 })
