@@ -1,6 +1,8 @@
 ﻿angular.module('indexApp')
-.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, productService, exportExcelService) {
+.controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, productService, exportExcelService, localStorageService) {
     $rootScope.showModal = false;
+    $rootScope.exportInfo = localStorageService.get('authorizationData');
+   
     var titleHtml = '<input type="checkbox" ng-model="vm.selectAll" ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
     $scope.gridInfo = {
         gridID: 'productgrid',
@@ -11,6 +13,7 @@
             { name: 'MultiSelect', heading: titleHtml, width: '50px', className: 'text-center pd-0 break-word', type: controls.CHECKBOX, listAction: [{ classIcon: 'form-control', action: 'multiSelect' }] },
             { name: 'LastUpdatedDateTime', heading: 'Ngày chỉnh sửa', width: '90px', className: 'text-center pd-0 break-word' },
             { name: 'Name', heading: 'Tên', className: 'text-center pd-0 break-word' },
+              { name: 'HomeNumber', heading: 'Số nhà', width: '50px', className: 'text-center pd-0 break-word' },
             { name: 'Address', heading: 'Địa chỉ', className: 'text-center pd-0 break-word' },
             { name: 'ManagerName', heading: 'Tên quản lý', className: 'text-center pd-0 break-word' },
             { name: 'ManagerMobilePhone', heading: 'SĐT quản lý', className: 'text-center pd-0 break-word' },
@@ -714,7 +717,10 @@
 //    $rootScope.showModal = true;
 
     $scope.title = 'Điền thông tin xuất file';
-
+    $scope.data = $rootScope.exportInfo;
+    $scope.data.viewId = 26;
+    $scope.data.fileType = 'excel';
+    console.log($scope.data);
     $scope.cancel = function () {
         $modalInstance.dismiss('Canceled');
     }; // end cancel
@@ -722,7 +728,25 @@
 
     $scope.exportExcel = function(data) {
         var exportIDs = $rootScope.selectedExportIDs;
-        console.log('data export', data);
+        console.log('data export', data, exportIDs);
+
+
+        var selectedId = [];
+        var selectedItems = $rootScope.selectedItems;
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if (selectedItems[id]) {
+                    selectedId.push(id);
+                }
+            }
+        }
+        var languageId = "129";//"Excel|Pdf
+        var hiddenIframeId = "#hiddenDownloader";
+        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", { listId: selectedId.toString(), exportType: data.fileType, sysViewId: data.viewId, languageId: languageId, addressTo: data.addressTo, fullName: data.FullName, telePhone: data.TelePhone, cellPhone: data.CellPhone, email: data.Email, position: data.Position, fileName: data.FileName }, function () { }, 100);
+      //  $('#infoExportModal').modal('hide');
+
+
+
 
         //tat popup 
         $modalInstance.close('Success');
