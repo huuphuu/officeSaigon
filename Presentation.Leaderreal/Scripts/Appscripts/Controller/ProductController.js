@@ -82,14 +82,22 @@
         $scope.$apply();
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
+                if ($scope.listRight && $scope.listRight.IsUpdate && $scope.listRight.IsUpdate == 'False') {
+                    console.log('$scope.listRight', $scope.listRight);
+                    $scope.gridInfo.dtInstance.DataTable.column('Action1').visible(false);
+                }
                 if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False') {
                     console.log('$scope.listRight', $scope.listRight);
-                    $scope.gridInfo.dtInstance.DataTable.column(12).visible(false);
-                } 
+                    $scope.gridInfo.dtInstance.DataTable.column('Action2').visible(false);
+                }
+                console.log($scope.gridInfo.dtInstance.DataTable.column('Action2'));
             }, 100)
         } else {
+            if ($scope.listRight && $scope.listRight.IsUpdate && $scope.listRight.IsUpdate == 'False') {
+                $scope.gridInfo.dtInstance.DataTable.column('Action1').visible(false);
             if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
-                $scope.gridInfo.dtInstance.DataTable.column(12).visible(false);
+                $scope.gridInfo.dtInstance.DataTable.column('Action2').visible(false);
+            }
         }
 
     });
