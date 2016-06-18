@@ -7,6 +7,8 @@
     $scope.potentialOptions = potentialOptions;
     $scope.customerTypeOptions = customerTypeOptions;
     $scope.contractStatus = contractStatus;
+    $rootScope.searchEntryFilter = null;
+
     $scope.layout = {
         enableClear: false,
         enableButtonOrther: false

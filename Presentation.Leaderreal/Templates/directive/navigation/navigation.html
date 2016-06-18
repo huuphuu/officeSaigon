@@ -21,7 +21,8 @@
                         </a>
                     </td>
                     <td style="white-space: nowrap;">
-                        <a href="javascript:void(0)" class="level0" ng-click="resetFilter()">
+                        <a ui-sref="{{nav.url}}" class="level0" ng-click="resetFilter($event)">
+                            <!-- href="javascript:void(0)" -->
                             {{nav.Title}}
                         </a>
                     </td>

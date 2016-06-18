@@ -18,10 +18,11 @@ angular.module('indexApp')
             authoritiesService.set(data[1]);
             $scope.metroNavigation = data[1];
             $scope.sidebarNavigation = pData;
+            console.log('$scope.sidebarNavigation', $scope.sidebarNavigation);
             $scope.$apply();
             $rootScope.$broadcast('userPermission');
 
-//            console.log('$scope.sidebarNavigation.length', $scope.sidebarNavigation.length);
+            //            console.log('$scope.sidebarNavigation.length', $scope.sidebarNavigation.length);
             if ($scope.sidebarNavigation.length == 0) {
                 dialogs.notify('Error', 'Bạn không có quyền truy cập!');
                 //                window.location.href = "/";
@@ -51,8 +52,8 @@ angular.module('indexApp')
                 tempData[i].cssIcon = tempData[i].CssIcon;
                 tempData[i].labelCss = tempData[i].LabelCss;
                 if (tempData[i].ParentID == "0") {
-                    tempData[i].url = '#';
-//                    tempData[i].url = tempData[i].State.toLowerCase();
+                    //                    tempData[i].url = '#';
+                    tempData[i].url = tempData[i].State.toLowerCase();
                     masterArr.push(tempData[i]);
                 } else {
                     childArr.push(tempData[i]);
@@ -181,7 +182,7 @@ angular.module('indexApp')
             templateUrl: '/Templates/directive/header/nav/header-Navbar-Menu.html'
         };
     })
-    .directive('sidebarNavigation', function ($rootScope) {
+    .directive('sidebarNavigation', function ($rootScope, $location) {
         return {
             restrict: 'EA',
             replace: true,
@@ -269,10 +270,13 @@ angular.module('indexApp')
                     }
                 }
 
-                scope.resetFilter = function () {
-                    
-//                    $rootScope.searchEntryFilter = null;
-                    location.reload();
+                scope.resetFilter = function (event) {
+                    var currentPath = $location.path();
+                    var clickedPath = event.target.attributes.href.value;
+                    if (clickedPath.indexOf(currentPath) != -1)
+                        location.reload();
+
+                    //                    $rootScope.searchEntryFilter = null;
                     console.log('vao', $rootScope.searchEntryFilter);
                 }
             }
@@ -394,14 +398,14 @@ angular.module('indexApp')
                 setData: '&'
             },
             controller: function ($scope, gridService) {
-//                $scope.actionClick = function (row, act, obj) {
-//                    $scope.gridInfo.onActionClick(row, act)
-//                }
+                //                $scope.actionClick = function (row, act, obj) {
+                //                    $scope.gridInfo.onActionClick(row, act)
+                //                }
 
             }
         };
     })
-    .factory('modalUtils', ['$modalStack',function ($modalStack) {
+    .factory('modalUtils', ['$modalStack', function ($modalStack) {
         return {
             modalsExist: function () {
                 return !!$modalStack.getTop();

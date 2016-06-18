@@ -2,6 +2,7 @@
 .controller('ProductCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, productService, exportExcelService, localStorageService) {
     $rootScope.showModal = false;
     $rootScope.exportInfo = localStorageService.get('authorizationData');
+    $rootScope.searchEntryFilter = null;
    
     var titleHtml = '<input type="checkbox" ng-model="vm.selectAll" ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
     $scope.gridInfo = {
