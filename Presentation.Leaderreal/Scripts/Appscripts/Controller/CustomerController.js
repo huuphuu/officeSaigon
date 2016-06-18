@@ -21,7 +21,7 @@
         Potential: null,
         Status: "0",
         Type: null,
-        UserID: null,
+        AssignUserId: null,
         Assign: $scope.customerTypeOptions[0].value,
         Sys_ViewID: 21
     };
@@ -360,6 +360,9 @@
 
     $scope.search = function (searchEntry) {
         $rootScope.showModal = true;
+
+        if (searchEntry.AssignUserId != null && typeof searchEntry.AssignUserId != 'undefined')
+            searchEntry.Assign = '1';
 
         for (var property in searchEntry) {
             if (searchEntry.hasOwnProperty(property)) {

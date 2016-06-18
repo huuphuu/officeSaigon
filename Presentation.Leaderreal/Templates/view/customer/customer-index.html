@@ -52,11 +52,13 @@
                     </select>
                 </td>
                 <td class="td" style="width: 200px; background-color: #dddddd; padding-left: 5px; height: 28px;">
-                    Loại khách hàng
+                    <span ng-show="searchEntry.AssignUserId == null">Loại khách hàng</span>
                 </td>
                 <td class="td" style="background-color: #dddddd; padding-left: 5px;">
-                    <select ng-model="searchEntry.Assign"
-                            ng-options="option.value as option.name for option in customerTypeOptions"></select>
+                    <div ng-show="searchEntry.AssignUserId == null">
+                        <select ng-model="searchEntry.Assign"
+                                ng-options="option.value as option.name for option in customerTypeOptions"></select>
+                    </div>
                 </td>
             </tr>
         <tr>
