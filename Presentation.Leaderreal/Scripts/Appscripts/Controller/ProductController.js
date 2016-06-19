@@ -92,7 +92,6 @@
                     console.log('$scope.listRight', $scope.listRight);
                     $scope.gridInfo.dtInstance.DataTable.column(13).visible(false);
                 }
-                console.log($scope.gridInfo.dtInstance.DataTable.column('Action2'));
             }, 100)
         } else {
             if ($scope.listRight && $scope.listRight.IsUpdate && $scope.listRight.IsUpdate == 'False') {
@@ -743,7 +742,7 @@
 
 
         var selectedId = [];
-        var selectedItems = $rootScope.selectedItems;
+        var selectedItems = $rootScope.hasSelectedItems;// $rootScope.selectedItems;
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 if (selectedItems[id]) {
@@ -751,9 +750,24 @@
                 }
             }
         }
+
         var languageId = "129";//"Excel|Pdf
         var hiddenIframeId = "#hiddenDownloader";
-        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", { listId: selectedId.toString(), exportType: data.fileType, sysViewId: data.viewId, languageId: languageId, addressTo: data.addressTo, fullName: data.FullName, telePhone: data.TelePhone, cellPhone: data.CellPhone, email: data.Email, position: data.Position, fileName: data.FileName }, function () { }, 100);
+        var exportData = {
+            listId: selectedId.toString(), 
+            exportType: data.fileType, 
+            sysViewId: data.viewId, 
+            languageId: languageId,
+            addressTo: data.addressTo,
+            fullName: data.FullName,
+            telePhone: data.TelePhone,
+            cellPhone: data.CellPhone,
+            email: data.Email,
+            position: data.Position,
+            fileName: data.FileName
+        };
+        console.log('exportData', exportData);
+        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", exportData, function () { }, 100);
         //  $('#infoExportModal').modal('hide');
 
 
