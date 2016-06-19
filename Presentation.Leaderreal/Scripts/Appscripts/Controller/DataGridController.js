@@ -11,6 +11,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
     vm.selected = {};
     vm.selectAll = false;
     $rootScope.selectedItems = {};
+    $rootScope.hasSelectedItems = {};
 
     vm.dtOptions = DTOptionsBuilder.newOptions()
     .withOption('ajax', function (data, callback, settings) {
@@ -262,10 +263,15 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 col.notSortable();
                 col.renderWith(function (data, type, full, meta) {
                     var result = '';
-                    vm.selected[full.ID] = false;
-                    if ($rootScope.selectedItems[full.ID]) {
+                    vm.selected[full.ID] = null; //false
+                    if ($rootScope.selectedItems[full.ID] || $rootScope.hasSelectedItems[full.ID]) {
                         vm.selected[full.ID] = true;
+                        full.Cheked = true;
+//                        console.log('$rootScope.selectedItems[full.ID]', $rootScope.selectedItems[full.ID]);
+//                        console.log('full.Cheked', full.Cheked);
                     }
+
+                    
                     angular.forEach(field.listAction, function (value, key) {
                         result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-checked="' + full.Cheked + '" ng-click="vm.toggleOne(vm.selected)">';
                     });
@@ -289,15 +295,20 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             }
         }
         $rootScope.selectedItems = selectedItems;
+
+        $rootScope.hasSelectedItems = angular.extend($rootScope.hasSelectedItems, $rootScope.selectedItems);
+//        console.log('$rootScope.hasSelectedItems', $rootScope.hasSelectedItems);
     }
 
     vm.toggleOne = function (selectedItems) {
 //        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
-                if (!selectedItems[id]) {
+                if (!selectedItems[id] ||selectedItems[id] == null) {
                     vm.selectAll = false;
                     $rootScope.selectedItems = selectedItems;
+                    $rootScope.hasSelectedItems = angular.extend($rootScope.hasSelectedItems, $rootScope.selectedItems);
+//                    console.log('$rootScope.hasSelectedItems', $rootScope.hasSelectedItems);
                     return;
                 }
             }

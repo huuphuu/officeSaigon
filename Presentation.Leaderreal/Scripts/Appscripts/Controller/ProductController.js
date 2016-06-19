@@ -3,7 +3,8 @@
     $rootScope.showModal = false;
     $rootScope.exportInfo = localStorageService.get('authorizationData');
     $rootScope.searchEntryFilter = null;
-   
+    $rootScope.selectedItems = null;
+
     var titleHtml = '<input type="checkbox" ng-model="vm.selectAll" ng-click="vm.toggleAll(vm.selectAll, vm.selected)">';
     $scope.gridInfo = {
         gridID: 'productgrid',
@@ -96,8 +97,8 @@
         } else {
             if ($scope.listRight && $scope.listRight.IsUpdate && $scope.listRight.IsUpdate == 'False') {
                 $scope.gridInfo.dtInstance.DataTable.column(12).visible(false);
-            if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
-                $scope.gridInfo.dtInstance.DataTable.column(13).visible(false);
+                if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+                    $scope.gridInfo.dtInstance.DataTable.column(13).visible(false);
             }
         }
 
@@ -248,7 +249,7 @@
         console.log('openDialog');
         var dlg = dialogs.create('/templates/view/product/product-popup.html', 'productDialogCtrl', productService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (refreshList) {
-//            console.log('dialogs', refreshList);
+            //            console.log('dialogs', refreshList);
             if (refreshList) {
                 if (typeof $scope.gridInfo.dtInstance == 'undefined') {
                     $timeout(function () {
@@ -281,7 +282,7 @@
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
             entry.Description = entry.Description.replace(/\n\r?/g, '<br />');
 
-//            console.log('entry', entry);
+            //            console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -359,7 +360,7 @@
         BuildingDirectionID: null,
         Status: null,
         Sys_ViewID: 20,
-        Status:"0"
+        Status: "0"
     };
 
     $scope.search = function (searchEntry) {
@@ -423,7 +424,7 @@
 
     if ($rootScope.searchEntryFilter != null && typeof $rootScope.searchEntryFilter != 'undefined' && $state.current.url == '/product-list') {
         $scope.searchEntry = $rootScope.searchEntryFilter;
-//        console.log('$scope.searchEntry', $scope.searchEntry);
+        //        console.log('$scope.searchEntry', $scope.searchEntry);
         $scope.search($scope.searchEntry);
 
     }
@@ -431,7 +432,8 @@
 
     $scope.exportExcels = function () {
         var selectedId = [];
-        var selectedItems = $rootScope.selectedItems;
+//        var selectedItems = $rootScope.selectedItems;
+        var selectedItems = $rootScope.hasSelectedItems;
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 if (selectedItems[id]) {
@@ -447,16 +449,16 @@
         dlg.result.then(function (val) {
             //            console.log('dialogs', val);
             if (val) {
-                
+
             }
 
         }, function () {
-            
+
         });
 
-//        var hiddenIframeId = "#hiddenDownloader";
-//        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", selectedId.toString(), function () { }, 100);
-//        //   thisObj._win.RunExport(_data);
+        //        var hiddenIframeId = "#hiddenDownloader";
+        //        coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", selectedId.toString(), function () { }, 100);
+        //        //   thisObj._win.RunExport(_data);
 
         console.log('selectedId', selectedId.toString());
     };
@@ -574,8 +576,8 @@
             entry.UnAssignedAddress = tiengvietkhongdau(entry.Address); //coreService.toASCi(entry.Address);
             entry.Action = act;
             entry.Sys_ViewID = 19; //$scope.gridInfo.sysViewID;
-            entry.Description && ( entry.Description = entry.Description.replace(/\n\r?/g, '<br />'));
-//            console.log('entry', entry);
+            entry.Description && (entry.Description = entry.Description.replace(/\n\r?/g, '<br />'));
+            //            console.log('entry', entry);
 
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
@@ -591,36 +593,36 @@
                 if (data.Success) {
                     switch (act) {
                         case 'INSERT':
-//                            entry.ID = data.Result;
-//                            $scope.gridInfo.data.unshift(entry);
-//                            dialogs.notify(data.Message.Name, data.Message.Description);
+                            //                            entry.ID = data.Result;
+                            //                            $scope.gridInfo.data.unshift(entry);
+                            //                            dialogs.notify(data.Message.Name, data.Message.Description);
                             break;
                         case 'UPDATE':
                             $modalInstance.close($scope.refreshList);
                             break;
                         case 'DELETE':
-//                            var index = -1;
-//                            var i = 0;
-//                            angular.forEach($scope.gridInfo.data, function (item, key) {
-//                                if (entry.ID == item.ID)
-//                                    index = i;
-//                                i++;
-//                            });
-//                            if (index > -1)
-//                                $scope.gridInfo.data.splice(index, 1);
-//
-//                            dialogs.notify(data.Message.Name, data.Message.Description);
-//
-//                            if (typeof $scope.gridInfo.dtInstance == 'undefined') {
-//                                $timeout(function () {
-//                                    $scope.gridInfo.dtInstance.reloadData();
-//                                }, 1000);
-//                            } else {
-//                                $scope.gridInfo.dtInstance.reloadData();
-//                            }
+                            //                            var index = -1;
+                            //                            var i = 0;
+                            //                            angular.forEach($scope.gridInfo.data, function (item, key) {
+                            //                                if (entry.ID == item.ID)
+                            //                                    index = i;
+                            //                                i++;
+                            //                            });
+                            //                            if (index > -1)
+                            //                                $scope.gridInfo.data.splice(index, 1);
+                            //
+                            //                            dialogs.notify(data.Message.Name, data.Message.Description);
+                            //
+                            //                            if (typeof $scope.gridInfo.dtInstance == 'undefined') {
+                            //                                $timeout(function () {
+                            //                                    $scope.gridInfo.dtInstance.reloadData();
+                            //                                }, 1000);
+                            //                            } else {
+                            //                                $scope.gridInfo.dtInstance.reloadData();
+                            //                            }
                             break;
                     }
-//                    $scope.reset();
+                    //                    $scope.reset();
 
                 }
                 //thong bao ket qua
@@ -723,7 +725,7 @@
 })
 
 .controller('exportDialogCtrl', function ($scope, $rootScope, $modalInstance, exportExcelService, $timeout, coreService, dialogs, $filter) {
-//    $rootScope.showModal = true;
+    //    $rootScope.showModal = true;
 
     $scope.title = 'Điền thông tin xuất file';
     $scope.data = $rootScope.exportInfo;
@@ -735,7 +737,7 @@
     }; // end cancel
 
 
-    $scope.exportExcel = function(data) {
+    $scope.exportExcel = function (data) {
         var exportIDs = $rootScope.selectedExportIDs;
         console.log('data export', data, exportIDs);
 
@@ -752,11 +754,10 @@
         var languageId = "129";//"Excel|Pdf
         var hiddenIframeId = "#hiddenDownloader";
         coreApp.CallFunctionFromiFrame(hiddenIframeId, "RunExport", { listId: selectedId.toString(), exportType: data.fileType, sysViewId: data.viewId, languageId: languageId, addressTo: data.addressTo, fullName: data.FullName, telePhone: data.TelePhone, cellPhone: data.CellPhone, email: data.Email, position: data.Position, fileName: data.FileName }, function () { }, 100);
-      //  $('#infoExportModal').modal('hide');
+        //  $('#infoExportModal').modal('hide');
 
 
-
-
+        $rootScope.hasSelectedItems = {};
         //tat popup 
         $modalInstance.close('Success');
     }
