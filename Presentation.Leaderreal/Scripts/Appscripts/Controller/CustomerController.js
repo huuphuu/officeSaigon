@@ -2,6 +2,9 @@
 .controller('CustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout, modalUtils, customerService, localStorageService) {
     $rootScope.showModal = false;
 
+    $scope.UserInfo = localStorageService.get('authorizationData');
+    if ($scope.UserInfo.UserGroupID != null)
+        $scope.UserInfo.UserGroupID = parseInt($scope.UserInfo.UserGroupID);
 
     $scope.statusOptions = statusOptions;
     $scope.potentialOptions = potentialOptions;
@@ -36,7 +39,7 @@
               //{ name: 'MultiSelect', heading: '', isHidden: true, className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'LastUpdatedDateTime', heading: 'Ngày nhận khách', width: '90px', className: 'text-center pd-0 break-word' },
               { name: 'Name', heading: 'Tên', width: '90px', className: 'text-center pd-0 break-word' },
-              { name: 'Phone', heading: 'Phone', width :'100px', className: 'text-center pd-0 break-word' },
+              { name: 'Phone', heading: 'Phone', width: '100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
               { name: 'Request', heading: 'Yêu cầu', width: '220px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
               { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150' },
@@ -58,28 +61,29 @@
                     //                    console.log('row', row);
                     var currentUserInfo = localStorageService.get('authorizationData'),
                         currentUserID = currentUserInfo.ID;
-
                     $scope.currentUserID = currentUserID;
 
-                    if ($scope.searchEntry.Assign != '1' && (currentUserID != 13 && currentUserID != 18)) {
+                    //  if ($scope.searchEntry.Assign != '1' && (currentUserID != 13 && currentUserID != 18)) {
+                     if ($scope.UserInfo.UserGroupID < 1) {
                         $scope.customerId = row.ID || row;
                         customerService.CustomerID = $scope.customerId;
                         if (modalUtils.modalsExist())
                             modalUtils.closeAllModals();
                         $scope.openDialog('view');
-                    } else {
+                     } else {
+                         console.log('row.ID || row', row.ID, row);
                         $state.transitionTo('editcustomer', { customerId: row.ID || row });
-//                        console.log('row.ID || row', row.ID, row);
+                        //                        console.log('row.ID || row', row.ID, row);
                     }
                     break;
 
-//                case 'AssignView':
-//                    $scope.customerId = row.ID || row;
-//                    customerService.CustomerId = row.ID || row;
-//                    if (modalUtils.modalsExist())
-//                        modalUtils.closeAllModals();
-//                    $scope.openDialog('view');
-//                    break;
+                    //                case 'AssignView':
+                    //                    $scope.customerId = row.ID || row;
+                    //                    customerService.CustomerId = row.ID || row;
+                    //                    if (modalUtils.modalsExist())
+                    //                        modalUtils.closeAllModals();
+                    //                    $scope.openDialog('view');
+                    //                    break;
 
                 case 'delete':
                     console.log('row', row);
@@ -108,10 +112,10 @@
     coreService.getList(10, function (data) {
         authoritiesService.set(data[1]);
         $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
-//        console.log('$scope.listRight ', $scope.listRight);
+        //        console.log('$scope.listRight ', $scope.listRight);
         $scope.$apply();
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
-            $timeout(function() {
+            $timeout(function () {
                 if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
             }, 100)
@@ -119,7 +123,7 @@
             if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
         }
-        
+
     });
 
     $scope.dataSelected = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
@@ -236,7 +240,7 @@
             if (currentUserID == 13 || currentUserID == 18) {
                 console.log('vao customerId');
                 $rootScope.showModal = true;
-                coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function(data) {
+                coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
                     console.log('data', data);
                     //convertStringtoNumber(data[1], 'DistrictID');
                     convertStringtoBoolean(data[1], 'Potential');
@@ -253,7 +257,7 @@
                 });
             } else {
                 customerService.broadcastCustomerData();
-            }   
+            }
         }
     })
 
@@ -292,9 +296,9 @@
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
             entry.Request && (entry.Request = entry.Request.replace(/\n\r?/g, '<br />'));
-            entry.CareNote && ( entry.CareNote =  entry.CareNote.replace(/\n\r?/g, '<br />'));
+            entry.CareNote && (entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />'));
 
-//            console.log('entry', entry);
+            //            console.log('entry', entry);
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -394,6 +398,16 @@
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
                 }
+                              
+                switch ($scope.UserInfo.UserGroupID) {
+                    case 1:
+                        $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+                        break;
+                    case 2:
+                        $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                        break;
+                }
 
                 if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
@@ -413,6 +427,16 @@
                 $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+            }
+
+            switch ($scope.UserInfo.UserGroupID) {
+                case 1:
+                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+                    break;
+                case 2:
+                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                    break;
             }
 
             if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
@@ -500,7 +524,7 @@
 
     $timeout(function () {
         $scope.dataSelected = customerService.dataSelected;
-//        console.log('$scope.dataSelected', $scope.dataSelected);
+        //        console.log('$scope.dataSelected', $scope.dataSelected);
         $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
         $rootScope.showModal = false;
     }, 2000);
