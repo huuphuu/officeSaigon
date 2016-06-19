@@ -157,6 +157,18 @@ var statusOptions = [
             value: '0'
         }
 ];
+var groupRoleOptions = [
+        {
+            name: 'Admin',
+            value: '1'
+        },
+        {
+            name: 'Chắm sóc khách hàng',
+            value: '2'
+        }
+];
+
+
 
 var potentialOptions = [
         {

@@ -277,7 +277,7 @@ angular.module('indexApp')
                         location.reload();
 
                     //                    $rootScope.searchEntryFilter = null;
-                    console.log('vao', $rootScope.searchEntryFilter);
+                  
                 }
             }
 

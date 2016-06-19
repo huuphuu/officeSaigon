@@ -36,6 +36,7 @@
          $scope.$apply();
      });
 
+     $scope.groupRoleOptions = groupRoleOptions;
      $scope.statusOptions = statusOptions;
      $scope.userlist = [];
      $scope.employeelist = [];
