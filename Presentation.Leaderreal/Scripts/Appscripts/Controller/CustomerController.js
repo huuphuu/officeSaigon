@@ -11,6 +11,7 @@
     $scope.customerTypeOptions = customerTypeOptions;
     $scope.contractStatus = contractStatus;
     $rootScope.searchEntryFilter = null;
+    $rootScope.selectedItems = null;
 
     $scope.layout = {
         enableClear: false,
@@ -237,7 +238,8 @@
             var currentUserInfo = localStorageService.get('authorizationData'),
                         currentUserID = currentUserInfo.ID;
 
-            if (currentUserID == 13 || currentUserID == 18) {
+//            if (currentUserID == 13 || currentUserID == 18) {
+            if ($scope.UserInfo.UserGroupID >= 1) {
                 console.log('vao customerId');
                 $rootScope.showModal = true;
                 coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
