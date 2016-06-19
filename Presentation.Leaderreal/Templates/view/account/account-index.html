@@ -12,7 +12,7 @@
             <td>
                 <!---Directive right-->
                 <right-action theme-button="themeButton" full-action="false"></right-action>
-                
+
                 <form class="form-horizontal row">
                     <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
                         <tbody>
@@ -39,29 +39,65 @@
                                     </button>
                                 </td>
                             </tr>
-                        <tr>
-                            <td class="td" style="padding: 5px;">
-                                Họ tên
-                            </td>
-                            <td class="td" style="padding: 5px;">
-                                <input type="text" class="form-control" id="FullName" name="FullName" ng-model="dataSelected.FullName" placeholder="Họ tên">
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                    Họ tên
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <input type="text" class="form-control" id="FullName" name="FullName" ng-model="dataSelected.FullName" placeholder="Họ tên">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                    Chức vụ
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <input ng-model="dataSelected.Position" type="text" class="form-control" id="inputEmail3" placeholder="Chức vụ"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                   Điện thoại
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <input ng-model="dataSelected.CellPhone" type="text" class="form-control" id="inputEmail3" placeholder="Điện thoại"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                   Email
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <input ng-model="dataSelected.Email" type="text" class="form-control" id="inputEmail3" placeholder="Email"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                    Nhóm
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <select ng-model="dataSelected.UserGroupID" name="groupRole" id="groupRoleOptions"
+                                            ng-options="option.value as option.name for option in groupRoleOptions">
+                                        <option value="-1">
+                                            -- Chọn nhóm
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
 
-
-                        <tr>
-                            <td class="td" style="padding: 5px;">
-                                Tình trạng
-                            </td>
-                            <td class="td" style="padding: 5px;">
-                                <select ng-model="dataSelected.Status" name="Status" id="Status"
-                                        ng-options="option.value as option.name for option in statusOptions">
-                                    <option value="">
-                                        -- Chọn Tình trạng
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td class="td" style="padding: 5px;">
+                                    Tình trạng
+                                </td>
+                                <td class="td" style="padding: 5px;">
+                                    <select ng-model="dataSelected.Status" name="Status" id="Status"
+                                            ng-options="option.value as option.name for option in statusOptions">
+                                        <option value="">
+                                            -- Chọn Tình trạng
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </form>
