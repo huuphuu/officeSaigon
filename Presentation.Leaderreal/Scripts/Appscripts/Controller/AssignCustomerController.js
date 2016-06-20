@@ -324,7 +324,7 @@
     }
 
     $scope.reloadAssignCustomers = function ($item, $model) {
-        console.log('$item, $model', $item, $model);
+//        console.log('$item, $model', $item, $model);
         var assignCustomerEntry = {};
         assignCustomerEntry.LoginId = $item.ID;
         $rootScope.searchEntryFilter = assignCustomerEntry;

@@ -45,6 +45,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                         totalRow = pData[2][0].TotalRow;
 
                         angular.forEach(data, function (item, key) {
+//                            console.log(item.ID, item.Cheked);
                             if (item.hasOwnProperty('Cheked')) {
                                 if (item.Cheked === "1") {
                                     item.Cheked = true;
@@ -264,7 +265,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                 col.renderWith(function (data, type, full, meta) {
                     var result = '';
                     vm.selected[full.ID] = null; //false
-                    if ($rootScope.selectedItems[full.ID] || $rootScope.hasSelectedItems[full.ID]) {
+                    if ($rootScope.hasSelectedItems[full.ID]) { //$rootScope.selectedItems[full.ID] || 
                         vm.selected[full.ID] = true;
                         full.Cheked = true;
 //                        console.log('$rootScope.selectedItems[full.ID]', $rootScope.selectedItems[full.ID]);
