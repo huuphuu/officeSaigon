@@ -1,6 +1,8 @@
 ﻿angular.module('indexApp')
 .controller('AssignCustomerCtrl', function ($scope, $rootScope, coreService, authoritiesService, alertFactory, dialogs, $filter, $state, $timeout) {
     $rootScope.showModal = false;
+    $rootScope.hasSelectedItems = {};
+
     $scope.gridInfo = {
         gridID: 'customergrid',
         table: null,
@@ -188,7 +190,7 @@
         
 //        console.log('dataSelected.userID', $scope.dataSelected.userID);
         var selectedId = [];
-        var selectedItems = $rootScope.selectedItems;
+        var selectedItems = $rootScope.hasSelectedItems; // $rootScope.selectedItems;
 //        console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
@@ -326,6 +328,7 @@
         var assignCustomerEntry = {};
         assignCustomerEntry.LoginId = $item.ID;
         $rootScope.searchEntryFilter = assignCustomerEntry;
+        $rootScope.hasSelectedItems = {};
 
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
