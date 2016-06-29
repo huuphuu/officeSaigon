@@ -1,0 +1,47 @@
+﻿
+@font-face {
+    font-family: 'calibri';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/calibri.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'MyriadPro';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/MyriadPro-Cond.eot');
+    src: url('../fonts/MyriadPro-Cond.otf') format('opentype'),
+        url('../fonts/MyriadPro-Cond.eot?iefix') format('eot'),
+        url('../fonts/MyriadPro-Cond.svg') format('svg'),
+        url('../fonts/Helvetica_Light-Normal-Regular.TTF') format('truetype'),
+        url('../fonts/MyriadPro-Cond.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'MyriadPro';
+    font-style: italic;
+    src: url('../fonts/MyriadPro-condit.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'MyriadPro';
+    font-weight: bold;
+    src: url('../fonts/MyriadPro-BoldCond.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'MyriadPro';
+    font-weight: bold;
+    font-style: italic;
+    src: url('../fonts/MyriadPro-BoldIt.otf') format('opentype');
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: 'MyriadPro'; 
+        src: url('../fonts/MyriadPro-Cond.svg') format('svg');
+    }
+}
+
