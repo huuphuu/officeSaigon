@@ -10,3 +10,9 @@ C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\bin\Pres
 C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.csprojResolveAssemblyReference.cache
 C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.dll
 C:\Users\Ly\Dropbox\Websites\officeSaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.pdb
+D:\Working\officesaigon\trunk\Presentation.Leaderreal\bin\Presentation.Leaderreal.dll.config
+D:\Working\officesaigon\trunk\Presentation.Leaderreal\bin\Presentation.Leaderreal.dll
+D:\Working\officesaigon\trunk\Presentation.Leaderreal\bin\Presentation.Leaderreal.pdb
+D:\Working\officesaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.csprojResolveAssemblyReference.cache
+D:\Working\officesaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.dll
+D:\Working\officesaigon\trunk\Presentation.Leaderreal\obj\Debug\Presentation.Leaderreal.pdb

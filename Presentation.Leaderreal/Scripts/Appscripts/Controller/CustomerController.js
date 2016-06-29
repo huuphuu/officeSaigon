@@ -65,14 +65,14 @@
                     $scope.currentUserID = currentUserID;
 
                     //  if ($scope.searchEntry.Assign != '1' && (currentUserID != 13 && currentUserID != 18)) {
-                     if ($scope.UserInfo.UserGroupID < 1) {
+                    if ($scope.UserInfo.UserGroupID < 1) {
                         $scope.customerId = row.ID || row;
                         customerService.CustomerID = $scope.customerId;
                         if (modalUtils.modalsExist())
                             modalUtils.closeAllModals();
                         $scope.openDialog('view');
-                     } else {
-                         console.log('row.ID || row', row.ID, row);
+                    } else {
+                        console.log('row.ID || row', row.ID, row);
                         $state.transitionTo('editcustomer', { customerId: row.ID || row });
                         //                        console.log('row.ID || row', row.ID, row);
                     }
@@ -238,7 +238,7 @@
             var currentUserInfo = localStorageService.get('authorizationData'),
                         currentUserID = currentUserInfo.ID;
 
-//            if (currentUserID == 13 || currentUserID == 18) {
+            //            if (currentUserID == 13 || currentUserID == 18) {
             if ($scope.UserInfo.UserGroupID >= 1) {
                 console.log('vao customerId');
                 $rootScope.showModal = true;
@@ -390,17 +390,17 @@
                 if ($scope.searchEntry.Assign == '1') {
                     $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
                     $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
-                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+                   // $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
                 } else {
                     $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
-                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                   // $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
                 }
-                              
+
                 switch ($scope.UserInfo.UserGroupID) {
                     case 1:
                         $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
@@ -420,13 +420,13 @@
             if ($scope.searchEntry.Assign == '1') {
                 $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
                 $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
-                $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+              //  $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
                 $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
             } else {
                 $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
-                $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+               // $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
             }
@@ -520,9 +520,9 @@
 
 })
 
-.controller('customerDialogCtrl', function ($scope, $rootScope, $modalInstance, customerService, $timeout, coreService, dialogs, $filter) {
+.controller('customerDialogCtrl', function ($scope, $rootScope, $modalInstance, customerService, $timeout, coreService, dialogs, $filter, localStorageService) {
     $rootScope.showModal = true;
-
+    $scope.userInfo = localStorageService.get('authorizationData');
 
     $timeout(function () {
         $scope.dataSelected = customerService.dataSelected;
@@ -540,7 +540,7 @@
 
     $scope.save = function () {
         var act = "UPDATE";
-        //console.log("save:data", $scope.dataSelected);
+        console.log("save:data", $scope.userInfo);
         if ($scope.dataSelected.ID != undefined && $scope.dataSelected.ID > 0) act = "UPDATE";
         $scope.actionConfirm(act);
     }; // end save
@@ -555,6 +555,7 @@
             var entry = angular.copy($scope.dataSelected);
             entry.Action = act;
             entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
+            entry.UserGroupID = $scope.userInfo.UserGroupID;
             entry.CareNote && (entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />'));
             //            console.log('entry', entry);
 
