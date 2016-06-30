@@ -43,7 +43,7 @@
               { name: 'Phone', heading: 'Phone', width: '100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
               { name: 'Request', heading: 'Yêu cầu', width: '220px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
-              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150' },
+              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150', isHidden: true },
               { name: 'Action1', heading: 'Sửa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] }
         ],
@@ -401,6 +401,12 @@
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
                 }
 
+                if ($scope.searchEntry.AssignUserId)
+                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                else
+                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+
+
                 switch ($scope.UserInfo.UserGroupID) {
                     case 1:
                         $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
@@ -430,6 +436,13 @@
                 $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
             }
+
+            console.log('$scope.searchEntry.AssignUserId', $scope.searchEntry.AssignUserId)
+            if ($scope.searchEntry.AssignUserId)
+                $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+            else
+                $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+
 
             switch ($scope.UserInfo.UserGroupID) {
                 case 1:

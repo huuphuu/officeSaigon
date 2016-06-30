@@ -158,14 +158,19 @@ var statusOptions = [
         }
 ];
 var groupRoleOptions = [
-        {
-            name: 'Admin',
-            value: '1'
-        },
+     {
+         name: 'Nhóm User 3',
+         value: '0'
+     },
+        
         {
             name: 'Chắm sóc khách hàng',
             value: '2'
+        }, {
+            name: 'Admin',
+            value: '1'
         }
+       
 ];
 
 
