@@ -243,7 +243,6 @@
                 console.log('vao customerId');
                 $rootScope.showModal = true;
                 coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
-                    console.log('data', data);
                     //convertStringtoNumber(data[1], 'DistrictID');
                     convertStringtoBoolean(data[1], 'Potential');
                     convertStringtoBoolean(data[1], 'IsSaleDeparment');
@@ -411,9 +410,13 @@
                     case 1:
                         $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                         $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
+                        $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
                         break;
                     case 2:
                         $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
                         break;
                 }
 
@@ -437,7 +440,7 @@
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
             }
 
-            console.log('$scope.searchEntry.AssignUserId', $scope.searchEntry.AssignUserId)
+           // console.log('$scope.searchEntry.AssignUserId', $scope.searchEntry.AssignUserId)
             if ($scope.searchEntry.AssignUserId)
                 $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
             else
@@ -448,9 +451,13 @@
                 case 1:
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
+                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
                     break;
                 case 2:
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
                     break;
             }
 
