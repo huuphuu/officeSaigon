@@ -45,7 +45,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                         totalRow = pData[2][0].TotalRow;
 
                         angular.forEach(data, function (item, key) {
-//                            console.log(item.ID, item.Cheked);
+                            //                            console.log(item.ID, item.Cheked);
                             if (item.hasOwnProperty('Cheked')) {
                                 if (item.Cheked === "1") {
                                     item.Cheked = true;
@@ -54,9 +54,10 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                                     item.Cheked = false;
                                 }
                             }
+                            $rootScope.selectedItems = angular.extend($rootScope.selectedItems, $rootScope.hasSelectedItems);
                         });
-//                        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
-                        //                        console.log('pData', pData);
+                        //                        console.log('$rootScope.selectedItems', $rootScope.selectedItems);
+                        console.log('data', data);
                     }
 
             callback({
@@ -108,12 +109,12 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         })
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
     vm.someClickHandler = function (info) {
-//        console.log('info', info);
+        //        console.log('info', info);
         vm.message = info.id + ' - ' + info.firstName;
     }
 
     vm.setData = function (item) {
-//        console.log('item', item);
+        //        console.log('item', item);
         var row = angular.copy(item);
         if (angular.isFunction(vm.rootScope.setData)) {
             vm.rootScope.setData(row);
@@ -249,7 +250,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
             case controls.LIST_ICON:
                 col.notSortable();
                 col.renderWith(function (data, type, full, meta) {
-//                    var result = '{{vm.listRight | json}}';
+                    //                    var result = '{{vm.listRight | json}}';
                     var result = '';
                     angular.forEach(field.listAction, function (value, key) {
                         result += '<a href="" ng-click="vm.actionClick(' + full.ID + ",\'" + value.action + '\',this)" ng-hide="listRight.IsDelete == \'False\' && \'' + value.action + '\' == \'delete\'">' +
@@ -268,11 +269,14 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
                     if ($rootScope.hasSelectedItems[full.ID]) { //$rootScope.selectedItems[full.ID] || 
                         vm.selected[full.ID] = true;
                         full.Cheked = true;
-//                        console.log('$rootScope.selectedItems[full.ID]', $rootScope.selectedItems[full.ID]);
-//                        console.log('full.Cheked', full.Cheked);
+                        //                        console.log('$rootScope.selectedItems[full.ID]', $rootScope.selectedItems[full.ID]);
+                        //                        console.log('full.Cheked', full.Cheked);
+                    }
+                    if (vm.selected.hasOwnProperty(full.ID)) {
+                        vm.selected[full.ID] = full.Cheked;
                     }
 
-                    
+
                     angular.forEach(field.listAction, function (value, key) {
                         result += '<input type="checkbox" ng-model="vm.selected[' + full.ID + ']" ng-checked="' + full.Cheked + '" ng-click="vm.toggleOne(vm.selected)">';
                     });
@@ -298,18 +302,18 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, $s
         $rootScope.selectedItems = selectedItems;
 
         $rootScope.hasSelectedItems = angular.extend($rootScope.hasSelectedItems, $rootScope.selectedItems);
-//        console.log('$rootScope.hasSelectedItems', $rootScope.hasSelectedItems);
+        //        console.log('$rootScope.hasSelectedItems', $rootScope.hasSelectedItems);
     }
 
     vm.toggleOne = function (selectedItems) {
-//        console.log('selectedItems', selectedItems);
+        //console.log('selectedItems', selectedItems);
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
-                if (!selectedItems[id] ||selectedItems[id] == null) {
+                if (!selectedItems[id] || selectedItems[id] == null) {
                     vm.selectAll = false;
                     $rootScope.selectedItems = selectedItems;
                     $rootScope.hasSelectedItems = angular.extend($rootScope.hasSelectedItems, $rootScope.selectedItems);
-//                    console.log('$rootScope.hasSelectedItems', $rootScope.hasSelectedItems);
+                    //console.log('$rootScope.hasSelectedItems', $rootScope.hasSelectedItems);
                     return;
                 }
             }
