@@ -18,7 +18,7 @@ angular.module('indexApp')
             authoritiesService.set(data[1]);
             $scope.metroNavigation = data[1];
             $scope.sidebarNavigation = pData;
-            console.log('$scope.sidebarNavigation', $scope.sidebarNavigation);
+          //  console.log('$scope.sidebarNavigation', $scope.sidebarNavigation);
             $scope.$apply();
             $rootScope.$broadcast('userPermission');
 

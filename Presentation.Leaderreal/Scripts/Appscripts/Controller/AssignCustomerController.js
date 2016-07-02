@@ -214,7 +214,6 @@
         entry.LoginId = $scope.dataSelected.userID;
 
         coreService.actionEntry2(entry, function (data) {
-            console.log('data',data);
             if (data.Success) {
                 dialogs.notify(data.Message.Name, data.Message.Description);
             }
@@ -329,7 +328,8 @@
         assignCustomerEntry.LoginId = $item.ID;
         $rootScope.searchEntryFilter = assignCustomerEntry;
         $rootScope.hasSelectedItems = {};
-
+                       
+        $rootScope.selectedItems = {};
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
                 $scope.gridInfo.dtInstance.reloadData();

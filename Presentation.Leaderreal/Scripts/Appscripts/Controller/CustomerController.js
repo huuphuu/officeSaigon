@@ -43,7 +43,7 @@
               { name: 'Phone', heading: 'Phone', width: '100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
               { name: 'Request', heading: 'Yêu cầu', width: '220px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
-              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150', isHidden: true },
+              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150' },
               { name: 'Action1', heading: 'Sửa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
               { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] }
         ],
@@ -233,6 +233,7 @@
     //coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
     //    console.log('ProductID', data)
     //});
+
     $scope.$watch('customerId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
             var currentUserInfo = localStorageService.get('authorizationData'),
@@ -386,85 +387,90 @@
 
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
-                if ($scope.searchEntry.Assign == '1') {
-                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
-                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
-                   // $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
-                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
-                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
-                } else {
-                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
-                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
-                   // $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
-                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
-                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
-                }
-
-                if ($scope.searchEntry.AssignUserId)
-                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
-                else
-                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
-
-
-                switch ($scope.UserInfo.UserGroupID) {
-                    case 1:
-                        $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
-                        $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
-                        $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
-                        $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
-                        break;
-                    case 2:
-                        $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
-                        $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
-                        $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
-                        break;
-                }
-
-                if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
-                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
-
-                $scope.gridInfo.dtInstance.reloadData();
+                showHideColumn();
             }, 1000);
         } else {
-            if ($scope.searchEntry.Assign == '1') {
-                $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
-                $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
-              //  $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
-                $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
-                $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
-            } else {
-                $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
-                $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
-               // $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
-                $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
-                $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
-            }
+            showHideColumn();
+        }
 
-           // console.log('$scope.searchEntry.AssignUserId', $scope.searchEntry.AssignUserId)
-            if ($scope.searchEntry.AssignUserId)
-                $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
-            else
-                $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+        function showHideColumn() {
 
 
+
+
+
+            //if ($scope.searchEntry.Assign == '1') {
+            //    $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
+            //    $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
+            //    //  $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+            //    $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
+            //    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+            //} else {
+            //    $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+            //    $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
+            //    // $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+            //    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+            //    $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+            //}
+
+            //// console.log('$scope.searchEntry.AssignUserId', $scope.searchEntry.AssignUserId)
+            //if ($scope.searchEntry.AssignUserId)
+            //    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+            //else
+            //    $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+
+            // hide column delete
+
+            //hide phone
+            $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
+            //hide email
+            $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
+            $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+            //hide column edit 
+            $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
+            //hide column edit 
+            $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+           
+
+            //hi
+            //console.log('$scope.searchEntry.Assign', $scope.searchEntry.Assign, $scope.UserInfo.UserGroupID)
             switch ($scope.UserInfo.UserGroupID) {
-                case 1:
-                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
-                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
-                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(false);
-                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(false);
+                case 0://group 3
+              
+                    if ($scope.searchEntry.Assign == '0') {
+                        $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                        $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+
+                    }
                     break;
-                case 2:
-                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+              
+                case 2://group 2
                     $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+
+                    if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+                        $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+
                     break;
+                case 1:// group admin
+                    $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
+                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
+                    break;
+
+
+
             }
 
-            if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
-                $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
 
             $scope.gridInfo.dtInstance.reloadData();
+
         }
 
     }
