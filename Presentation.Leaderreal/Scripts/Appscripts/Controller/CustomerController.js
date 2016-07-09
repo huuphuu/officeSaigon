@@ -5,6 +5,7 @@
     $scope.UserInfo = localStorageService.get('authorizationData');
     if ($scope.UserInfo.UserGroupID != null)
         $scope.UserInfo.UserGroupID = parseInt($scope.UserInfo.UserGroupID);
+    //  console.log(' $scope.UserInfo.UserGroupID', $scope.UserInfo.UserGroupID)
 
     $scope.statusOptions = statusOptions;
     $scope.potentialOptions = potentialOptions;
@@ -43,9 +44,10 @@
               { name: 'Phone', heading: 'Phone', width: '100px', className: 'text-center pd-0 break-word' },
               { name: 'Email', heading: 'Email', className: 'text-center pd-0 break-word' },
               { name: 'Request', heading: 'Yêu cầu', width: '220px', fixedHeight: true, className: 'text-center pd-0 break-word height-150' },
-              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150' },
+              { name: 'CareNote', heading: 'Quá trình chăm sóc', width: '250px', fixedHeight: true, className: 'text-left pd-0 break-word height-150', isHidden: $scope.UserInfo.UserGroupID == 0 ? false : true },
               { name: 'Action1', heading: 'Sửa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }] },
-              { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] }
+              { name: 'Action2', heading: 'Xóa', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-times', action: 'delete' }] },
+
         ],
         data: [],
         sysViewID: 21,
@@ -72,7 +74,6 @@
                             modalUtils.closeAllModals();
                         $scope.openDialog('view');
                     } else {
-                        console.log('row.ID || row', row.ID, row);
                         $state.transitionTo('editcustomer', { customerId: row.ID || row });
                         //                        console.log('row.ID || row', row.ID, row);
                     }
@@ -87,7 +88,6 @@
                     //                    break;
 
                 case 'delete':
-                    console.log('row', row);
                     if (modalUtils.modalsExist())
                         modalUtils.closeAllModals();
                     var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
@@ -100,14 +100,21 @@
 
 
                     break;
-                case 'chart':
-                    $scope.openDialogChart(rowID);
-
+                case 'assign':
+                    $scope.customerId = row.ID || row;
+                    customerService.CustomerID = $scope.customerId;
+                    if (modalUtils.modalsExist())
+                        modalUtils.closeAllModals();
+                    $scope.openDialog('assign');
                     break;
+
 
 
             }
         }
+    }
+    if ($scope.UserInfo.UserGroupID > 0) {
+        $scope.gridInfo.cols.push({ name: 'Action3', heading: 'Assign', width: '50px', className: 'text-center pd-0 break-word', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa fa-exchange', action: 'assign' }] });
     }
 
     coreService.getList(10, function (data) {
@@ -118,11 +125,14 @@
         if (typeof $scope.gridInfo.dtInstance == 'undefined') {
             $timeout(function () {
                 if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
-                    $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
-            }, 100)
+                    if (typeof $scope.gridInfo.dtInstance != 'undefined') {
+                        $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+                    }
+            }, 500)
         } else {
-            if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False')
+            if ($scope.listRight && $scope.listRight.IsDelete && $scope.listRight.IsDelete == 'False') {
                 $scope.gridInfo.dtInstance.DataTable.column(9).visible(false);
+            }
         }
 
     });
@@ -233,7 +243,7 @@
     //coreService.getListEx({ ProductID: 1, Sys_ViewID: 19 }, function (data) {
     //    console.log('ProductID', data)
     //});
-
+    $scope.listAssign = []
     $scope.$watch('customerId', function (newVal, oldVal) {
         if (typeof newVal != 'undefined') {
             var currentUserInfo = localStorageService.get('authorizationData'),
@@ -241,7 +251,6 @@
 
             //            if (currentUserID == 13 || currentUserID == 18) {
             if ($scope.UserInfo.UserGroupID >= 1) {
-                console.log('vao customerId');
                 $rootScope.showModal = true;
                 coreService.getListEx({ CustomerID: $scope.customerId, Sys_ViewID: 21 }, function (data) {
                     //convertStringtoNumber(data[1], 'DistrictID');
@@ -253,7 +262,18 @@
                     $scope.dataSelected && $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
 
                     $rootScope.showModal = false;
-                    //console.log('$scope.dataSelected', $scope.dataSelected);
+
+                    $scope.dataSelected = data[1][0];
+
+                   var listAssign = new Array();
+                    angular.forEach(data[3], function (item, key) {
+                        if (item.Cheked == "1") {
+                            listAssign.push(item);
+                        }
+                    });
+                    console.log('$scope.listAssign', listAssign);
+                    $scope.listAssign = listAssign;
+                    $scope.changeCareNote();
                     $scope.$apply();
                     //console.log('CustomerID after', data[1]);
                 });
@@ -263,9 +283,20 @@
         }
     })
 
+    $scope.changeCareNote = function () {
+        angular.forEach($scope.listAssign, function (item, key) {
+            if (item.ID == $scope.dataSelected.AssignID) {
+                $scope.dataSelected.CareNote = item.CareNote.replace(/<br \/>/g, '\n');
+            }
+        });
+    }
     $scope.openDialog = function (act) {
-        console.log('openDialog');
-        var dlg = dialogs.create('/templates/view/customer/customer-popup.html', 'customerDialogCtrl', customerService, { size: 'lg', keyboard: false, backdrop: false });
+        customerService.act = act;
+        var dlg = null;
+        if (act == 'assign')
+            dlg = dialogs.create('/templates/view/customer/customer-popup-assign.html', 'customerDialogCtrl', customerService, { size: 'lg', keyboard: false, backdrop: false });
+        else
+            dlg = dialogs.create('/templates/view/customer/customer-popup.html', 'customerDialogCtrl', customerService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (refreshList) {
             //            console.log('dialogs', refreshList);
             if (refreshList) {
@@ -330,7 +361,6 @@
                             $state.go('customerlist', '', { reload: true });
                             break;
                         case 'DELETE':
-                            console.log('vao');
                             var index = -1;
                             var i = 0;
                             angular.forEach($scope.gridInfo.data, function (item, key) {
@@ -430,13 +460,12 @@
             $scope.gridInfo.dtInstance.DataTable.column(8).visible(false);
             //hide column edit 
             $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
-           
-
+          
             //hi
             //console.log('$scope.searchEntry.Assign', $scope.searchEntry.Assign, $scope.UserInfo.UserGroupID)
             switch ($scope.UserInfo.UserGroupID) {
                 case 0://group 3
-              
+
                     if ($scope.searchEntry.Assign == '0') {
                         $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                         $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
@@ -445,7 +474,7 @@
 
                     }
                     break;
-              
+
                 case 2://group 2
                     $scope.gridInfo.dtInstance.DataTable.column(4).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(5).visible(true);
@@ -463,10 +492,10 @@
                     $scope.gridInfo.dtInstance.DataTable.column(8).visible(true);
                     $scope.gridInfo.dtInstance.DataTable.column(9).visible(true);
                     break;
-
-
-
             }
+            $scope.gridInfo.dtInstance.DataTable.column(7).visible(false);
+            if ($scope.searchEntry.Assign == '0' || typeof $scope.searchEntry.AssignUserId != 'undefined')
+                $scope.gridInfo.dtInstance.DataTable.column(7).visible(true);
 
 
             $scope.gridInfo.dtInstance.reloadData();
@@ -544,17 +573,40 @@
     }
 
 
+
 })
 
 .controller('customerDialogCtrl', function ($scope, $rootScope, $modalInstance, customerService, $timeout, coreService, dialogs, $filter, localStorageService) {
     $rootScope.showModal = true;
     $scope.userInfo = localStorageService.get('authorizationData');
-
+    $scope.userList = [];
     $timeout(function () {
+        //console.log('customerService', customerService);
         $scope.dataSelected = customerService.dataSelected;
-        //        console.log('$scope.dataSelected', $scope.dataSelected);
-        $scope.dataSelected.CareNote && ($scope.dataSelected.CareNote = $scope.dataSelected.CareNote.replace(/<br \/>/g, '\n'));
-        $rootScope.showModal = false;
+        if (customerService.act == "assign") {
+            $rootScope.showModal = true;
+            coreService.getListEx({ CustomerID: customerService.CustomerID, Sys_ViewID: 11 }, function (data) {
+              //  console.log('CustomerID after', data);
+                if (typeof $scope.dataSelected == 'undefined') $scope.dataSelected = {};
+                $scope.dataSelected.ID = customerService.CustomerID;
+                //console.log('$scope.dataSelected', $scope.dataSelected);
+                $scope.userList = data[1];
+                $rootScope.showModal = false;
+                $scope.$apply();
+                //console.log('CustomerID after', data[1]);
+            });
+        }
+        else{
+        coreService.getListEx({ CustomerID: customerService.CustomerID, Sys_ViewID: 21 }, function (data) {
+            $scope.dataSelected.CareNote = data[2][0].CareNote.replace(/<br \/>/g, '\n');
+            //console.log('$scope.dataSelected', $scope.dataSelected);
+            $rootScope.showModal = false;
+            $scope.$apply();
+            //console.log('CustomerID after', data[1]);
+        });
+        }
+
+       
     }, 2000);
 
     $scope.title = 'Chỉnh sửa khách hàng';
@@ -566,7 +618,7 @@
 
     $scope.save = function () {
         var act = "UPDATE";
-        console.log("save:data", $scope.userInfo);
+      
         if ($scope.dataSelected.ID != undefined && $scope.dataSelected.ID > 0) act = "UPDATE";
         $scope.actionConfirm(act);
     }; // end save
@@ -577,14 +629,39 @@
 
     $scope.actionEntry = function (act) {
         $scope.clicked = true;
+        console.log('customerService', customerService);
+       
         if (typeof act != 'undefined') {
-            var entry = angular.copy($scope.dataSelected);
-            entry.Action = act;
-            entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
-            entry.UserGroupID = $scope.userInfo.UserGroupID;
-            entry.CareNote && (entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />'));
-            //            console.log('entry', entry);
+            var entry = {};
+            if (customerService.act == "assign") {
+                console.log($scope.userList)
 
+                var selectedId = [];
+                angular.forEach($scope.userList, function (item, key) {
+                    var object = { "UserID": item.ID, "IsChecked": item.Cheked };
+                     selectedId.push(object);
+                });
+                entry.Item = selectedId;
+                entry.Sys_ViewID = 11;
+                entry.Action = 'UPDATE';
+                entry.CustomerID = customerService.CustomerID;
+               
+                coreService.actionEntry2(entry, function (data) {
+                    if (data.Success) {
+                        dialogs.notify(data.Message.Name, data.Message.Description);
+                        $modalInstance.close();
+                    }
+                });
+                return;
+            }
+            else {
+                entry = angular.copy($scope.dataSelected);
+                entry.Action = act;
+                entry.Sys_ViewID = 21; //$scope.gridInfo.sysViewID;
+                entry.UserGroupID = $scope.userInfo.UserGroupID;
+                entry.CareNote && (entry.CareNote = entry.CareNote.replace(/\n\r?/g, '<br />'));
+                //            console.log('entry', entry);
+            }
             for (var property in entry) {
                 if (entry.hasOwnProperty(property)) {
                     if (entry[property] == '') {
@@ -598,35 +675,11 @@
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
                     switch (act) {
-                        case 'INSERT':
-                            //                            entry.ID = data.Result;
-                            //                            $scope.gridInfo.data.unshift(entry);
-                            //                            dialogs.notify(data.Message.Name, data.Message.Description);
-                            break;
+                      
                         case 'UPDATE':
                             $modalInstance.close($scope.refreshList);
                             break;
-                        case 'DELETE':
-                            //                            var index = -1;
-                            //                            var i = 0;
-                            //                            angular.forEach($scope.gridInfo.data, function (item, key) {
-                            //                                if (entry.ID == item.ID)
-                            //                                    index = i;
-                            //                                i++;
-                            //                            });
-                            //                            if (index > -1)
-                            //                                $scope.gridInfo.data.splice(index, 1);
-                            //
-                            //                            dialogs.notify(data.Message.Name, data.Message.Description);
-                            //
-                            //                            if (typeof $scope.gridInfo.dtInstance == 'undefined') {
-                            //                                $timeout(function () {
-                            //                                    $scope.gridInfo.dtInstance.reloadData();
-                            //                                }, 1000);
-                            //                            } else {
-                            //                                $scope.gridInfo.dtInstance.reloadData();
-                            //                            }
-                            break;
+                      
                     }
                     //                    $scope.reset();
 

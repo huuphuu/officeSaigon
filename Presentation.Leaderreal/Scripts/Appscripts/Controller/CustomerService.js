@@ -13,6 +13,5 @@
         });
         $rootScope.$broadcast('broadcastGetCustomerData');
     }
-
     return customerService;
 })
