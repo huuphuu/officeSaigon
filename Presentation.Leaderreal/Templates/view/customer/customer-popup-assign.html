@@ -1,0 +1,60 @@
+﻿<div class="modal-header dialog-header-confirm">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h4 class="modal-title ng-binding"><span class="glyphicon glyphicon-check"></span>&nbsp; {{title}}</h4>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+    <div> <!-- ng-controller="ProductCtrl" ng-init="init()"-->
+        <form name="addCustomerForm">
+            <table cellspacing="2" cellpadding="0" border="0" class="table_wrap" style="width: 98%; margin: 20px auto 0px auto;">
+                <tbody>
+                    
+                    <tr>
+                        <th style="width:10px">#</th>
+                        <th style="width:20px">Tên đăng nhập</th>
+                        <th >Tên đầy đủ</th>
+                    </tr> 
+                    <tr ng-repeat="f in userList">
+                        <td class="td" style="padding: 5px;">
+                            <input id="cboAllowDocumment{{$index}}" class="styled" type="checkbox" ng-true-value="'1'" ng-false-value="'0'" ng-model="f.Cheked" ng-checked="f.Cheked=='1'">
+
+                        </td>
+                        <td class="td" style="padding: 5px;" ng-bind="f.UserName"></td>
+                        <td class="td" style="padding: 5px;" ng-bind="f.FullName"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+            
+            <!--<div style="text-align: center; margin-top: 10px;">
+            <button ng-disabled="addProductForm.Name.$error.required"
+                    ng-click="actionConfirm('INSERT')"
+                    ng-show="dataSelected.ID==0">
+                <span class="glyphicon glyphicon-plus"></span>
+                Thêm
+            </button>
+            <button ng-click="actionConfirm('UPDATE')"
+                    ng-show="dataSelected.ID!=0">
+                <span class="glyphicon glyphicon-save"></span>
+                Lưu thay đổi
+            </button>
+            <button ui-sref="productlist">
+                <span class="glyphicon glyphicon-share-alt"></span>
+                Trở về
+            </button>
+            <br>
+            <span id="ContentPlaceHolder1_lblInformation"></span>
+        </div>-->
+            <div style="margin-top: 10px;">
+            </div>
+</div>
+
+    </div>
+
+</div>
+<div class="modal-footer">
+    <input class="btn btn-primary" type="checkbox" value="" ng-model="refreshList" />Tải lại danh sách khách hàng
+    <button class="btn btn-primary" type="button" ng-disabled="addCustomerForm.$invalid || clicked" ng-click="save()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

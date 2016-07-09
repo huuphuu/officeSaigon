@@ -64,7 +64,7 @@
                         <input type="checkbox" id="IsSaleDeparment" name="IsSaleDeparment" ng-model="dataSelected.IsSaleDeparment" ng-change="changeText()" />
                     </td>
                 </tr>
-                <tr>
+                <tr ng-if="dataSelected.ID==0">
                     <td class="td" style="padding: 5px;">
                         Xem trên user?
                     </td>
@@ -75,6 +75,18 @@
                         </select>
                     </td>
                 </tr>
+
+                <tr ng-if="dataSelected.ID!=0">
+                    <td class="td" style="padding: 5px;">
+                        Xem trên user?
+                    </td>
+                    <td class="td" style="padding: 5px;">
+                        <select ng-model="dataSelected.AssignID"
+                                ng-options="item.ID as item.FullName for item in listAssign" ng-change="changeCareNote()">
+                        </select>
+                    </td>
+                </tr>
+
                 <tr>
                     <td class="td" style="padding: 5px;">
                         Quá trình chăm sóc
